@@ -1,41 +1,32 @@
 import React from 'react';
-import {
-  ChakraProvider,
-  VStack,
-  HStack,
-  Code,
-  theme,
-} from '@chakra-ui/react';
-import { ColorModeSwitcher } from './ColorModeSwitcher';
+import { ChakraProvider, Flex,  VStack, HStack, Code, theme } from '@chakra-ui/react';
+import LeftBar from './components/layout/LeftBar';
+import RightBar from './components/layout/RightBar';
+import Main from './components/layout/Main';
 
 function App() {
-
   return (
     <ChakraProvider theme={theme}>
-      <HStack w="100%">
-        <VStack
+      <Flex w="100vw">
+        <Flex
           h="100vh"
-          w={['0px', '100px', '100px', '200px']}
+          minW={['0px', '80px', '80px', '80px']}
           display={{ sm: 'none', md: 'block' }}
-          border="1px"
-          borderColor="gray.200"
         >
-          <Code>LeftBar</Code>
-          <ColorModeSwitcher />
-        </VStack>
-        <VStack h="100vh" w="100%">
-          <Code>Main</Code>
-        </VStack>
-        <VStack
+          <LeftBar />
+        </Flex>
+        <Flex h="100vh" overflow="auto" w="100%">
+          <Main />
+        </Flex>
+        <Flex
           h="100vh"
-          w={['0px', '100px', '100px', '600px']}
+          minW={['0px', '80px', '80px', '400px']}
           display={{ sm: 'none', md: 'block' }}
-          border="1px"
-          borderColor="gray.200"
+          overflow="auto"
         >
-          <Code>RightBar</Code>
-        </VStack>
-      </HStack>
+          <RightBar />
+        </Flex>
+      </Flex>
     </ChakraProvider>
   );
 }
