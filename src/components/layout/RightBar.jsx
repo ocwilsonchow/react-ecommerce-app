@@ -1,5 +1,5 @@
 import React from 'react';
-import { Center,Box,Image, Flex, VStack, Text, Input, Avatar, HStack, useColorModeValue, IconButton, Circle } from '@chakra-ui/react';
+import { Center,Box,Image, Flex, VStack, Button, Text, Input, Avatar, HStack, useColorModeValue, IconButton, Circle, Checkbox } from '@chakra-ui/react';
 import {MinusIcon} from '@chakra-ui/icons'
 
 const RightBar = () => {
@@ -55,7 +55,7 @@ const RightBar = () => {
 
           <Text fontWeight="bold" my={2}>My Shopping Cart</Text>
           {cartItems.map((item) => (
-            <Flex key={item.id} bg={tertiaryBgColor} p={3} borderRadius="1.5rem" my={2} alignItems="center" justifyContent="space-between">
+            <Flex key={item.id} bg={tertiaryBgColor} p={2} borderRadius="1.5rem" my={2} alignItems="center" justifyContent="space-between">
               <Flex>
                 <Image width="50px" height="50px" src={item.imgURL} borderRadius="1rem" mr={5}/>
               <Flex flexDir="column">
@@ -70,6 +70,29 @@ const RightBar = () => {
             </Flex>
           ))}
         </Flex>
+
+        {/* Hot Add-on */}
+        <Flex flexDir="column" w="80%" my={3} maxH="45vh" overflow="auto">
+           <Text fontWeight="bold" my={2}>Trending Add-ons</Text>
+            <Flex bg={tertiaryBgColor} p={2} borderRadius="1.5rem" my={2} alignItems="center" justifyContent="space-between">
+
+              <Flex>
+                <Image width="50px" height="50px" src="https://lesson-restful.s3.ap-northeast-2.amazonaws.com/9d1af71df46cf288b2ace8c01.jpg" borderRadius="1rem" mr={5}/>
+              <Flex flexDir="column">
+                <Text color="white" fontWeight="bold">Item</Text>
+                 <HStack>
+                   <Circle size='10px' bg='blue.500'/>
+                    <Text color="white">HKD 900</Text>
+                 </HStack>
+              </Flex>
+              </Flex>
+              <Checkbox mr={2} />
+            </Flex>
+        </Flex>
+
+
+        {/* Checkout button */}
+        <Button size="lg" w="80%" my={3} borderRadius="2rem"  color="white" fontWeight="bold" bgGradient='linear(to-r, #7192E2, #3961C3)'>Check Out</Button>
 
 
 
