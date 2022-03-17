@@ -1,10 +1,15 @@
 import React from 'react';
-import { ChakraProvider, Flex,  VStack, HStack, Code, theme } from '@chakra-ui/react';
-import LeftBar from './components/layout/LeftBar';
-import RightBar from './components/layout/RightBar';
-import Main from './components/layout/Main';
+import { ChakraProvider, Flex, theme } from '@chakra-ui/react';
+
+import LeftBar from '../layouts/LeftBar';
+import RightBar from '../layouts/RightBar';
+
+import Routing from '../layouts/Routing';
+import { Outlet } from 'react-router-dom';
 
 function App() {
+
+
   return (
     <ChakraProvider theme={theme}>
       <Flex w="100vw">
@@ -16,7 +21,7 @@ function App() {
           <LeftBar />
         </Flex>
         <Flex h="100vh" overflow="auto" w="100%">
-          <Main />
+          <Outlet />
         </Flex>
         <Flex
           h="100vh"
