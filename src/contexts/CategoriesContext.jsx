@@ -12,9 +12,7 @@ export function CategoriesProvider({ children }) {
     const q = query(collection(db, 'categories'));
 
     const querySnapshot = await getDocs(q);
-    querySnapshot.forEach(doc => {
-      console.log(doc.data());
-    });
+    setCategories(querySnapshot.docs.map((doc)=> ({...doc.data()})))
   };
 
   const contextData = {
