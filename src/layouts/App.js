@@ -25,7 +25,7 @@ function App() {
         </Flex>
         <Flex
           h="100vh"
-          minW={['0px', '80px', '80px', '400px']}
+          minW={['0px', '300px', '300px', '300px']}
           display={{ sm: 'none', md: 'block' }}
           overflow="auto"
         >

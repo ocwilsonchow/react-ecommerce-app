@@ -22,8 +22,8 @@ const LeftBar = () => {
       <Link to="/categories"><IconButton variant="ghost" borderRadius="50%" size="lg" icon={<FaThList />} /></Link>
       <Link to="/cart"><IconButton variant="ghost" borderRadius="50%" size="lg" icon={<FaCartArrowDown />} /></Link>
       <Link to="/categories"><IconButton variant="ghost" borderRadius="50%" size="lg" icon={<FaTrophy />} /></Link>
-      <Link to="/categories"><IconButton variant="ghost" borderRadius="50%" size="lg" icon={<FaUserCog />} /></Link>
-      <ColorModeSwitcher borderRadius="50%" m={0} />
+      <Link to="/auth"><IconButton variant="ghost" borderRadius="50%" size="lg" icon={<FaUserCog />} /></Link>
+      <ColorModeSwitcher  borderRadius="50%" m={0} />
     </VStack>
   );
 };

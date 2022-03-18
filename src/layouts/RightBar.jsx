@@ -44,7 +44,7 @@ const RightBar = () => {
     <Flex flexDir="column" alignItems="center" bg={bgColor} h="100%">
         <Flex w="80%" py={5} m={2} alignItems="center" justifyContent="space-evenly">
           <Input bg={secondaryBgColor} border="none" borderRadius="1rem"  mr={5} placeholder="Search"/>
-          <Avatar  src='https://bit.ly/prosper-baba'/>
+          <Avatar  bg="teal.500"/>
         </Flex>
         <Flex bg={secondaryBgColor} w="80%" p={5} h="200px" borderRadius="1rem" m={2}>
           <Text></Text>
