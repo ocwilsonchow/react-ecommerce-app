@@ -1,15 +1,10 @@
 import React from 'react';
-import {
-  Center,
-  Flex,
-  Box,
-  Text,
-  VStack,
-  useColorModeValue,
-  IconButton,
-} from '@chakra-ui/react';
-import { FaStore, FaThList, FaTrophy, FaCartArrowDown, FaUserCog, FaSignOutAlt } from 'react-icons/fa';
-import { Link } from 'react-router-dom'
+import { Flex, VStack, useColorModeValue, IconButton } from '@chakra-ui/react';
+import { FaStore, FaThList, FaCartArrowDown } from 'react-icons/fa';
+import { AiTwotoneSetting } from 'react-icons/ai';
+import { RiLoginBoxLine, RiLogoutBoxFill, RiAdminFill } from 'react-icons/ri';
+
+import { Link } from 'react-router-dom';
 
 import { useAuth } from '../contexts/AuthContext';
 import { ColorModeSwitcher } from '../ColorModeSwitcher';
@@ -19,19 +14,99 @@ const LeftBar = () => {
   const { signout, user } = useAuth();
 
   const handleSignOut = () => {
-    signout()
-  }
+    signout();
+  };
 
   return (
-    <VStack spacing={5} alignItems="center" bg={bgColor} h="100vh" py={5}>
-      <Link to="/"><IconButton variant="ghost" borderRadius="50%" size="lg" icon={<FaStore />} /></Link>
-      <Link to="/categories"><IconButton variant="ghost" borderRadius="50%" size="lg" icon={<FaThList />} /></Link>
-      <Link to="/cart"><IconButton variant="ghost" borderRadius="50%" size="lg" icon={<FaCartArrowDown />} /></Link>
-      <Link to="/categories"><IconButton variant="ghost" borderRadius="50%" size="lg" icon={<FaTrophy />} /></Link>
-      <ColorModeSwitcher  borderRadius="50%" m={0} />
-      {!user && <Link to="/auth"><IconButton color="blue.500" variant="ghost" borderRadius="50%" size="lg" icon={<FaUserCog />} /></Link>}
-      {user && <IconButton onClick={handleSignOut} variant="ghost" color="red.500" icon={<FaSignOutAlt />}/>}
-    </VStack>
+    <Flex
+      flexDir="column"
+      justifyContent="space-between"
+      alignItems="center"
+      bg={bgColor}
+      h="100vh"
+      py={5}
+    >
+      <VStack>
+        <Link to="/">
+          <IconButton
+            variant="ghost"
+            borderRadius="50%"
+            size="lg"
+            my={2}
+            icon={<FaStore />}
+          />
+        </Link>
+        <Link to="/categories">
+          <IconButton
+            variant="ghost"
+            borderRadius="50%"
+            size="lg"
+            my={2}
+            icon={<FaThList />}
+          />
+        </Link>
+        <Link to="/cart">
+          <IconButton
+            variant="ghost"
+            borderRadius="50%"
+            size="lg"
+            my={2}
+            icon={<FaCartArrowDown />}
+          />
+        </Link>
+        <Link to="/my/account">
+          <IconButton
+            variant="ghost"
+            borderRadius="50%"
+            size="lg"
+            my={2}
+            icon={<AiTwotoneSetting />}
+          />
+        </Link>
+
+        {/* Admin Panel */}
+        {user && (
+          <Link to="/admin/stockmanagement">
+            <IconButton
+              color="tomato"
+              variant="ghost"
+              borderRadius="50%"
+              size="lg"
+              my={2}
+              icon={<RiAdminFill />}
+            />
+          </Link>
+        )}
+
+         {/* Log in button */}
+        {!user && (
+          <Link to="/auth">
+            <IconButton
+              color="blue.500"
+              variant="ghost"
+              borderRadius="50%"
+              size="lg"
+              my={2}
+              icon={<RiLoginBoxLine />}
+            />
+          </Link>
+        )}
+
+         {/* Log out button*/}
+        {user && (
+          <IconButton
+            onClick={handleSignOut}
+            variant="ghost"
+            color="red.400"
+            my={2}
+            size="lg"
+            borderRadius="50%"
+            icon={<RiLogoutBoxFill />}
+          />
+        )}
+      </VStack>
+      <ColorModeSwitcher borderRadius="50%" my={2} mx={0} />
+    </Flex>
   );
 };
 

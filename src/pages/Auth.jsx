@@ -16,7 +16,8 @@ import {
 import { useAuth } from '../contexts/AuthContext';
 
 const PagesAuth = () => {
-    const bgColor = useColorModeValue('#FFFFFF', '#1D213C');
+    const secondaryBgColor = useColorModeValue('#FFFFFF', '#1D213C');
+     const bgColor = useColorModeValue('#F4F4F4', '#161633')
 
   const [isSignup, setIsSignup] = useState(false);
   const emailRef = useRef();
@@ -60,10 +61,10 @@ const PagesAuth = () => {
   if (user) return <Flex>You're logged in already</Flex>
 
   return (
-    <VStack w="100%" p={5}>
+    <VStack w="100%" p={5} bg={bgColor}>
 
 
-      <VStack bg={bgColor} borderRadius="1rem" m={8} p={8} minW="400px">
+      <VStack bg={secondaryBgColor} borderRadius="1rem" m={8} p={8} minW="400px">
         {isSignup && (
           <FormControl>
             <Text fontWeight="bold" fontSize="3xl">

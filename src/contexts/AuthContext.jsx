@@ -1,4 +1,4 @@
-import React, { useState, createContext, useContext, useEffect } from 'react';
+import React, { useState, createContext, useContext } from 'react';
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -14,7 +14,9 @@ export function AuthProvider({ children }) {
   const [user, setUser] = useState();
   const navigation = useNavigate();
   const toast = useToast();
-  console.log(user ? user : '');
+  // console.log(user ? user : '');
+
+
   // Sign Up
   const signup = async (email, password) => {
     await createUserWithEmailAndPassword(auth, email, password)
@@ -59,6 +61,7 @@ export function AuthProvider({ children }) {
   const signout = async () => {
     await signOut(auth).then(() => {
       setUser();
+      navigation('/auth');
       toast({
         title: 'Logged out.',
         description: "You've successfully logged out",

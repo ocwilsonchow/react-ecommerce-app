@@ -64,7 +64,7 @@ const RightBar = () => {
     <Flex
       flexDir="column"
       alignItems="center"
-      justifyContent="space-between"
+
       bg={bgColor}
       h="100%"
       overflow="auto"
