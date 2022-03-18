@@ -16,7 +16,7 @@ import { ColorModeSwitcher } from '../ColorModeSwitcher';
 
 const LeftBar = () => {
   const bgColor = useColorModeValue('#FFFFFF', '#1D213C');
-  const { signout } = useAuth();
+  const { signout, user } = useAuth();
 
   const handleSignOut = () => {
     signout()
@@ -28,9 +28,9 @@ const LeftBar = () => {
       <Link to="/categories"><IconButton variant="ghost" borderRadius="50%" size="lg" icon={<FaThList />} /></Link>
       <Link to="/cart"><IconButton variant="ghost" borderRadius="50%" size="lg" icon={<FaCartArrowDown />} /></Link>
       <Link to="/categories"><IconButton variant="ghost" borderRadius="50%" size="lg" icon={<FaTrophy />} /></Link>
-      <Link to="/auth"><IconButton variant="ghost" borderRadius="50%" size="lg" icon={<FaUserCog />} /></Link>
       <ColorModeSwitcher  borderRadius="50%" m={0} />
-      <IconButton onClick={handleSignOut} variant="ghost" icon={<FaSignOutAlt />}/>
+      {!user && <Link to="/auth"><IconButton color="blue.500" variant="ghost" borderRadius="50%" size="lg" icon={<FaUserCog />} /></Link>}
+      {user && <IconButton onClick={handleSignOut} variant="ghost" color="red.500" icon={<FaSignOutAlt />}/>}
     </VStack>
   );
 };

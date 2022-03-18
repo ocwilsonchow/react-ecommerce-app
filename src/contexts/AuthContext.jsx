@@ -14,7 +14,7 @@ export function AuthProvider({ children }) {
   const [user, setUser] = useState();
   const navigation = useNavigate();
   const toast = useToast();
-  console.log(user? user : "");
+  console.log(user ? user : '');
   // Sign Up
   const signup = async (email, password) => {
     await createUserWithEmailAndPassword(auth, email, password)
@@ -58,6 +58,7 @@ export function AuthProvider({ children }) {
   // Sign Out
   const signout = async () => {
     await signOut(auth).then(() => {
+      setUser();
       toast({
         title: 'Logged out.',
         description: "You've successfully logged out",
@@ -73,7 +74,7 @@ export function AuthProvider({ children }) {
     signup,
     signout,
     login,
-    user
+    user,
   };
 
   return (

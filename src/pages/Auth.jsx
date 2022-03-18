@@ -11,10 +11,13 @@ import {
   FormHelperText,
   Input,
   Button,
+  useColorModeValue
 } from '@chakra-ui/react';
 import { useAuth } from '../contexts/AuthContext';
 
 const PagesAuth = () => {
+    const bgColor = useColorModeValue('#FFFFFF', '#1D213C');
+
   const [isSignup, setIsSignup] = useState(false);
   const emailRef = useRef();
   const passwordRef = useRef();
@@ -60,7 +63,7 @@ const PagesAuth = () => {
     <VStack w="100%" p={5}>
 
 
-      <VStack bg="gray.700" m={8} p={5} minW="400px">
+      <VStack bg={bgColor} borderRadius="1rem" m={8} p={8} minW="400px">
         {isSignup && (
           <FormControl>
             <Text fontWeight="bold" fontSize="3xl">
