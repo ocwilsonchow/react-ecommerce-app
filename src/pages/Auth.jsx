@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import {
   Flex,
   Center,
@@ -13,15 +13,11 @@ import {
   Button,
 } from '@chakra-ui/react';
 
-const initialState = {
-  email: '',
-  password: '',
-  passwordConfirmation: '',
-};
-
-const Auth = () => {
-  const [form, setForm] = useState(initialState);
+const PagesAuth = () => {
   const [isSignup, setIsSignup] = useState(true);
+  const emailRef = useRef();
+  const passwordRef = useRef();
+  const confirmPasswordRef = useRef();
 
   const switchMode = () => {
     setIsSignup(prevIsSignup => !prevIsSignup);
@@ -34,23 +30,31 @@ const Auth = () => {
       <VStack bg="gray.700" m={8} p={5} minW="400px" spacing={3}>
         {isSignup && (
           <>
-            <Text fontWeight="bold" fontSize="3xl">Sign up</Text>
-            <FormControl>
+            <Text fontWeight="bold" fontSize="3xl">
+              Sign up
+            </Text>
+            <FormControl ref={emailRef} required>
               <FormLabel>Email</FormLabel>
-              <Input placeholder="Email" type="text" />
+              <Input placeholder="Email" id="email" type="text" />
             </FormControl>
 
-            <FormControl>
+            <FormControl ref={passwordRef} required>
               <FormLabel>Password</FormLabel>
-              <Input placeholder="Password" type="password" name="password" />
+              <Input
+                placeholder="Password"
+                id="password"
+                type="password"
+                name="password"
+              />
             </FormControl>
 
-            <FormControl>
+            <FormControl ref={confirmPasswordRef} required>
               <FormLabel>Confirm Password</FormLabel>
               <Input
                 placeholder="Confirm Password"
                 type="password"
                 name="confirmPassword"
+                id="confirmPassword"
               />
             </FormControl>
 
@@ -62,35 +66,40 @@ const Auth = () => {
             </HStack>
 
             <Flex p={5}>
-              <Button>Sign up</Button>
+              <Button type="submit">Sign up</Button>
             </Flex>
           </>
         )}
 
-         {!isSignup && (
+        {!isSignup && (
           <>
-            <Text fontWeight="bold" fontSize="3xl">Log in</Text>
-            <FormControl>
+            <Text fontWeight="bold" fontSize="3xl">
+              Log in
+            </Text>
+            <FormControl ref={emailRef} required>
               <FormLabel>Email</FormLabel>
-              <Input placeholder="Email" type="text" />
+              <Input placeholder="Email" id="email" type="text" />
             </FormControl>
 
-            <FormControl>
+            <FormControl ref={passwordRef} required>
               <FormLabel>Password</FormLabel>
-              <Input placeholder="Password" type="password" name="password" />
+              <Input
+                placeholder="Password"
+                id="password"
+                type="password"
+                name="password"
+              />
             </FormControl>
-
-
 
             <HStack>
-              <Text>Have not got an account?</Text>
+              <Text>Have an account already?</Text>
               <Button size="sm" variant="ghost" onClick={switchMode}>
-                Sign up
+                Log in
               </Button>
             </HStack>
 
             <Flex p={5}>
-              <Button>Log in</Button>
+              <Button type="submit">Sign up</Button>
             </Flex>
           </>
         )}
@@ -99,4 +108,4 @@ const Auth = () => {
   );
 };
 
-export default Auth;
+export default PagesAuth;
