@@ -158,7 +158,7 @@ const PagesAuth = () => {
 
             <Center p={5}>
               <Button disabled={loading} type="submit" onClick={handleLogin}>
-                Sign up
+                Log in
               </Button>
             </Center>
           </FormControl>

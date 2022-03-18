@@ -4,7 +4,7 @@ import { ChakraProvider, Flex, theme } from '@chakra-ui/react';
 
 import App from '../layouts/App';
 import { AuthProvider } from '../contexts/AuthContext';
-import { CategoriesProvider} from '../contexts/CategoriesContext'
+import { ShopProvider} from '../contexts/ShopContext'
 
 import PagesNotFound from '../pages/NotFound';
 
@@ -18,7 +18,7 @@ function Routing() {
     <BrowserRouter>
       <ChakraProvider theme={theme}>
         <AuthProvider>
-         <CategoriesProvider>
+         <ShopProvider>
             <Routes>
             <Route path="/" element={<App />}>
               <Route index element={<PagesHome />} />
@@ -34,7 +34,7 @@ function Routing() {
               <Route path="*" element={<PagesNotFound />} />
             </Route>
           </Routes>
-         </CategoriesProvider>
+         </ShopProvider>
         </AuthProvider>
       </ChakraProvider>
     </BrowserRouter>

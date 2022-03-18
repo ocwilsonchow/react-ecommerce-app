@@ -2,9 +2,9 @@ import React, { useState, createContext, useContext, useEffect } from 'react';
 import { collection, query, where, getDocs } from 'firebase/firestore';
 import { db } from '../firebase';
 
-const CategoriesContext = createContext();
+const ShopContext = createContext();
 
-export function CategoriesProvider({ children }) {
+export function ShopProvider({ children }) {
   const [categories, setCategories] = useState();
 
   // Get categories
@@ -15,18 +15,36 @@ export function CategoriesProvider({ children }) {
     setCategories(querySnapshot.docs.map((doc)=> ({...doc.data()})))
   };
 
+  // Get products
+
+
+
+  // Get single product
+
+
+
+  // Create product
+
+
+
+  // Update product
+
+
+
+  // Delete product
+
   const contextData = {
     getCategories,
     categories,
   };
 
   return (
-    <CategoriesContext.Provider value={contextData}>
+    <ShopContext.Provider value={contextData}>
       {children}
-    </CategoriesContext.Provider>
+    </ShopContext.Provider>
   );
 }
 
-export function useCategories() {
-  return useContext(CategoriesContext);
+export function useShop() {
+  return useContext(ShopContext);
 }
