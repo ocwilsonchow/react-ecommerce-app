@@ -15,22 +15,20 @@ import {
 import { useAuth } from '../contexts/AuthContext';
 
 const PagesAuth = () => {
-  const [isSignup, setIsSignup] = useState(true);
+  const [isSignup, setIsSignup] = useState(false);
   const emailRef = useRef();
   const passwordRef = useRef();
   const confirmPasswordRef = useRef();
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const { signup } = useAuth();
+  const { signup, login, user } = useAuth();
 
-  const handleSubmit = async e => {
+  const handleSignup = async e => {
     e.preventDefault();
-
     if (passwordRef.current.value !== confirmPasswordRef.current.value) {
       return setError('Password do not match');
     }
-
     try {
       setError('');
       setLoading(true);
@@ -38,16 +36,30 @@ const PagesAuth = () => {
     } catch {
       setError('Failed to create an account');
     }
-
     setLoading(false);
   };
+
+  const handleLogin = async (e) => {
+    e.preventDefault()
+    try {
+      setError('')
+      setLoading(true)
+      await login(emailRef.current.value, passwordRef.current.value)
+    } catch {
+      setError('Failed to log in')
+    }
+  }
 
   const switchMode = () => {
     setIsSignup(prevIsSignup => !prevIsSignup);
   };
 
+  if (user) return <Flex>You're logged in already</Flex>
+
   return (
     <VStack w="100%" p={5}>
+
+
       <VStack bg="gray.700" m={8} p={5} minW="400px">
         {isSignup && (
           <FormControl>
@@ -97,7 +109,7 @@ const PagesAuth = () => {
             </HStack>
 
             <Center p={5}>
-              <Button isLoading={loading} type="submit" onClick={handleSubmit}>
+              <Button isLoading={loading} type="submit" onClick={handleSignup}>
                 Sign up
               </Button>
             </Center>
@@ -141,7 +153,7 @@ const PagesAuth = () => {
             </HStack>
 
             <Center p={5}>
-              <Button disabled={loading} type="submit">
+              <Button disabled={loading} type="submit" onClick={handleLogin}>
                 Sign up
               </Button>
             </Center>

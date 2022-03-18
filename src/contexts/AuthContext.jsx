@@ -1,18 +1,20 @@
 import React, { useState, createContext, useContext, useEffect } from 'react';
-import { createUserWithEmailAndPassword, signOut } from 'firebase/auth';
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+} from 'firebase/auth';
 import { auth } from '../firebase';
 import { useNavigate } from 'react-router-dom';
-import { useToast } from '@chakra-ui/react'
+import { useToast } from '@chakra-ui/react';
 
 const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState();
   const navigation = useNavigate();
-   const toast = useToast()
-
-  console.log(user);
-
+  const toast = useToast();
+  console.log(user? user : "");
   // Sign Up
   const signup = async (email, password) => {
     await createUserWithEmailAndPassword(auth, email, password)
@@ -24,9 +26,9 @@ export function AuthProvider({ children }) {
           title: 'Account created.',
           description: "You've successfully signed up",
           status: 'success',
-          duration: 4000,
+          duration: 6000,
           isClosable: true,
-        })
+        });
       })
       .catch(error => {
         const errorMessage = error.message;
@@ -34,28 +36,44 @@ export function AuthProvider({ children }) {
       });
   };
 
+  // Sign In
+  const login = async (email, password) => {
+    await signInWithEmailAndPassword(auth, email, password).then(
+      userCredential => {
+        // Signed in
+        setUser(userCredential.user);
+
+        navigation('/');
+        toast({
+          title: 'Logged in.',
+          description: "You've successfully logged in",
+          status: 'success',
+          duration: 7000,
+          isClosable: true,
+        });
+      }
+    );
+  };
+
   // Sign Out
   const signout = async () => {
     await signOut(auth).then(() => {
-
-        toast({
-          title: 'Logged out.',
-          description: "You've successfully logged out",
-          status: 'success',
-          duration: 4000,
-          isClosable: true,
-        })
-    })
-  }
-
-
-
-
+      toast({
+        title: 'Logged out.',
+        description: "You've successfully logged out",
+        status: 'success',
+        duration: 5000,
+        isClosable: true,
+      });
+    });
+  };
 
   // Context Data
   const contextData = {
     signup,
-    signout
+    signout,
+    login,
+    user
   };
 
   return (
