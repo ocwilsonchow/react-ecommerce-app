@@ -12,60 +12,82 @@ import {
   Input,
   Button,
 } from '@chakra-ui/react';
-import { useAuth } from '../contexts/AuthContext'
+import { useAuth } from '../contexts/AuthContext';
 
 const PagesAuth = () => {
   const [isSignup, setIsSignup] = useState(true);
   const emailRef = useRef();
   const passwordRef = useRef();
   const confirmPasswordRef = useRef();
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
-  const { signup } = useAuth()
+  const { signup } = useAuth();
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
+  const handleSubmit = async e => {
+    e.preventDefault();
 
-    signup(emailRef.current.value, passwordRef.current.value)
-  }
+    if (passwordRef.current.value !== confirmPasswordRef.current.value) {
+      return setError('Password do not match');
+    }
+
+    try {
+      setError('');
+      setLoading(true);
+      await signup(emailRef.current.value, passwordRef.current.value);
+    } catch {
+      setError('Failed to create an account');
+    }
+
+    setLoading(false);
+  };
 
   const switchMode = () => {
     setIsSignup(prevIsSignup => !prevIsSignup);
   };
 
-  console.log(isSignup);
-
   return (
     <VStack w="100%" p={5}>
-      <VStack bg="gray.700" m={8} p={5} minW="400px" spacing={3}>
+      <VStack bg="gray.700" m={8} p={5} minW="400px">
         {isSignup && (
-          <>
+          <FormControl>
             <Text fontWeight="bold" fontSize="3xl">
               Sign up
             </Text>
-            <FormControl ref={emailRef} required>
-              <FormLabel>Email</FormLabel>
-              <Input placeholder="Email" id="email" type="text" />
-            </FormControl>
 
-            <FormControl ref={passwordRef} required>
+            <Flex flexDir="column" my={4}>
+              <FormLabel>Email</FormLabel>
+              <Input
+                placeholder="Email"
+                id="email"
+                type="text"
+                ref={emailRef}
+                required
+              />
+            </Flex>
+
+            <Flex flexDir="column" my={4}>
               <FormLabel>Password</FormLabel>
               <Input
                 placeholder="Password"
                 id="password"
                 type="password"
                 name="password"
+                ref={passwordRef}
               />
-            </FormControl>
+            </Flex>
 
-            <FormControl ref={confirmPasswordRef} required>
+            <Flex flexDir="column" my={4}>
               <FormLabel>Confirm Password</FormLabel>
               <Input
                 placeholder="Confirm Password"
                 type="password"
                 name="confirmPassword"
                 id="confirmPassword"
+                ref={confirmPasswordRef}
+                required
               />
-            </FormControl>
+            </Flex>
 
             <HStack>
               <Text>Have an account already?</Text>
@@ -74,31 +96,42 @@ const PagesAuth = () => {
               </Button>
             </HStack>
 
-            <Flex p={5}>
-              <Button type="submit">Sign up</Button>
-            </Flex>
-          </>
+            <Center p={5}>
+              <Button isLoading={loading} type="submit" onClick={handleSubmit}>
+                Sign up
+              </Button>
+            </Center>
+          </FormControl>
         )}
 
         {!isSignup && (
-          <>
+          <FormControl>
             <Text fontWeight="bold" fontSize="3xl">
               Log in
             </Text>
-            <FormControl ref={emailRef} required>
-              <FormLabel>Email</FormLabel>
-              <Input placeholder="Email" id="email" type="text" />
-            </FormControl>
 
-            <FormControl ref={passwordRef} required>
+            <Flex flexDir="column" my={4}>
+              <FormLabel>Email</FormLabel>
+              <Input
+                placeholder="Email"
+                id="email"
+                type="text"
+                ref={emailRef}
+                required
+              />
+            </Flex>
+
+            <Flex flexDir="column" my={4}>
               <FormLabel>Password</FormLabel>
               <Input
                 placeholder="Password"
                 id="password"
                 type="password"
                 name="password"
+                ref={passwordRef}
+                required
               />
-            </FormControl>
+            </Flex>
 
             <HStack>
               <Text>Have an account already?</Text>
@@ -107,11 +140,15 @@ const PagesAuth = () => {
               </Button>
             </HStack>
 
-            <Flex p={5}>
-              <Button type="submit" onClick={(e) => handleSubmit(e)}>Sign up</Button>
-            </Flex>
-          </>
+            <Center p={5}>
+              <Button disabled={loading} type="submit">
+                Sign up
+              </Button>
+            </Center>
+          </FormControl>
         )}
+
+        {error && <Flex>{error}</Flex>}
       </VStack>
     </VStack>
   );
