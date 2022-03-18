@@ -157,7 +157,7 @@ const PagesAuth = () => {
             </HStack>
 
             <Center p={5}>
-              <Button disabled={loading} type="submit" onClick={handleLogin}>
+              <Button isLoading={loading} type="submit" onClick={handleLogin}>
                 Log in
               </Button>
             </Center>
