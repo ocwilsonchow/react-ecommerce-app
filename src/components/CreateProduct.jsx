@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import {
   Flex,
   FormControl,
@@ -37,18 +37,21 @@ const CreateProduct = () => {
   const storage = getStorage();
   const { createProduct } = useShop();
 
-  const metadata = { contentType: 'image/jpeg' };
-  // Upload file and metadata to the object 'images/mountains.jpg'
   const storageRef = ref(storage, 'images/' + image?.name);
-  const uploadTask = uploadBytesResumable(storageRef, image, metadata);
+  const uploadTask = uploadBytesResumable(storageRef, image);
 
   console.log(image);
+
+  useEffect(() => {
+    if (image) {
+      handleUpload()
+    }
+  }, [image])
 
   const handleUpload = async () => {
     uploadTask.on(
       'state_changed',
       snapshot => {
-        // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
         const progress =
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
         console.log('Upload is ' + progress + '% done');
@@ -62,8 +65,6 @@ const CreateProduct = () => {
         }
       },
       error => {
-        // A full list of error codes is available at
-        // https://firebase.google.com/docs/storage/web/handle-errors
         switch (error.code) {
           case 'storage/unauthorized':
             // User doesn't have permission to access the object
@@ -78,25 +79,26 @@ const CreateProduct = () => {
       },
       () => {
         // Upload completed successfully, now we can get the download URL
-        getDownloadURL(uploadTask.snapshot.ref).then(downloadURL => {
-          setImageURL(downloadURL);
-          console.log('File available at', downloadURL);
+        getDownloadURL(uploadTask.snapshot.ref).then(url => {
+          setImageURL(url);
+          console.log('File available at', url);
         });
       }
     );
   };
 
   const handleChange = async e => {
-    setLoading(true)
+    setLoading(true);
     if (e.target.files[0]) {
       setImage(e.target.files[0]);
-      await handleUpload();
     }
-    setLoading(false)
+    setLoading(false);
   };
 
   const handleCreateProduct = async e => {
     e.preventDefault();
+
+
 
     try {
       setError('');
