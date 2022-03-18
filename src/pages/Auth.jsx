@@ -12,12 +12,21 @@ import {
   Input,
   Button,
 } from '@chakra-ui/react';
+import { useAuth } from '../contexts/AuthContext'
 
 const PagesAuth = () => {
   const [isSignup, setIsSignup] = useState(true);
   const emailRef = useRef();
   const passwordRef = useRef();
   const confirmPasswordRef = useRef();
+
+  const { signup } = useAuth()
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+
+    signup(emailRef.current.value, passwordRef.current.value)
+  }
 
   const switchMode = () => {
     setIsSignup(prevIsSignup => !prevIsSignup);
@@ -99,7 +108,7 @@ const PagesAuth = () => {
             </HStack>
 
             <Flex p={5}>
-              <Button type="submit">Sign up</Button>
+              <Button type="submit" onClick={(e) => handleSubmit(e)}>Sign up</Button>
             </Flex>
           </>
         )}
