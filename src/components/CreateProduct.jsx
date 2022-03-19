@@ -26,7 +26,10 @@ import {
   ModalCloseButton,
   useDisclosure,
   Center,
+  Spinner,
 } from '@chakra-ui/react';
+import { useToast } from '@chakra-ui/react';
+
 
 import { useShop } from '../contexts/ShopContext';
 import {
@@ -50,6 +53,8 @@ const CreateProduct = () => {
   const storage = getStorage();
   const { createProduct, getProducts, products } = useShop();
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const toast = useToast();
+
 
   const storageRef = ref(storage, 'images/' + image?.name);
   const uploadTask = uploadBytesResumable(storageRef, image);
@@ -57,7 +62,6 @@ const CreateProduct = () => {
   useEffect(() => {
     getProducts();
   }, []);
-  console.log(products);
 
   // Upload image onChange of image's state
   useEffect(() => {
@@ -99,7 +103,14 @@ const CreateProduct = () => {
         // Upload completed successfully, now we can get the download URL
         getDownloadURL(uploadTask.snapshot.ref).then(url => {
           setImageURL(url);
-          console.log('File available at', url);
+          // console.log('File available at', url);
+          toast({
+          title: 'Image uploaded.',
+          description: "Image successfully added to firebase storage",
+          status: 'success',
+          duration: 6000,
+          isClosable: true,
+        });
         });
       }
     );
@@ -131,15 +142,17 @@ const CreateProduct = () => {
       setError('Failed to create product');
     }
     setLoading(false);
-    getProducts()
-    onClose()
+    getProducts();
+    onClose();
   };
 
   return (
     <Flex flexDir="column" w="100%">
       <>
         <Center p={8}>
-          <Button onClick={onOpen}>Create Product</Button>
+          <Button onClick={onOpen} colorScheme="green">
+            Create Product
+          </Button>
         </Center>
 
         <Modal isOpen={isOpen} onClose={onClose}>
@@ -200,6 +213,7 @@ const CreateProduct = () => {
                   isLoading={loading}
                   type="submit"
                   onClick={handleCreateProduct}
+                  colorScheme="blue"
                 >
                   Create
                 </Button>
@@ -209,11 +223,13 @@ const CreateProduct = () => {
         </Modal>
       </>
 
-      <HStack
-        alignItems="flex-start"
-        justifyContent="center"
-        px={2}
-      >
+      <HStack alignItems="flex-start" justifyContent="center" px={2}>
+        {!products && (
+          <Center p={8}>
+            <Spinner />
+          </Center>
+        )}
+
         <Products />
       </HStack>
     </Flex>

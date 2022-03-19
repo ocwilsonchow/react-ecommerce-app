@@ -13,7 +13,7 @@ const PagesAdmin = () => {
   }, []);
 
   return (
-    <Flex bg={bgColor} w="100%">
+    <Flex bg={bgColor} w="100%" h="100%" overflow="auto">
       <CreateProduct />
     </Flex>
   );

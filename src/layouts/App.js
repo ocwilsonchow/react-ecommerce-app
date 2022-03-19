@@ -1,5 +1,6 @@
 import React from 'react';
 import { Flex, theme } from '@chakra-ui/react';
+import './App.scss'
 
 import LeftBar from '../layouts/LeftBar';
 import RightBar from '../layouts/RightBar';
