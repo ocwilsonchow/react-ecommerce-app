@@ -1,11 +1,15 @@
 import React from 'react'
-import {Flex,useColorModeValue } from '@chakra-ui/react'
+import {Flex,VStack,useColorModeValue, Image } from '@chakra-ui/react'
+import Products from '../components/Products'
+import Categories from '../components/Categories'
 
 const PagesHome = () => {
   const bgColor = useColorModeValue('#F4F4F4', '#161633')
   return (
-    <Flex bg={bgColor} w="100%">
-      Home
+    <Flex flexDir="column" bg={bgColor} w="100%" h="100vh" overflow="auto">
+
+      <Categories />
+      <Products />
     </Flex>
   )
 }

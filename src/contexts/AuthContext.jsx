@@ -45,7 +45,7 @@ export function AuthProvider({ children }) {
         // Signed in
         setUser(userCredential.user);
 
-        navigation('/');
+        navigation('/admin/stockmanagement');
         toast({
           title: 'Logged in.',
           description: "You've successfully logged in",

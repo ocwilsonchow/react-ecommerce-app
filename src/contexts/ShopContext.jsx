@@ -74,7 +74,7 @@ export function ShopProvider({ children }) {
   };
 
   // Increase stock count
-  const increaseProductStock = async (id) => {
+  const increaseProductStock = async id => {
     await updateDoc(doc(db, 'products', id), {
       stock: increment(1),
     }).then(() => {
@@ -86,11 +86,11 @@ export function ShopProvider({ children }) {
         duration: 6000,
         isClosable: true,
       });
-    })
+    });
   };
 
-    // Decrease stock count
-  const decreaseProductStock = async (id) => {
+  // Decrease stock count
+  const decreaseProductStock = async id => {
     await updateDoc(doc(db, 'products', id), {
       stock: increment(-1),
     }).then(() => {
@@ -102,7 +102,7 @@ export function ShopProvider({ children }) {
         duration: 6000,
         isClosable: true,
       });
-    })
+    });
   };
 
   // Delete product
@@ -116,8 +116,6 @@ export function ShopProvider({ children }) {
     increaseProductStock,
     decreaseProductStock,
   };
-
-
 
   return (
     <ShopContext.Provider value={contextData}>{children}</ShopContext.Provider>

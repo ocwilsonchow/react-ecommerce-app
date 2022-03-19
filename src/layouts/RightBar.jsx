@@ -15,7 +15,7 @@ import {
   Circle,
   Checkbox,
 } from '@chakra-ui/react';
-import { MinusIcon } from '@chakra-ui/icons';
+import { MinusIcon, AddIcon } from '@chakra-ui/icons';
 import { useAuth } from '../contexts/AuthContext';
 
 const RightBar = () => {
@@ -110,7 +110,7 @@ const RightBar = () => {
               key={item.id}
               bg={tertiaryBgColor}
               p={2}
-              borderRadius="1.5rem"
+              borderRadius="1rem"
               my={2}
               alignItems="center"
               justifyContent="space-between"
@@ -128,19 +128,16 @@ const RightBar = () => {
                     {item.name}
                   </Text>
                   <HStack>
-                    <Circle size="10px" bg="tomato" />
-                    <Text color="white">
+                    <Text color="white" fontWeight="light">
                       {item.currency} {item.price}
                     </Text>
                   </HStack>
                 </Flex>
               </Flex>
-              <IconButton
-                color="white"
-                size="xs"
-                variant="ghost"
-                icon={<MinusIcon />}
-              />
+              <HStack>
+                <IconButton borderRadius="50%" size="xs" icon={<MinusIcon />}/>
+                <IconButton borderRadius="50%" size="xs" icon={<AddIcon />}/>
+              </HStack>
             </Flex>
           ))}
         </Flex>
