@@ -21,10 +21,6 @@ const ProductsAdmin = () => {
   const secondaryBgColor = useColorModeValue('#FFFFFF', '#1D213C');
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    getProducts();
-  }, []);
-
   return (
     <Flex flexWrap="wrap" justifyContent="center">
       {products?.map(product => (
@@ -32,7 +28,7 @@ const ProductsAdmin = () => {
           key={product.id}
           flexDir="column"
           p={3}
-          m={1}
+          m={2}
           bg={secondaryBgColor}
           borderRadius="1rem"
         >

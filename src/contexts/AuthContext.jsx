@@ -45,7 +45,7 @@ export function AuthProvider({ children }) {
         // Signed in
         setUser(userCredential.user);
 
-        navigation('/admin/stockmanagement');
+        navigation('/');
         toast({
           title: 'Logged in.',
           description: "You've successfully logged in",
@@ -79,6 +79,8 @@ export function AuthProvider({ children }) {
     login,
     user,
   };
+
+  console.log(user)
 
   return (
     <AuthContext.Provider value={contextData}>{children}</AuthContext.Provider>

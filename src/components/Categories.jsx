@@ -10,9 +10,9 @@ const Categories = () => {
   }, []);
 
   return (
-    <Flex p={6}>
+    <Flex px={6} py={4} flexWrap="wrap">
       {categories?.map((category, i) => (
-        <Badge colorScheme="cyan" key={i} py={1} px={3} mx={2} borderRadius="1rem">
+        <Badge colorScheme="purple" key={i} py={1} px={3} m={1} borderRadius="1rem">
           {category.name}
         </Badge>
       ))}

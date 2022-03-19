@@ -142,7 +142,7 @@ const CreateProduct = () => {
     <Flex flexDir="column" w="100%">
       <>
         <Center p={8}>
-          <Button onClick={onOpen} colorScheme="blue">
+          <Button onClick={onOpen}>
             Create Product
           </Button>
         </Center>

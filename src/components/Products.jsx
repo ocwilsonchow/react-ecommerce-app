@@ -9,18 +9,15 @@ import {
   useColorModeValue,
   Code,
   IconButton,
-  HStack,
-  Container,
+  Center,
 } from '@chakra-ui/react';
 import { AddIcon, MinusIcon } from '@chakra-ui/icons';
 
 import { useShop } from '../contexts/ShopContext';
 
 const Products = () => {
-  const { getProducts, products, increaseProductStock, decreaseProductStock } =
-    useShop();
+  const { getProducts, products } = useShop();
   const secondaryBgColor = useColorModeValue('#FFFFFF', '#1D213C');
-  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     getProducts();
@@ -65,13 +62,16 @@ const Products = () => {
             <Text fontWeight="light">HKD {product.price}</Text>
           </Flex>
 
-          <IconButton
-            mt={2}
-            borderRadius="50%"
-            disabled={loading || product.stock == 0}
-            icon={<AddIcon boxSize={3} />}
-            value={product.id}
-          />
+          <Center>
+            <IconButton
+              mt={2}
+              size="sm"
+              borderRadius="50%"
+              disabled={product.stock == 0}
+              icon={<AddIcon boxSize={3} />}
+              value={product.id}
+            />
+          </Center>
         </Box>
       ))}
     </Flex>
