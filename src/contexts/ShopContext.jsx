@@ -14,6 +14,7 @@ const ShopContext = createContext();
 
 export function ShopProvider({ children }) {
   const [categories, setCategories] = useState();
+  const [products, setProducts] = useState()
 
   // Get categories
   const getCategories = async () => {
@@ -24,6 +25,12 @@ export function ShopProvider({ children }) {
   };
 
   // Get products
+   const getProducts = async () => {
+    const q = query(collection(db, 'products'));
+
+    const querySnapshot = await getDocs(q);
+    setProducts(querySnapshot.docs.map(doc => ({ ...doc.data() })));
+  };
 
   // Get single product
 
@@ -57,6 +64,8 @@ export function ShopProvider({ children }) {
     getCategories,
     categories,
     createProduct,
+    getProducts,
+    products
   };
 
   return (

@@ -14,6 +14,18 @@ import {
   NumberIncrementStepper,
   NumberDecrementStepper,
   Button,
+  VStack,
+  Container,
+  HStack,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  useDisclosure,
+  Center,
 } from '@chakra-ui/react';
 
 import { useShop } from '../contexts/ShopContext';
@@ -23,6 +35,7 @@ import {
   uploadBytesResumable,
   getDownloadURL,
 } from 'firebase/storage';
+import Products from './Products';
 
 const CreateProduct = () => {
   const nameRef = useRef();
@@ -35,18 +48,23 @@ const CreateProduct = () => {
   const [image, setImage] = useState();
   const [imageURL, setImageURL] = useState();
   const storage = getStorage();
-  const { createProduct } = useShop();
+  const { createProduct, getProducts, products } = useShop();
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const storageRef = ref(storage, 'images/' + image?.name);
   const uploadTask = uploadBytesResumable(storageRef, image);
 
-  console.log(image);
+  useEffect(() => {
+    getProducts();
+  }, []);
+  console.log(products);
 
+  // Upload image onChange of image's state
   useEffect(() => {
     if (image) {
-      handleUpload()
+      handleUpload();
     }
-  }, [image])
+  }, [image]);
 
   const handleUpload = async () => {
     uploadTask.on(
@@ -98,8 +116,6 @@ const CreateProduct = () => {
   const handleCreateProduct = async e => {
     e.preventDefault();
 
-
-
     try {
       setError('');
       setLoading(true);
@@ -115,52 +131,91 @@ const CreateProduct = () => {
       setError('Failed to create product');
     }
     setLoading(false);
+    getProducts()
+    onClose()
   };
 
   return (
-    <Flex flexDir="column" p={5}>
-      <Text fontWeight="bold">Create New Product</Text>
-      <FormControl my={5} required>
-        <Input
-          my={2}
-          id="name"
-          name="name"
-          placeholder="Product name"
-          ref={nameRef}
-        />
-        <Select my={2} placeholder="Select category" ref={categoryRef}>
-          <option value="Cosmetics">Cosmetics</option>
-          <option value="Home Technologies">Home Technologies</option>
-          <option value="Nutrition">Nutrition</option>
-          <option value="Personal Care">Personal Care</option>
-          <option value="Skin care">Skin care</option>
-        </Select>
-        <Textarea
-          my={2}
-          placeholder="Product description"
-          ref={descriptionRef}
-        />
-        <Input
-          type="file"
-          variant="flushed"
-          name="image"
-          id="image"
-          my={2}
-          onChange={handleChange}
-        />
-        <Input my={2} placeholder="HKD" type="number" ref={priceRef} />
-        <NumberInput my={2}>
-          <NumberInputField ref={stockRef} />
-          <NumberInputStepper>
-            <NumberIncrementStepper />
-            <NumberDecrementStepper />
-          </NumberInputStepper>
-        </NumberInput>
-      </FormControl>
-      <Text>{error && error}</Text>
-      <Button isLoading={loading} type="submit" onClick={handleCreateProduct}>
-        Create
-      </Button>
+    <Flex flexDir="column" w="100%">
+      <>
+        <Center p={8}>
+          <Button onClick={onOpen}>Create Product</Button>
+        </Center>
+
+        <Modal isOpen={isOpen} onClose={onClose}>
+          <ModalOverlay />
+          <ModalContent>
+            <ModalCloseButton />
+            <ModalBody>
+              <Flex flexDir="column" p={5} maxW="500px">
+                <Center fontWeight="bold">Create New Product</Center>
+                <FormControl my={5} required>
+                  <Input
+                    my={2}
+                    id="name"
+                    name="name"
+                    placeholder="Product name"
+                    ref={nameRef}
+                  />
+                  <Select
+                    my={2}
+                    placeholder="Select category"
+                    ref={categoryRef}
+                  >
+                    <option value="Cosmetics">Cosmetics</option>
+                    <option value="Home Technologies">Home Technologies</option>
+                    <option value="Nutrition">Nutrition</option>
+                    <option value="Personal Care">Personal Care</option>
+                    <option value="Skin care">Skin care</option>
+                  </Select>
+                  <Textarea
+                    my={2}
+                    placeholder="Product description"
+                    ref={descriptionRef}
+                  />
+                  <Input
+                    type="file"
+                    variant="flushed"
+                    name="image"
+                    id="image"
+                    my={2}
+                    onChange={handleChange}
+                  />
+                  <Input
+                    my={2}
+                    placeholder="HKD"
+                    type="number"
+                    ref={priceRef}
+                  />
+                  <NumberInput my={2}>
+                    <NumberInputField ref={stockRef} />
+                    <NumberInputStepper>
+                      <NumberIncrementStepper />
+                      <NumberDecrementStepper />
+                    </NumberInputStepper>
+                  </NumberInput>
+                </FormControl>
+                <Text>{error && error}</Text>
+                <Button
+                  isLoading={loading}
+                  type="submit"
+                  onClick={handleCreateProduct}
+                >
+                  Create
+                </Button>
+              </Flex>
+            </ModalBody>
+          </ModalContent>
+        </Modal>
+      </>
+
+      <HStack
+        alignItems="flex-start"
+        justifyContent="center"
+        px={2}
+      >
+        <Products />
+      </HStack>
     </Flex>
   );
 };
