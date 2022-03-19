@@ -2,7 +2,6 @@ import React, { useState, useRef, useEffect } from 'react';
 import {
   Flex,
   FormControl,
-  FormLabel,
   Text,
   Input,
   Textarea,
@@ -14,14 +13,10 @@ import {
   NumberIncrementStepper,
   NumberDecrementStepper,
   Button,
-  VStack,
-  Container,
   HStack,
   Modal,
   ModalOverlay,
   ModalContent,
-  ModalHeader,
-  ModalFooter,
   ModalBody,
   ModalCloseButton,
   useDisclosure,
@@ -30,7 +25,6 @@ import {
 } from '@chakra-ui/react';
 import { useToast } from '@chakra-ui/react';
 
-
 import { useShop } from '../contexts/ShopContext';
 import {
   getStorage,
@@ -38,7 +32,7 @@ import {
   uploadBytesResumable,
   getDownloadURL,
 } from 'firebase/storage';
-import Products from './Products';
+import ProductsAdmin from './ProductsAdmin';
 
 const CreateProduct = () => {
   const nameRef = useRef();
@@ -55,13 +49,9 @@ const CreateProduct = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const toast = useToast();
 
-
   const storageRef = ref(storage, 'images/' + image?.name);
   const uploadTask = uploadBytesResumable(storageRef, image);
 
-  useEffect(() => {
-    getProducts();
-  }, []);
 
   // Upload image onChange of image's state
   useEffect(() => {
@@ -71,6 +61,7 @@ const CreateProduct = () => {
   }, [image]);
 
   const handleUpload = async () => {
+    setLoading(true);
     uploadTask.on(
       'state_changed',
       snapshot => {
@@ -103,14 +94,15 @@ const CreateProduct = () => {
         // Upload completed successfully, now we can get the download URL
         getDownloadURL(uploadTask.snapshot.ref).then(url => {
           setImageURL(url);
+          setLoading(false);
           // console.log('File available at', url);
           toast({
-          title: 'Image uploaded.',
-          description: "Image successfully added to firebase storage",
-          status: 'success',
-          duration: 6000,
-          isClosable: true,
-        });
+            title: 'Image uploaded.',
+            description: 'Image successfully added to firebase storage',
+            status: 'success',
+            duration: 6000,
+            isClosable: true,
+          });
         });
       }
     );
@@ -150,7 +142,7 @@ const CreateProduct = () => {
     <Flex flexDir="column" w="100%">
       <>
         <Center p={8}>
-          <Button onClick={onOpen} colorScheme="green">
+          <Button onClick={onOpen} colorScheme="blue">
             Create Product
           </Button>
         </Center>
@@ -179,7 +171,7 @@ const CreateProduct = () => {
                     <option value="Home Technologies">Home Technologies</option>
                     <option value="Nutrition">Nutrition</option>
                     <option value="Personal Care">Personal Care</option>
-                    <option value="Skin care">Skin care</option>
+                    <option value="Skin care">Skin Care</option>
                   </Select>
                   <Textarea
                     my={2}
@@ -230,7 +222,7 @@ const CreateProduct = () => {
           </Center>
         )}
 
-        <Products />
+        <ProductsAdmin />
       </HStack>
     </Flex>
   );

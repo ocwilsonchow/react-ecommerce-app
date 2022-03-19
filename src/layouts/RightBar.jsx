@@ -49,27 +49,17 @@ const RightBar = () => {
       imgURL:
         'https://lesson-restful.s3.ap-northeast-2.amazonaws.com/9d1af71df46cf288b2ace8c01.jpg',
     },
-    {
-      name: 'Item One',
-      price: '590',
-      currency: 'HKD',
-      id: 4,
-      imgURL:
-        'https://lesson-restful.s3.ap-northeast-2.amazonaws.com/9d1af71df46cf288b2ace8c01.jpg',
-    }
-
   ];
 
   return (
     <Flex
       flexDir="column"
       alignItems="center"
-
       bg={bgColor}
       h="100%"
       overflow="auto"
     >
-     {/* Search Bar + Avatar */}
+      {/* Search Bar + Avatar */}
       <Flex
         w="85%"
         py={2}
@@ -85,8 +75,8 @@ const RightBar = () => {
           placeholder="Search"
         />
 
-        {user?.photoURL && <Avatar src={user.photoURL}/>}
-        <Avatar bg="teal.500"/>
+        {user?.photoURL && <Avatar src={user.photoURL} />}
+        <Avatar bg="teal.500" />
       </Flex>
 
       {/* Gadget Box */}
@@ -98,12 +88,15 @@ const RightBar = () => {
         borderRadius="1rem"
         m={2}
       >
-         {user &&
-         <Flex flexDir="column">
-           <Text>Welcome Back! {user.displayName}</Text>
-           <Text>Your email: {user.email}</Text>
-           <Text>Email verified: {user.emailVerified && "Yes" || "Not yet"}</Text>
-         </Flex>}
+        {user && (
+          <Flex flexDir="column">
+            <Text>Welcome Back! {user.displayName}</Text>
+            <Text>Your email: {user.email}</Text>
+            <Text>
+              Email verified: {(user.emailVerified && 'Yes') || 'Not yet'}
+            </Text>
+          </Flex>
+        )}
       </Flex>
 
       <Flex flexDir="column" alignItems="center" w="100%" overflow="auto">

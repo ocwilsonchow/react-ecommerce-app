@@ -16,11 +16,12 @@
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: rgb(59, 59, 59);
-
+  background: rgb(16, 16, 16);
+   border-radius:20px
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
+
 }

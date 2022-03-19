@@ -4,9 +4,12 @@ import {
   query,
   where,
   getDocs,
+  doc,
+  updateDoc,
   addDoc,
   serverTimestamp,
   orderBy,
+  increment,
 } from 'firebase/firestore';
 import { db } from '../firebase';
 import { useToast } from '@chakra-ui/react';
@@ -31,9 +34,9 @@ export function ShopProvider({ children }) {
   // Get products
   const getProducts = async () => {
     const q = query(collection(db, 'products'), orderBy('category', 'desc'));
-
     const querySnapshot = await getDocs(q);
     setProducts(querySnapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })));
+    console.log('fetched products');
   };
 
   // Get single product
@@ -52,13 +55,14 @@ export function ShopProvider({ children }) {
       category: category,
       description: description,
       price: price,
-      stock: stock,
+      stock: Number(stock),
       image: image,
       createdAt: serverTimestamp(),
-    }).then(() => {
+    })
+      .then(() => {
         toast({
           title: 'Product created.',
-          description: "Product successfully added to firestore",
+          description: 'Product successfully added to firestore',
           status: 'success',
           duration: 6000,
           isClosable: true,
@@ -69,7 +73,37 @@ export function ShopProvider({ children }) {
       });
   };
 
-  // Update product
+  // Increase stock count
+  const increaseProductStock = async (id) => {
+    await updateDoc(doc(db, 'products', id), {
+      stock: increment(1),
+    }).then(() => {
+      getProducts();
+      toast({
+        title: 'Stock added',
+        description: 'Product stock successfully updated',
+        status: 'success',
+        duration: 6000,
+        isClosable: true,
+      });
+    })
+  };
+
+    // Decrease stock count
+  const decreaseProductStock = async (id) => {
+    await updateDoc(doc(db, 'products', id), {
+      stock: increment(-1),
+    }).then(() => {
+      getProducts();
+      toast({
+        title: 'Stock removed',
+        description: 'Product stock successfully updated',
+        status: 'info',
+        duration: 6000,
+        isClosable: true,
+      });
+    })
+  };
 
   // Delete product
 
@@ -79,9 +113,11 @@ export function ShopProvider({ children }) {
     createProduct,
     getProducts,
     products,
+    increaseProductStock,
+    decreaseProductStock,
   };
 
-  console.log(products);
+
 
   return (
     <ShopContext.Provider value={contextData}>{children}</ShopContext.Provider>
