@@ -23,18 +23,19 @@ export function CartProvider({ children }) {
   const { user } = useAuth()
 
   // Create cart
-  const createCart = async () => {
+  const createCartItem = async (productData) => {
     const docRef = await addDoc(collection(db, 'carts'), {
       user: user.uid,
-      items: [],
+      itemId: productData[0],
+      itemImageURL: productData[1],
       createdAt: serverTimestamp(),
     })
       .then(() => {
         toast({
-          title: 'Cart created.',
+          title: 'Cart item created.',
           description: 'Cart successfully added to firestore',
           status: 'success',
-          duration: 3000,
+          duration: 2000,
           isClosable: true,
         });
       })
@@ -58,7 +59,7 @@ export function CartProvider({ children }) {
   const contextData = {
     cart,
     getCart,
-    createCart
+    createCartItem
   };
 
   return (

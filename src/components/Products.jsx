@@ -14,9 +14,12 @@ import {
 import { AddIcon, MinusIcon } from '@chakra-ui/icons';
 
 import { useShop } from '../contexts/ShopContext';
+import { useCart } from '../contexts/CartContext';
 
 const Products = () => {
   const { getProducts, products } = useShop();
+  const { createCartItem } = useCart();
+
   const secondaryBgColor = useColorModeValue('#FFFFFF', '#1D213C');
 
   useEffect(() => {
@@ -33,6 +36,7 @@ const Products = () => {
           m={2}
           bg={secondaryBgColor}
           borderRadius="1rem"
+          boxShadow="rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;"
         >
           {!product.image && <Spinner />}
           <Image
@@ -69,7 +73,8 @@ const Products = () => {
               borderRadius="50%"
               disabled={product.stock == 0}
               icon={<AddIcon boxSize={3} />}
-              value={product.id}
+              value={[product.id, product.image]}
+              onClick={(e) => createCartItem(e.target.value)}
             />
           </Center>
         </Box>
