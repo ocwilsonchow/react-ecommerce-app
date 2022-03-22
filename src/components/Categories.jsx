@@ -1,5 +1,5 @@
 import React, { useEffect} from 'react';
-import { Badge, Flex } from '@chakra-ui/react';
+import { Badge, Button, Flex } from '@chakra-ui/react';
 import { useShop } from '../contexts/ShopContext';
 
 const Categories = () => {
@@ -12,9 +12,9 @@ const Categories = () => {
   return (
     <Flex px={6} py={4} flexWrap="wrap">
       {categories?.map((category, i) => (
-        <Badge colorScheme="purple" key={i} py={1} px={3} m={1} borderRadius="1rem">
+        <Button size="xs" key={i} py={4} px={4} m={1} borderRadius="1rem" >
           {category.name}
-        </Badge>
+        </Button>
       ))}
     </Flex>
   );

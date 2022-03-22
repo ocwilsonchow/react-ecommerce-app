@@ -1,10 +1,14 @@
 import React from 'react'
+import { Flex, Text, Center } from '@chakra-ui/react'
+
 
 function PagesNotFound() {
   return (
-    <div id="pages-not-found" className="container text-center">
-      <h1>Page not found!</h1>
-    </div>
+     <Flex w="100%">
+     <Center w="100%">
+        <Text fontWeight="bold" fontSize="4xl">Page Not Found!</Text>
+     </Center>
+    </Flex>
   )
 }
 

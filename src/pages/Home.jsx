@@ -4,10 +4,9 @@ import Products from '../components/Products'
 import Categories from '../components/Categories'
 
 const PagesHome = () => {
-  const bgColor = useColorModeValue('#F4F4F4', '#161633')
+  const bgColor = useColorModeValue('#f5f5f5', '#161633')
   return (
     <Flex flexDir="column" bg={bgColor} w="100%" h="100vh" overflow="auto">
-
       <Categories />
       <Products />
     </Flex>

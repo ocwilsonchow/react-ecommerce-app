@@ -79,19 +79,6 @@ const RightBar = () => {
           borderRadius="1rem"
           m={2}
         >
-          {/* {user && (
-            <Flex flexDir="column">
-              <Input placeholder={user?.displayName} variant="flushed" />
-              <Input placeholder={user?.email} variant="flushed" />
-              <Text mt={2} fontSize="xs">
-                Email verified: {(user.emailVerified && 'Yes') || 'Not yet'}
-              </Text>
-              <Text mt={2} fontSize="xs">
-                {user.uid}
-              </Text>
-              <Button mt={4}>Update Profile</Button>
-            </Flex>
-          )} */}
         </Flex>
       </Flex>
 
@@ -186,7 +173,7 @@ const RightBar = () => {
             size="lg"
             w="85%"
             my={3}
-            colorScheme="cyan"
+            colorScheme="twitter"
             fontWeight="bold"
             disabled={cartItems.length == 0}
           >

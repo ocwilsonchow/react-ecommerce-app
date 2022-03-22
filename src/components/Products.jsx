@@ -17,6 +17,8 @@ import { MdFavorite, MdShoppingCart } from 'react-icons/md';
 
 import { useShop } from '../contexts/ShopContext';
 import { useCart } from '../contexts/CartContext';
+import Banner from '../components/Banner'
+
 
 const Products = () => {
   const { getProducts, products } = useShop();
@@ -30,6 +32,7 @@ const Products = () => {
 
   return (
     <Flex flexWrap="wrap" justifyContent="center" w="100%" overflow="auto">
+     <Banner />
       {products?.map(product => (
         <Box
           key={product.id}
@@ -41,28 +44,29 @@ const Products = () => {
           boxShadow="rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;"
         >
           {!product.image && <Spinner />}
-         <Tooltip label={product.id}>
-            <Image
+          <Image
             src={product.image}
             boxSize="200px"
             objectFit="cover"
             borderRadius="0.5rem"
           />
-         </Tooltip>
-          <Flex justifyContent="space-between">
-            <Badge mt={3} fontSize="xs">
-              {product.category}
-            </Badge>
-            {product.stock > 0 ? (
-              <Badge mt={3} fontSize="xs" colorScheme="orange">
-                In stock
+          <Tooltip label={product.id}>
+            <Flex justifyContent="space-between">
+              <Badge mt={3} fontSize="xs">
+                {product.category}
               </Badge>
-            ) : (
-              <Badge mt={3} fontSize="xs" colorScheme="">
-                Out of Stock
-              </Badge>
-            )}
-          </Flex>
+              {product.stock > 0 ? (
+                <Badge mt={3} fontSize="xs" colorScheme="orange">
+                  In stock
+                </Badge>
+              ) : (
+                <Badge mt={3} fontSize="xs" colorScheme="">
+                  Out of Stock
+                </Badge>
+              )}
+            </Flex>
+          </Tooltip>
+
           <Text mt={2} fontWeight="bold" isTruncated>
             {product.name}
           </Text>
@@ -76,17 +80,15 @@ const Products = () => {
               mx={1}
               size="md"
               borderRadius="50%"
-              icon={<MdFavorite/>}
-
+              icon={<MdFavorite />}
             />
             <IconButton
               mt={1}
               mx={1}
               size="md"
-
               borderRadius="50%"
               disabled={product.stock == 0}
-              icon={<MdShoppingCart/>}
+              icon={<MdShoppingCart />}
               onClick={() => createCartItem(product)}
             />
           </Flex>
