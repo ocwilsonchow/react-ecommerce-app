@@ -8,13 +8,15 @@ import { auth } from '../firebase';
 import { useNavigate } from 'react-router-dom';
 import { useToast } from '@chakra-ui/react';
 
+import {useCart} from '../contexts/CartContext'
+
 const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState();
   const navigation = useNavigate();
   const toast = useToast();
-  // console.log(user ? user : '');
+
 
 
   // Sign Up
@@ -23,6 +25,7 @@ export function AuthProvider({ children }) {
       .then(userCredential => {
         // Signed in
         setUser(userCredential.user);
+
         navigation('/');
         toast({
           title: 'Account created.',
@@ -79,8 +82,6 @@ export function AuthProvider({ children }) {
     login,
     user,
   };
-
-  console.log(user)
 
   return (
     <AuthContext.Provider value={contextData}>{children}</AuthContext.Provider>

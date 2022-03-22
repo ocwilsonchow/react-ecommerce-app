@@ -11,12 +11,12 @@ import {
   IconButton,
   HStack,
 } from '@chakra-ui/react';
-import { AddIcon, MinusIcon } from '@chakra-ui/icons';
+import { AddIcon, MinusIcon, DeleteIcon } from '@chakra-ui/icons';
 
 import { useShop } from '../contexts/ShopContext';
 
 const ProductsAdmin = () => {
-  const { getProducts, products, increaseProductStock, decreaseProductStock } =
+  const { getProducts, products, increaseProductStock, decreaseProductStock, deleteProduct } =
     useShop();
   const secondaryBgColor = useColorModeValue('#FFFFFF', '#1D213C');
   const [loading, setLoading] = useState(false);
@@ -71,6 +71,13 @@ const ProductsAdmin = () => {
               value={product.id}
               onClick={e => {
                 increaseProductStock(e.target.value);
+              }}
+            />
+            <IconButton
+              disabled={loading}
+              icon={<DeleteIcon boxSize={3} />}
+              onClick={() => {
+                deleteProduct(product.id);
               }}
             />
           </HStack>

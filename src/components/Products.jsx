@@ -18,7 +18,7 @@ import { useCart } from '../contexts/CartContext';
 
 const Products = () => {
   const { getProducts, products } = useShop();
-  const { createCartItem } = useCart();
+  const { createCartItem, getCart, cartItems } = useCart();
 
   const secondaryBgColor = useColorModeValue('#FFFFFF', '#1D213C');
 
@@ -73,8 +73,8 @@ const Products = () => {
               borderRadius="50%"
               disabled={product.stock == 0}
               icon={<AddIcon boxSize={3} />}
-              value={[product.id, product.image]}
-              onClick={(e) => createCartItem(e.target.value)}
+
+              onClick={() => createCartItem(product)}
             />
           </Center>
         </Box>

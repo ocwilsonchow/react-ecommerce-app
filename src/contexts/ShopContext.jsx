@@ -9,6 +9,7 @@ import {
   addDoc,
   serverTimestamp,
   orderBy,
+  deleteDoc,
   increment,
 } from 'firebase/firestore';
 import { db } from '../firebase';
@@ -36,7 +37,6 @@ export function ShopProvider({ children }) {
     const q = query(collection(db, 'products'), orderBy('category', 'desc'));
     const querySnapshot = await getDocs(q);
     setProducts(querySnapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })));
-    console.log('fetched products');
   };
 
   // Get single product
@@ -106,6 +106,20 @@ export function ShopProvider({ children }) {
   };
 
   // Delete product
+ const deleteProduct =async  (productId) => {
+    await deleteDoc(doc(db, "products", productId))
+    .then(() => {
+      getProducts();
+      toast({
+        title: 'Product deleted',
+        description: 'Product successfully deleted',
+        status: 'info',
+        duration: 3000,
+        isClosable: true,
+      });
+    });
+ }
+
 
   const contextData = {
     getCategories,
@@ -115,6 +129,7 @@ export function ShopProvider({ children }) {
     products,
     increaseProductStock,
     decreaseProductStock,
+    deleteProduct
   };
 
   return (

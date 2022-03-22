@@ -10,27 +10,46 @@ import {
   serverTimestamp,
   orderBy,
   increment,
+  onSnapshot,
+  setDoc
 } from 'firebase/firestore';
 import { db } from '../firebase';
 import { useToast } from '@chakra-ui/react';
-import { useAuth } from '../contexts/AuthContext'
+import { useAuth } from '../contexts/AuthContext';
 
 const CartContext = createContext();
 
 export function CartProvider({ children }) {
-  const [cart, setCart] = useState();
+  const [cartItems, setCartItems] = useState([]);
   const toast = useToast();
-  const { user } = useAuth()
+  const { user } = useAuth();
 
-  // Create cart
-  const createCartItem = async (productData) => {
-    const docRef = await addDoc(collection(db, 'carts'), {
-      user: user.uid,
-      itemId: productData[0],
-      itemImageURL: productData[1],
+
+  // Create cart items
+  const createCartItem = async (product)=> {
+    console.log(product)
+    if (!user) {
+      toast({
+        title: 'Login required',
+        description: 'Please log in',
+        status: 'warning',
+        duration: 2000,
+        isClosable: true,
+      });
+      return console.log('login required');
+    }
+
+    await addDoc(collection(db, 'cartItems'), {
+      userId: user.uid,
+      productName: product.name,
+      productId: product.id,
+      productImageURL: product.image,
+      price: product.price,
+      quantity: 1,
       createdAt: serverTimestamp(),
     })
       .then(() => {
+        getCart()
         toast({
           title: 'Cart item created.',
           description: 'Cart successfully added to firestore',
@@ -45,21 +64,28 @@ export function CartProvider({ children }) {
   };
 
   // Get cart
-  const getCart = () => {
-
-
-  }
+  const getCart = async () => {
+    if (!user) return console.log('no user');
+    if (user) {
+      const q = query(
+        collection(db, 'cartItems'),
+        where('userId', '==', user.uid)
+      );
+      const querySnapshot = await getDocs(q);
+      setCartItems(
+        querySnapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }))
+      );
+    }
+  };
 
   // Add item to the cart
 
-
   // Remove item from the cart
 
-
   const contextData = {
-    cart,
+    cartItems,
     getCart,
-    createCartItem
+    createCartItem,
   };
 
   return (
