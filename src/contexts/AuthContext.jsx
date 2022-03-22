@@ -57,7 +57,12 @@ export function AuthProvider({ children }) {
           isClosable: true,
         });
       }
-    );
+    ).catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    console.log(errorMessage)
+  });
+
   };
 
   // Sign Out

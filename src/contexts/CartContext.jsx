@@ -11,7 +11,8 @@ import {
   orderBy,
   increment,
   onSnapshot,
-  setDoc
+  setDoc,
+  deleteDoc,
 } from 'firebase/firestore';
 import { db } from '../firebase';
 import { useToast } from '@chakra-ui/react';
@@ -24,10 +25,8 @@ export function CartProvider({ children }) {
   const toast = useToast();
   const { user } = useAuth();
 
-
   // Create cart items
-  const createCartItem = async (product)=> {
-    console.log(product)
+  const createCartItem = async product => {
     if (!user) {
       toast({
         title: 'Login required',
@@ -49,7 +48,7 @@ export function CartProvider({ children }) {
       createdAt: serverTimestamp(),
     })
       .then(() => {
-        getCart()
+        getCart();
         toast({
           title: 'Cart item created.',
           description: 'Cart successfully added to firestore',
@@ -78,14 +77,60 @@ export function CartProvider({ children }) {
     }
   };
 
-  // Add item to the cart
+  // Increase product quantity in cart
+  const increaseCartItemQuantity = async id => {
+    await updateDoc(doc(db, 'cartItems', id), {
+      quantity: increment(1),
+    }).then(() => {
+      getCart();
+      toast({
+        title: 'Item added',
+        description: 'Item added',
+        status: 'success',
+        duration: 2000,
+        isClosable: true,
+      });
+    });
+  };
 
-  // Remove item from the cart
+  // Decrease Quantity OR Remove item from the cart
+  const decreaseCartItemQuantity = async (id, quantity) => {
+    console.log(id, quantity)
+    if (quantity < 1) {
+      await deleteDoc(doc(db, 'cartItems', id))
+        .then(() => {
+        getCart();
+        toast({
+          title: 'Item removed from cart',
+          description: 'Item removed from cart',
+          status: 'success',
+          duration: 2000,
+          isClosable: true,
+        });
+      });
+      return
+    }
+
+    await updateDoc(doc(db, 'cartItems', id), {
+      quantity: increment(-1),
+    }).then(() => {
+      getCart();
+      toast({
+        title: 'Item removed',
+        description: 'Item removed',
+        status: 'success',
+        duration: 2000,
+        isClosable: true,
+      });
+    });
+  };
 
   const contextData = {
     cartItems,
     getCart,
     createCartItem,
+    increaseCartItemQuantity,
+    decreaseCartItemQuantity,
   };
 
   return (

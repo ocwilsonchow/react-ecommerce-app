@@ -8,6 +8,7 @@ import {
   Button,
   Text,
   Input,
+  Badge,
   Avatar,
   HStack,
   useColorModeValue,
@@ -15,9 +16,10 @@ import {
   Circle,
   Checkbox,
   Tooltip,
+  Tag,
 } from '@chakra-ui/react';
 import { getDoc } from 'firebase/firestore';
-import { MinusIcon, AddIcon } from '@chakra-ui/icons';
+import { MinusIcon, AddIcon, DeleteIcon } from '@chakra-ui/icons';
 import { useAuth } from '../contexts/AuthContext';
 import { useCart } from '../contexts/CartContext';
 
@@ -26,7 +28,12 @@ const RightBar = () => {
   const secondaryBgColor = useColorModeValue('#FBF1F2', '#222D48');
   const tertiaryBgColor = useColorModeValue('#32343B', '#222D48');
   const { user } = useAuth();
-  const { cartItems, getCart } = useCart();
+  const {
+    cartItems,
+    getCart,
+    increaseCartItemQuantity,
+    decreaseCartItemQuantity,
+  } = useCart();
 
   const cartFItems = [
     {
@@ -106,14 +113,29 @@ const RightBar = () => {
           {/* From firestore */}
           {cartItems.map(item => (
             <Box
-              key={item.productId}
+              key={item.id}
               bg={tertiaryBgColor}
               p={2}
               borderRadius="1rem"
               my={1}
               alignItems="center"
               justifyContent="space-between"
+              position="relative"
             >
+              <Tag
+                justifyContent="center"
+                alignItems="center"
+                colorScheme="facebook"
+                fontWeight="extrabold"
+                variant="solid"
+                borderRadius="full"
+                position="absolute"
+                top="0px"
+                left="-5px"
+              >
+                {item.quantity}
+              </Tag>
+
               <Flex alignItems="center">
                 <Image
                   boxSize="50px"
@@ -121,22 +143,33 @@ const RightBar = () => {
                   borderRadius="0.5rem"
                   mr={3}
                 />
+
                 <Flex flexDir="column">
-                 <Tooltip label={item.productName}>
+                  <Tooltip label={item.productName}>
                     <Text color="white" fontWeight="bold" w="120px" isTruncated>
-                    {item.productName}
-                  </Text>
-                 </Tooltip>
+                      {item.productName}
+                    </Text>
+                  </Tooltip>
                   <HStack>
                     <Text color="white" fontWeight="light">
                       HKD {item.price}
                     </Text>
                   </HStack>
                 </Flex>
-            <HStack>
-                <IconButton borderRadius="50%" size="xs" icon={<MinusIcon />} />
-                <IconButton borderRadius="50%" size="xs" icon={<AddIcon />} />
-              </HStack>
+                <HStack>
+                  <IconButton
+                    borderRadius="50%"
+                    size="xs"
+                    icon={ item.quantity > 0 && <MinusIcon /> || <DeleteIcon />}
+                    onClick={() => decreaseCartItemQuantity(item.id, item.quantity)}
+                  />
+                  <IconButton
+                    borderRadius="50%"
+                    size="xs"
+                    icon={<AddIcon />}
+                    onClick={() => increaseCartItemQuantity(item.id)}
+                  />
+                </HStack>
               </Flex>
             </Box>
           ))}
