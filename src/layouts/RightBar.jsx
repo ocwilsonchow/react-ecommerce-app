@@ -79,7 +79,7 @@ const RightBar = () => {
           borderRadius="1rem"
           m={2}
         >
-          {user && (
+          {/* {user && (
             <Flex flexDir="column">
               <Input placeholder={user?.displayName} variant="flushed" />
               <Input placeholder={user?.email} variant="flushed" />
@@ -91,7 +91,7 @@ const RightBar = () => {
               </Text>
               <Button mt={4}>Update Profile</Button>
             </Flex>
-          )}
+          )} */}
         </Flex>
       </Flex>
 
