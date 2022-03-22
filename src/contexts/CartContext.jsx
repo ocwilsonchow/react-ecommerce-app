@@ -44,7 +44,7 @@ export function CartProvider({ children }) {
     const q = query(collection(db, 'cartItems'), where('userId', "==", user.uid), where('productId', "==", product.id))
     const querySnapshot = await getDocs(q)
     const queryData = querySnapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }))
-    console.log(queryData[0].id)
+    console.log(queryData[0]?.id)
     if (queryData.length > 0) {
       return increaseCartItemQuantity(queryData[0].id)
     }
