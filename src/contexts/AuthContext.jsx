@@ -31,7 +31,7 @@ export function AuthProvider({ children }) {
           title: 'Account created.',
           description: "You've successfully signed up",
           status: 'success',
-          duration: 6000,
+          duration: 2000,
           isClosable: true,
         });
       })
@@ -53,7 +53,7 @@ export function AuthProvider({ children }) {
           title: 'Logged in.',
           description: "You've successfully logged in",
           status: 'success',
-          duration: 7000,
+          duration: 2000,
           isClosable: true,
         });
       }
@@ -74,7 +74,7 @@ export function AuthProvider({ children }) {
         title: 'Logged out.',
         description: "You've successfully logged out",
         status: 'success',
-        duration: 5000,
+        duration: 2000,
         isClosable: true,
       });
     });

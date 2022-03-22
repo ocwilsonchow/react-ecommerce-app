@@ -160,7 +160,7 @@ const RightBar = () => {
                   <IconButton
                     borderRadius="50%"
                     size="xs"
-                    icon={ item.quantity > 0 && <MinusIcon /> || <DeleteIcon />}
+                    icon={ item.quantity > 0 && <MinusIcon /> || <DeleteIcon/>}
                     onClick={() => decreaseCartItemQuantity(item.id, item.quantity)}
                   />
                   <IconButton

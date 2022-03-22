@@ -13,6 +13,7 @@ import {
   onSnapshot,
   setDoc,
   deleteDoc,
+  QuerySnapshot,
 } from 'firebase/firestore';
 import { db } from '../firebase';
 import { useToast } from '@chakra-ui/react';
@@ -22,6 +23,7 @@ const CartContext = createContext();
 
 export function CartProvider({ children }) {
   const [cartItems, setCartItems] = useState([]);
+  const [checkLength, setCheckLength]  = useState([])
   const toast = useToast();
   const { user } = useAuth();
 
@@ -37,6 +39,16 @@ export function CartProvider({ children }) {
       });
       return console.log('login required');
     }
+
+    // Check if this item is already in the cart
+    const q = query(collection(db, 'cartItems'), where('userId', "==", user.uid), where('productId', "==", product.id))
+    const querySnapshot = await getDocs(q)
+    const queryData = querySnapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }))
+    console.log(queryData[0].id)
+    if (queryData.length > 0) {
+      return increaseCartItemQuantity(queryData[0].id)
+    }
+
 
     await addDoc(collection(db, 'cartItems'), {
       userId: user.uid,
@@ -95,7 +107,6 @@ export function CartProvider({ children }) {
 
   // Decrease Quantity OR Remove item from the cart
   const decreaseCartItemQuantity = async (id, quantity) => {
-    console.log(id, quantity)
     if (quantity < 1) {
       await deleteDoc(doc(db, 'cartItems', id))
         .then(() => {

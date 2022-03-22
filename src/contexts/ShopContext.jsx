@@ -64,7 +64,7 @@ export function ShopProvider({ children }) {
           title: 'Product created.',
           description: 'Product successfully added to firestore',
           status: 'success',
-          duration: 6000,
+          duration: 2000,
           isClosable: true,
         });
       })
@@ -83,7 +83,7 @@ export function ShopProvider({ children }) {
         title: 'Stock added',
         description: 'Product stock successfully updated',
         status: 'success',
-        duration: 6000,
+        duration: 2000,
         isClosable: true,
       });
     });
@@ -99,7 +99,7 @@ export function ShopProvider({ children }) {
         title: 'Stock removed',
         description: 'Product stock successfully updated',
         status: 'info',
-        duration: 6000,
+        duration: 2000,
         isClosable: true,
       });
     });
@@ -114,7 +114,7 @@ export function ShopProvider({ children }) {
         title: 'Product deleted',
         description: 'Product successfully deleted',
         status: 'info',
-        duration: 3000,
+        duration: 2000,
         isClosable: true,
       });
     });
