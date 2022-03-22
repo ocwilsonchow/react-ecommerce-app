@@ -35,17 +35,6 @@ const RightBar = () => {
     decreaseCartItemQuantity,
   } = useCart();
 
-  const cartFItems = [
-    {
-      name: 'Item One',
-      price: '590',
-      currency: 'HKD',
-      id: 1,
-      imgURL:
-        'https://lesson-restful.s3.ap-northeast-2.amazonaws.com/9d1af71df46cf288b2ace8c01.jpg',
-    },
-  ];
-
   useEffect(() => {
     getCart();
     console.log(cartItems);
@@ -58,52 +47,63 @@ const RightBar = () => {
       bg={bgColor}
       h="100%"
       overflow="auto"
+      justifyContent="space-between"
     >
       {/* Search Bar + Avatar */}
-      <Flex
-        w="85%"
-        py={2}
-        mt={4}
-        alignItems="center"
-        justifyContent="space-evenly"
-      >
-        <Input
+      <Flex flexDir="column" alignItems="center">
+        <Flex
+          w="85%"
+          py={2}
+          mt={4}
+          alignItems="center"
+          justifyContent="space-evenly"
+        >
+          <Input
+            bg={secondaryBgColor}
+            border="none"
+            borderRadius="1rem"
+            mr={5}
+            placeholder="Search"
+          />
+
+          {user?.photoURL && <Avatar src={user.photoURL} />}
+          <Avatar bg="teal.500" />
+        </Flex>
+
+        {/* Gadget Box */}
+        <Flex
           bg={secondaryBgColor}
-          border="none"
+          w="85%"
+          p={5}
+          h="230px"
           borderRadius="1rem"
-          mr={5}
-          placeholder="Search"
-        />
-
-        {user?.photoURL && <Avatar src={user.photoURL} />}
-        <Avatar bg="teal.500" />
+          m={2}
+        >
+          {user && (
+            <Flex flexDir="column">
+              <Input placeholder={user?.displayName} variant="flushed" />
+              <Input placeholder={user?.email} variant="flushed" />
+              <Text mt={2} fontSize="xs">
+                Email verified: {(user.emailVerified && 'Yes') || 'Not yet'}
+              </Text>
+              <Text mt={2} fontSize="xs">
+                {user.uid}
+              </Text>
+              <Button mt={4}>Update Profile</Button>
+            </Flex>
+          )}
+        </Flex>
       </Flex>
 
-      {/* Gadget Box */}
       <Flex
-        bg={secondaryBgColor}
-        w="85%"
-        p={5}
-        h="230px"
-        borderRadius="1rem"
-        m={2}
+        flexDir="column"
+        justifyContent="space-between"
+        alignItems="center"
+        w="100%"
+        h="100%"
+        pb={5}
+        overflow="auto"
       >
-        {user && (
-          <Flex flexDir="column">
-            <Input placeholder={user?.displayName} variant="flushed" />
-            <Input placeholder={user?.email} variant="flushed" />
-            <Text mt={2} fontSize="xs">
-              Email verified: {(user.emailVerified && 'Yes') || 'Not yet'}
-            </Text>
-            <Text mt={2} fontSize="xs">
-              {user.uid}
-            </Text>
-            <Button mt={4}>Update Profile</Button>
-          </Flex>
-        )}
-      </Flex>
-
-      <Flex flexDir="column" alignItems="center" w="100%" overflow="auto">
         {/* Shopping Cart */}
         <Flex flexDir="column" my={3} w="85%">
           <Text fontWeight="bold" my={2}>
@@ -111,6 +111,7 @@ const RightBar = () => {
           </Text>
 
           {/* From firestore */}
+          {cartItems.length == 0 && <Text my={2}>Your cart has no item.</Text>}
           {cartItems.map(item => (
             <Box
               key={item.id}
@@ -125,7 +126,7 @@ const RightBar = () => {
               <Tag
                 justifyContent="center"
                 alignItems="center"
-                colorScheme="facebook"
+                colorScheme="twitter"
                 fontWeight="extrabold"
                 variant="solid"
                 borderRadius="full"
@@ -136,12 +137,11 @@ const RightBar = () => {
                 {item.quantity}
               </Tag>
 
-              <Flex alignItems="center">
+              <Flex alignItems="center" justifyContent="space-between">
                 <Image
                   boxSize="50px"
                   src={item.productImageURL}
                   borderRadius="0.5rem"
-                  mr={3}
                 />
 
                 <Flex flexDir="column">
@@ -160,8 +160,12 @@ const RightBar = () => {
                   <IconButton
                     borderRadius="50%"
                     size="xs"
-                    icon={ item.quantity > 0 && <MinusIcon /> || <DeleteIcon/>}
-                    onClick={() => decreaseCartItemQuantity(item.id, item.quantity)}
+                    icon={
+                      (item.quantity > 0 && <MinusIcon />) || <DeleteIcon />
+                    }
+                    onClick={() =>
+                      decreaseCartItemQuantity(item.id, item.quantity)
+                    }
                   />
                   <IconButton
                     borderRadius="50%"
@@ -175,15 +179,19 @@ const RightBar = () => {
           ))}
         </Flex>
 
+        <Flex justifyContent="space-between">
+          <Text fontWeight="bold">Total price: </Text>
+          <Text></Text>
+        </Flex>
         {/* Checkout button */}
         <Flex justifyContent="center" w="100%">
           <Button
             size="lg"
             w="85%"
             my={3}
-            color="white"
+            colorScheme="cyan"
             fontWeight="bold"
-            bgGradient="linear(to-r, #7192E2, #3961C3)"
+            disabled={cartItems.length == 0}
           >
             Check Out
           </Button>

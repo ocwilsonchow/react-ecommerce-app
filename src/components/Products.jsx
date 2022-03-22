@@ -10,8 +10,10 @@ import {
   Code,
   IconButton,
   Center,
+  Tooltip,
 } from '@chakra-ui/react';
 import { AddIcon, MinusIcon } from '@chakra-ui/icons';
+import { MdFavorite, MdShoppingCart } from 'react-icons/md';
 
 import { useShop } from '../contexts/ShopContext';
 import { useCart } from '../contexts/CartContext';
@@ -39,12 +41,14 @@ const Products = () => {
           boxShadow="rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;"
         >
           {!product.image && <Spinner />}
-          <Image
+         <Tooltip label={product.id}>
+            <Image
             src={product.image}
             boxSize="200px"
             objectFit="cover"
             borderRadius="0.5rem"
           />
+         </Tooltip>
           <Flex justifyContent="space-between">
             <Badge mt={3} fontSize="xs">
               {product.category}
@@ -59,24 +63,33 @@ const Products = () => {
               </Badge>
             )}
           </Flex>
-          <Text mt={2} fontWeight="bold">
+          <Text mt={2} fontWeight="bold" isTruncated>
             {product.name}
           </Text>
           <Flex>
             <Text fontWeight="light">HKD {product.price}</Text>
           </Flex>
 
-          <Center>
+          <Flex justifyContent="flex-end">
             <IconButton
-              mt={2}
-              size="sm"
+              mt={1}
+              mx={1}
+              size="md"
+              borderRadius="50%"
+              icon={<MdFavorite/>}
+
+            />
+            <IconButton
+              mt={1}
+              mx={1}
+              size="md"
+
               borderRadius="50%"
               disabled={product.stock == 0}
-              icon={<AddIcon boxSize={3} />}
-
+              icon={<MdShoppingCart/>}
               onClick={() => createCartItem(product)}
             />
-          </Center>
+          </Flex>
         </Box>
       ))}
     </Flex>

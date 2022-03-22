@@ -68,7 +68,6 @@ const LeftBar = () => {
         {user && (
           <Link to="/admin/stockmanagement">
             <IconButton
-              color="tomato"
               variant="ghost"
               borderRadius="50%"
               size="lg"
@@ -97,7 +96,7 @@ const LeftBar = () => {
           <IconButton
             onClick={handleSignOut}
             variant="ghost"
-            color="red.400"
+            color="red.300"
             my={2}
             size="lg"
             borderRadius="50%"

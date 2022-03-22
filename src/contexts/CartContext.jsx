@@ -48,8 +48,6 @@ export function CartProvider({ children }) {
     if (queryData.length > 0) {
       return increaseCartItemQuantity(queryData[0].id)
     }
-
-
     await addDoc(collection(db, 'cartItems'), {
       userId: user.uid,
       productName: product.name,
@@ -62,9 +60,9 @@ export function CartProvider({ children }) {
       .then(() => {
         getCart();
         toast({
-          title: 'Cart item created.',
+          title: 'Created.',
           description: 'Cart successfully added to firestore',
-          status: 'success',
+          status: 'info',
           duration: 2000,
           isClosable: true,
         });
@@ -97,7 +95,7 @@ export function CartProvider({ children }) {
       getCart();
       toast({
         title: 'Item added',
-        description: 'Item added',
+        description: 'Item added to your cart',
         status: 'success',
         duration: 2000,
         isClosable: true,
@@ -112,9 +110,9 @@ export function CartProvider({ children }) {
         .then(() => {
         getCart();
         toast({
-          title: 'Item removed from cart',
-          description: 'Item removed from cart',
-          status: 'success',
+          title: 'Item removed',
+          description: 'Item removed from your cart',
+          status: 'info',
           duration: 2000,
           isClosable: true,
         });
