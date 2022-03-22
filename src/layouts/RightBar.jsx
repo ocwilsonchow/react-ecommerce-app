@@ -179,10 +179,7 @@ const RightBar = () => {
           ))}
         </Flex>
 
-        <Flex justifyContent="space-between">
-          <Text fontWeight="bold">Total price: </Text>
-          <Text></Text>
-        </Flex>
+
         {/* Checkout button */}
         <Flex justifyContent="center" w="100%">
           <Button
