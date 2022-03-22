@@ -50,7 +50,7 @@ const RightBar = () => {
       justifyContent="space-between"
     >
       {/* Search Bar + Avatar */}
-      <Flex flexDir="column" alignItems="center">
+      <Flex flexDir="column" alignItems="center" w="100%">
         <Flex
           w="85%"
           py={2}
