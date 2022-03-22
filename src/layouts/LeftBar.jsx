@@ -10,7 +10,7 @@ import { useAuth } from '../contexts/AuthContext';
 import { ColorModeSwitcher } from '../ColorModeSwitcher';
 
 const LeftBar = () => {
-  const bgColor = useColorModeValue('#FFFFFF', '#1D213C');
+  const bgColor = useColorModeValue('#FFFFFF', '#141026');
   const { signout, user } = useAuth();
 
   const handleSignOut = () => {
@@ -77,11 +77,10 @@ const LeftBar = () => {
           </Link>
         )}
 
-         {/* Log in button */}
+        {/* Log in button */}
         {!user && (
           <Link to="/auth">
             <IconButton
-              color="blue.500"
               variant="ghost"
               borderRadius="50%"
               size="lg"
@@ -91,12 +90,11 @@ const LeftBar = () => {
           </Link>
         )}
 
-         {/* Log out button*/}
+        {/* Log out button*/}
         {user && (
           <IconButton
             onClick={handleSignOut}
             variant="ghost"
-            color="red.300"
             my={2}
             size="lg"
             borderRadius="50%"

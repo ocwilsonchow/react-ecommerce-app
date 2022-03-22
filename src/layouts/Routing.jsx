@@ -13,6 +13,7 @@ import PagesHome from '../pages/Home';
 import PagesAuth from '../pages/Auth';
 import PagesCategories from '../pages/Categories';
 import PagesAdmin from '../pages/Admin';
+import PagesShow from '../pages/Show';
 
 function Routing() {
   return (
@@ -26,6 +27,7 @@ function Routing() {
                   <Route index element={<PagesHome />} />
                   <Route path="/auth" element={<PagesAuth />} />
                   <Route path="/categories" element={<PagesCategories />} />
+                  <Route path="/product/:id" element={<PagesShow />} />
                   <Route path="/admin/stockmanagement" element={<PagesAdmin />}/>
 
                   <Route path="*" element={<PagesNotFound />} />

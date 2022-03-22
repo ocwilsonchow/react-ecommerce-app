@@ -17,7 +17,7 @@ import { useAuth } from '../contexts/AuthContext';
 
 const PagesAuth = () => {
     const secondaryBgColor = useColorModeValue('#FFFFFF', '#1D213C');
-     const bgColor = useColorModeValue('#F4F4F4', '#161633')
+     const bgColor = useColorModeValue('#F4F4F4', '#13031F')
 
   const [isSignup, setIsSignup] = useState(false);
   const emailRef = useRef();

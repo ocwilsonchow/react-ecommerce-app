@@ -5,7 +5,7 @@ import { useShop } from '../contexts/ShopContext';
 import CreateProduct from '../components/CreateProduct';
 
 const PagesAdmin = () => {
-  const bgColor = useColorModeValue('#F4F4F4', '#161633');
+  const bgColor = useColorModeValue('#F4F4F4', '#13031F');
   const { getCategories, categories } = useShop();
 
   useEffect(() => {

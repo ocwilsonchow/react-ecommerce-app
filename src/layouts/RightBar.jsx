@@ -24,7 +24,7 @@ import { useAuth } from '../contexts/AuthContext';
 import { useCart } from '../contexts/CartContext';
 
 const RightBar = () => {
-  const bgColor = useColorModeValue('#FFFFFF', '#1D213C');
+  const bgColor = useColorModeValue('#FFFFFF', '#141026');
   const secondaryBgColor = useColorModeValue('#FBF1F2', '#222D48');
   const tertiaryBgColor = useColorModeValue('#32343B', '#222D48');
   const { user } = useAuth();
