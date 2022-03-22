@@ -151,9 +151,9 @@ const PagesAuth = () => {
             </Flex>
 
             <HStack>
-              <Text>Have an account already?</Text>
+              <Text>Have not created an account?</Text>
               <Button size="sm" variant="ghost" onClick={switchMode}>
-                Log in
+                Sign up
               </Button>
             </HStack>
 
