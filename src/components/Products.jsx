@@ -13,12 +13,11 @@ import {
   Tooltip,
   HStack,
 } from '@chakra-ui/react';
-import { AddIcon, MinusIcon } from '@chakra-ui/icons';
 import { MdFavorite, MdShoppingCart } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 import { useShop } from '../contexts/ShopContext';
 import { useCart } from '../contexts/CartContext';
-import Banner from '../components/Banner';
+
 
 const Products = () => {
   const { getProducts, products } = useShop();
@@ -50,7 +49,7 @@ const Products = () => {
             >
               <Image
                 src={product.image}
-                boxSize={{ base: '100%', sm: '100%', md: '230px' }}
+                boxSize={{ base: '100%', sm: '100%', md: '210px' }}
                 objectFit="cover"
                 borderRadius="0.5rem"
               />

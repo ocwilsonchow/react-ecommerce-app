@@ -10,7 +10,7 @@ const Categories = () => {
   }, []);
 
   return (
-    <Flex px={6} py={4} flexWrap="wrap" justifyContent="center">
+    <Flex px={6} py={1} mt={2} flexWrap="wrap" justifyContent="center">
       {categories?.map((category, i) => (
         <Button size="xs" key={i} py={4} px={4} m={1} borderRadius="1rem" variant="outline">
           {category.name}
