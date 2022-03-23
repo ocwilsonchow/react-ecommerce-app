@@ -7,13 +7,16 @@ import { RiLoginBoxLine, RiLogoutBoxFill, RiAdminFill } from 'react-icons/ri';
 import { Link } from 'react-router-dom';
 
 import { useAuth } from '../contexts/AuthContext';
+import { useCart } from '../contexts/CartContext'
 import { ColorModeSwitcher } from '../ColorModeSwitcher';
 
 const LeftBar = () => {
   const bgColor = useColorModeValue('#FFFFFF', '#141026');
   const { signout, user } = useAuth();
+  const {resetCartOnLogout } = useCart()
 
   const handleSignOut = () => {
+    resetCartOnLogout()
     signout();
   };
 

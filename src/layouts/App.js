@@ -24,7 +24,7 @@ function App() {
         <Flex
           h="100vh"
           minW={["80px","80px","90px","280px"]}
-          display={{ base: 'none',sm: 'none', md: 'block' }}
+          display={{ base: 'none',sm: 'none', md: 'grid' }}
           overflow="auto"
         >
           <RightBar />

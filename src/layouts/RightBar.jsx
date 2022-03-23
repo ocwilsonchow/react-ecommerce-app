@@ -47,6 +47,8 @@ const RightBar = () => {
       alignItems="center"
       bg={bgColor}
       h="100%"
+      w="100%"
+      maxW="290px"
       overflow="auto"
       justifyContent="space-between"
     >

@@ -23,9 +23,14 @@ const CartContext = createContext();
 
 export function CartProvider({ children }) {
   const [cartItems, setCartItems] = useState([]);
-  const [checkLength, setCheckLength]  = useState([])
   const toast = useToast();
   const { user } = useAuth();
+
+  // Reset cart items on log out
+  const resetCartOnLogout = () => {
+    setCartItems([])
+    console.log("cart items cleaned")
+  }
 
   // Create cart items
   const createCartItem = async product => {
@@ -141,6 +146,7 @@ export function CartProvider({ children }) {
     createCartItem,
     increaseCartItemQuantity,
     decreaseCartItemQuantity,
+    resetCartOnLogout
   };
 
   return (
