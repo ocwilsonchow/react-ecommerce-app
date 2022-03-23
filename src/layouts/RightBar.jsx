@@ -30,6 +30,8 @@ import { MdFavorite, MdShoppingCart } from 'react-icons/md';
 const RightBar = () => {
   const bgColor = useColorModeValue('#FFFFFF', '#141026');
   const secondaryBgColor = useColorModeValue('#FBF1F2', '#222D48');
+  const secondaryHoverBgColor = useColorModeValue('teal.600', 'teal.700');
+
   const tertiaryBgColor = useColorModeValue('#32343B', '#222D48');
   const { user } = useAuth();
   const {
@@ -63,20 +65,25 @@ const RightBar = () => {
           alignItems="center"
           justifyContent="space-evenly"
         >
-          <InputGroup>
-            <InputLeftElement pointerEvents='none' children={<SearchIcon />}  />
+          <InputGroup display={{ md: 'none', lg: 'flex' }}>
+            <InputLeftElement pointerEvents="none" children={<SearchIcon />} />
             <Input
-            variant="outline"
-            borderRadius="1rem"
-            mr={3}
-            placeholder="Search"
-            display={{ md: 'none', lg: 'flex' }}
-          />
+              variant="outline"
+              borderRadius="1rem"
+              mr={3}
+              placeholder="Search"
+            />
           </InputGroup>
 
           {user?.photoURL && <Avatar src={user.photoURL} />}
           <Avatar />
         </Flex>
+        {/* <IconButton
+          icon={<SearchIcon />}
+          display={{ md: 'flex', lg: 'none' }}
+          variant="ghost"
+          borderRadius="50%"
+        /> */}
 
         {/* Gadget Box */}
         <Flex
@@ -100,13 +107,17 @@ const RightBar = () => {
         overflow="auto"
       >
         {/* Shopping Cart */}
-        <Flex flexDir="column" my={3}  alignItems="center">
+        <Flex flexDir="column" my={3} alignItems="center">
           <Text fontWeight="bold" my={2} display={{ md: 'none', lg: 'flex' }}>
             My Shopping Cart
           </Text>
 
-          {/* From firestore */}
-          {cartItems.length == 0 && <Text my={2} textAlign="center" >Cart is empty</Text>}
+          {/* Shopping cart item*/}
+          {cartItems.length == 0 && (
+            <Text my={2} textAlign="center">
+              Cart is empty
+            </Text>
+          )}
           {cartItems.map(item => (
             <Box
               key={item.id}
@@ -117,6 +128,9 @@ const RightBar = () => {
               alignItems="center"
               justifyContent="space-between"
               position="relative"
+              _hover={{ bg: secondaryHoverBgColor }}
+              transition="all ease 0.3s"
+              cursor="pointer"
             >
               <Tag
                 justifyContent="center"

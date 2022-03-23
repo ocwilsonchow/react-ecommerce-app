@@ -20,6 +20,7 @@ const SuggestedProducts = productCategory => {
   const { getSimilarProducts, similarProducts } = useShop();
   const secondaryBgColor = useColorModeValue('#FFFFFF', '#1D213C');
   const { createCartItem } = useCart();
+  const secondaryHoverBgColor = useColorModeValue('teal.200', 'teal.700');
 
   useEffect(() => {
     getSimilarProducts(productCategory);
@@ -39,6 +40,9 @@ const SuggestedProducts = productCategory => {
             mx={2}
             my={2}
             bg={secondaryBgColor}
+            bg={secondaryBgColor}
+            _hover={{ bg: secondaryHoverBgColor }}
+            transition="all ease 0.5s"
             borderRadius="1rem"
             boxShadow="rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;"
           >

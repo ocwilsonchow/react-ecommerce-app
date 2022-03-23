@@ -23,6 +23,7 @@ const Products = () => {
   const { createCartItem, getCart, cartItems } = useCart();
 
   const secondaryBgColor = useColorModeValue('#FFFFFF', '#1D213C');
+  const secondaryHoverBgColor = useColorModeValue('teal.200', 'teal.700')
 
   useEffect(() => {
     getProducts();
@@ -37,6 +38,8 @@ const Products = () => {
             p={3}
             m={2}
             bg={secondaryBgColor}
+            _hover={{ bg: secondaryHoverBgColor }}
+            transition="all ease 0.3s"
             borderRadius="1rem"
             boxShadow="rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;"
           >
@@ -72,7 +75,7 @@ const Products = () => {
             </Link>
 
             <Flex>
-              <Text fontWeight="light">HKD {product.price}</Text>
+              <Text fontWeight="thin">HKD {product.price}</Text>
             </Flex>
 
             <Flex justifyContent="flex-end">
