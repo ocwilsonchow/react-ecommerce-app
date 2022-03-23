@@ -43,12 +43,11 @@ export function ShopProvider({ children }) {
 
   // Get single product
   const getProduct = async (id) => {
+    setProduct()
     const q = query(doc(db, "products", id))
     const querySnapshot = await getDoc(q)
-    setProduct(querySnapshot.data())
+    setProduct({...querySnapshot.data(), id: querySnapshot.id})
   }
-
-  console.log(product)
 
   // Create product
   const createProduct = async (
@@ -140,7 +139,7 @@ export function ShopProvider({ children }) {
     decreaseProductStock,
     deleteProduct,
     getProduct,
-    product
+    product,
   };
 
   return (

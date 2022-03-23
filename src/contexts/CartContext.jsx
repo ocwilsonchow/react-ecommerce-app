@@ -29,6 +29,7 @@ export function CartProvider({ children }) {
 
   // Create cart items
   const createCartItem = async product => {
+    console.log(product)
     if (!user) {
       toast({
         title: 'Login required',

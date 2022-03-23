@@ -11,10 +11,14 @@ import {
   Badge,
   Tag,
   Box,
+  IconButton,
 } from '@chakra-ui/react';
 import { useParams, Link } from 'react-router-dom';
+import { MdFavorite, MdShoppingCart } from 'react-icons/md';
 
 import { useShop } from '../contexts/ShopContext';
+import { useCart } from '../contexts/CartContext';
+
 import Categories from '../components/Categories';
 
 const PagesShow = () => {
@@ -22,12 +26,12 @@ const PagesShow = () => {
   const { product, getProduct } = useShop();
   const [loading, setLoading] = useState(true);
   const { id } = useParams();
+  const { createCartItem } = useCart();
 
   useEffect(() => {
-    setLoading(true);
     getProduct(id);
-
-    return setLoading(false);
+    setLoading(false);
+    console.log(product);
   }, []);
 
   return (
@@ -40,7 +44,8 @@ const PagesShow = () => {
       alignItems="center"
     >
       <Categories />
-      <Flex
+      {product && (
+         <Flex
         p={2}
         w="100%"
         flexDir={{ base: 'column', sm: 'column', md: 'row' }}
@@ -65,16 +70,18 @@ const PagesShow = () => {
               {product?.name}
             </Text>
             <HStack mx={4} mt={2}>
-              <Badge fontSize="sm" colorScheme="twitter">{product?.category}</Badge>
+              <Badge fontSize="sm" colorScheme="twitter">
+                {product?.category}
+              </Badge>
               {product?.stock > 0 ? (
-                    <Badge fontSize="sm" colorScheme="orange">
-                      In stock
-                    </Badge>
-                  ) : (
-                    <Badge  fontSize="sm" colorScheme="">
-                      Out of Stock
-                    </Badge>
-                  )}
+                <Badge fontSize="sm" colorScheme="orange">
+                  In stock
+                </Badge>
+              ) : (
+                <Badge fontSize="sm" colorScheme="">
+                  Out of Stock
+                </Badge>
+              )}
             </HStack>
           </Flex>
           <Text mx={4}>
@@ -84,11 +91,28 @@ const PagesShow = () => {
           <Text mx={4} fontSize="xl" fontWeight="medium">
             HKD {product?.price}
           </Text>
-          <Button mt={4} mx={4} colorScheme="twitter">
-            Add to cart
-          </Button>
+          <Flex mx={3}>
+            <IconButton
+              mt={1}
+              mx={1}
+              size="lg"
+              borderRadius="50%"
+              icon={<MdFavorite />}
+            />
+            <IconButton
+              mt={1}
+              mx={1}
+              size="lg"
+              borderRadius="50%"
+              disabled={product?.stock == 0}
+              colorScheme="twitter"
+              icon={<MdShoppingCart />}
+              onClick={() => createCartItem(product)}
+            />
+          </Flex>
         </Flex>
       </Flex>
+      )}
     </Flex>
   );
 };
