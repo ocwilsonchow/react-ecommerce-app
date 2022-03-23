@@ -18,7 +18,6 @@ import { Link } from 'react-router-dom';
 import { useShop } from '../contexts/ShopContext';
 import { useCart } from '../contexts/CartContext';
 
-
 const Products = () => {
   const { getProducts, products } = useShop();
   const { createCartItem, getCart, cartItems } = useCart();
@@ -31,75 +30,72 @@ const Products = () => {
 
   return (
     <>
-      <Flex
-        flexWrap="wrap"
-        justifyContent="center"
-        w="100%"
-        px="1rem"
-      >
+      <Flex flexWrap="wrap" justifyContent="center" w="100%" px="1rem">
         {products?.map(product => (
-          <Link to={`/product/${product.id}`} key={product.id}>
-            <Flex
-              flexDir="column"
-              p={3}
-              m={2}
-              bg={secondaryBgColor}
-              borderRadius="1rem"
-              boxShadow="rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;"
-            >
+          <Flex
+            flexDir="column"
+            p={3}
+            m={2}
+            bg={secondaryBgColor}
+            borderRadius="1rem"
+            boxShadow="rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;"
+          >
+            <Link to={`/product/${product.id}`} key={product.id}>
               <Image
                 src={product.image}
                 boxSize={{ base: '100%', sm: '100%', md: '210px' }}
                 objectFit="cover"
                 borderRadius="0.5rem"
               />
-
-              <Tooltip label={product.id}>
-                <Flex justifyContent="space-between">
-                  <Badge mt={3} fontSize="xs">
-                    {product.category}
+            </Link>
+            <Tooltip label={product.id}>
+              <Flex justifyContent="space-between">
+                <Badge mt={3} fontSize="xs">
+                  {product.category}
+                </Badge>
+                {product.stock > 0 ? (
+                  <Badge mt={3} fontSize="xs" colorScheme="orange">
+                    In stock
                   </Badge>
-                  {product.stock > 0 ? (
-                    <Badge mt={3} fontSize="xs" colorScheme="orange">
-                      In stock
-                    </Badge>
-                  ) : (
-                    <Badge mt={3} fontSize="xs" colorScheme="">
-                      Out of Stock
-                    </Badge>
-                  )}
-                </Flex>
-              </Tooltip>
+                ) : (
+                  <Badge mt={3} fontSize="xs" colorScheme="">
+                    Out of Stock
+                  </Badge>
+                )}
+              </Flex>
+            </Tooltip>
 
+            <Link to={`/product/${product.id}`} key={product.id}>
               <Text mt={2} fontWeight="bold" isTruncated>
                 {product.name}
               </Text>
-              <Flex>
-                <Text fontWeight="light">HKD {product.price}</Text>
-              </Flex>
+            </Link>
 
-              <Flex justifyContent="flex-end">
-                <IconButton
-                  mt={1}
-                  mx={1}
-                  size="md"
-                  borderRadius="50%"
-                   variant="outline"
-                  icon={<MdFavorite />}
-                />
-                <IconButton
-                  mt={1}
-                  mx={1}
-                  size="md"
-                  borderRadius="50%"
-                  disabled={product.stock == 0}
-                  icon={<MdShoppingCart />}
-                  variant="outline"
-                  onClick={() => createCartItem(product)}
-                />
-              </Flex>
+            <Flex>
+              <Text fontWeight="light">HKD {product.price}</Text>
             </Flex>
-          </Link>
+
+            <Flex justifyContent="flex-end">
+              <IconButton
+                mt={1}
+                mx={1}
+                size="md"
+                borderRadius="50%"
+                variant="outline"
+                icon={<MdFavorite />}
+              />
+              <IconButton
+                mt={1}
+                mx={1}
+                size="md"
+                borderRadius="50%"
+                disabled={product.stock == 0}
+                icon={<MdShoppingCart />}
+                variant="outline"
+                onClick={() => createCartItem(product)}
+              />
+            </Flex>
+          </Flex>
         ))}
       </Flex>
     </>

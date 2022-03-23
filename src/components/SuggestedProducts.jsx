@@ -33,71 +33,76 @@ const SuggestedProducts = productCategory => {
 
       <Flex flexWrap="wrap" w="100%" justifyContent="center">
         {similarProducts?.map(product => (
-          <Link to={`/product/${product.id}`} key={product.id}>
-            <Flex
-              flexDir="column"
-              p={3}
-              mx={2}
-              my={2}
-              bg={secondaryBgColor}
-              borderRadius="1rem"
-              boxShadow="rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;"
-            >
-              <Image
-                src={product.image}
-                boxSize={{ base: '100%', sm: '100%', md: '180px' }}
-                objectFit="cover"
-                borderRadius="0.5rem"
-              />
+          <Flex
+            flexDir="column"
+            p={3}
+            mx={2}
+            my={2}
+            bg={secondaryBgColor}
+            borderRadius="1rem"
+            boxShadow="rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;"
+          >
+            <Flex justifyContent="center">
+              <Link to={`/product/${product.id}`} key={product.id}>
+                {' '}
+                <Image
+                  src={product.image}
+                  boxSize={{ base: '100%', sm: '100%', md: '200px' }}
+                  objectFit="cover"
+                  borderRadius="0.5rem"
+                />
+              </Link>
+            </Flex>
 
-              <Tooltip label={product.id}>
-                <Flex justifyContent="space-between">
-                  <Badge mt={3} fontSize="xs">
-                    {product.category}
+            <Tooltip label={product.id}>
+              <Flex flexWrap="wrap" justifyContent="space-between">
+                <Badge mt={3} fontSize="xs">
+                  {product.category}
+                </Badge>
+                {product.stock > 0 ? (
+                  <Badge mt={3} fontSize="xs" colorScheme="orange">
+                    In stock
                   </Badge>
-                  {product.stock > 0 ? (
-                    <Badge mt={3} fontSize="xs" colorScheme="orange">
-                      In stock
-                    </Badge>
-                  ) : (
-                    <Badge mt={3} fontSize="xs" colorScheme="">
-                      Out of Stock
-                    </Badge>
-                  )}
-                </Flex>
-              </Tooltip>
+                ) : (
+                  <Badge mt={3} fontSize="xs" colorScheme="">
+                    Out of Stock
+                  </Badge>
+                )}
+              </Flex>
+            </Tooltip>
 
-              <Tooltip label={product.name}>
+            <Tooltip label={product.name}>
+              <Link to={`/product/${product.id}`} key={product.id}>
                 <Text mt={2} fontWeight="bold" isTruncated maxW="180px">
                   {product.name}
                 </Text>
-              </Tooltip>
-              <Flex>
-                <Text fontWeight="light">HKD {product.price}</Text>
-              </Flex>
-
-              <Flex justifyContent="flex-end">
-                <IconButton
-                  mt={1}
-                  mx={1}
-                  size="md"
-                  borderRadius="50%"
-                  variant="outline"
-                  icon={<MdFavorite />}
-                />
-                <IconButton
-                  mt={1}
-                  mx={1}
-                  size="md"
-                  borderRadius="50%"
-                  disabled={product.stock == 0}
-                  icon={<MdShoppingCart />}
-                  variant="outline"
-                  onClick={() => createCartItem(product)}
-                />
-              </Flex>
+              </Link>
+            </Tooltip>
+            <Flex>
+              <Text fontWeight="light">HKD {product.price}</Text>
             </Flex>
-          </Link>
+
+            <Flex justifyContent="flex-end">
+              <IconButton
+                mt={1}
+                mx={1}
+                size="md"
+                borderRadius="50%"
+                variant="outline"
+                icon={<MdFavorite />}
+              />
+              <IconButton
+                mt={1}
+                mx={1}
+                size="md"
+                borderRadius="50%"
+                disabled={product.stock == 0}
+                icon={<MdShoppingCart />}
+                variant="outline"
+                onClick={() => createCartItem(product)}
+              />
+            </Flex>
+          </Flex>
         ))}
       </Flex>
     </VStack>
