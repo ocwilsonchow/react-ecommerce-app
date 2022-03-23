@@ -20,7 +20,7 @@ const PagesAdmin = () => {
   }, []);
 
   return (
-    <Flex w="100%" h="100vh" overflow="auto" position="relative">
+    <Flex w="100%"  overflow="auto" position="relative">
       <Badge
         position="absolute"
         top="2rem"

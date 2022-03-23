@@ -21,8 +21,8 @@ function App() {
       >
         <LeftBar />
       </Flex>
-      <Flex display="block" h="100vh" overflow="auto" w="100%" bg={bgColor}>
-        <Categories />
+      <Flex display="block" h="100vh" overflow="auto" w="100%" bg={bgColor} >
+        <Categories/>
         <Outlet />
       </Flex>
       <Flex

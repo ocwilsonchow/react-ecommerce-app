@@ -42,7 +42,6 @@ const PagesShow = () => {
       flexDir="column"
       bg={bgColor}
       w="100%"
-      h="100vh"
       overflow="auto"
       alignItems="center"
     >

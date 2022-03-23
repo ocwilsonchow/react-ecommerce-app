@@ -4,7 +4,7 @@ import Products from '../components/Products';
 
 const PagesHome = () => {
   return (
-    <Flex flexDir="column" w="100%" h="100vh" overflow="auto">
+    <Flex flexDir="column" w="100%" overflow="auto">
       <Products />
     </Flex>
   );

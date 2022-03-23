@@ -21,7 +21,7 @@ const PagesShowCategory = () => {
     <Flex
       flexDir="column"
       w="100%"
-      h="100vh"
+
       overflow="auto"
       alignItems="center"
     >
