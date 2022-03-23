@@ -36,10 +36,8 @@ const Products = () => {
         flexWrap="wrap"
         justifyContent="center"
         w="100%"
-        overflow="auto"
         px="1rem"
       >
-        <Banner />
         {products?.map(product => (
           <Link to={`/product/${product.id}`} key={product.id}>
             <Flex
@@ -87,6 +85,7 @@ const Products = () => {
                   mx={1}
                   size="md"
                   borderRadius="50%"
+                   variant="outline"
                   icon={<MdFavorite />}
                 />
                 <IconButton
@@ -96,6 +95,7 @@ const Products = () => {
                   borderRadius="50%"
                   disabled={product.stock == 0}
                   icon={<MdShoppingCart />}
+                  variant="outline"
                   onClick={() => createCartItem(product)}
                 />
               </Flex>

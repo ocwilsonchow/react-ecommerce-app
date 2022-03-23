@@ -17,13 +17,13 @@ import {
   Checkbox,
   Tooltip,
   Tag,
+  Fade,
 } from '@chakra-ui/react';
 import { getDoc } from 'firebase/firestore';
 import { MinusIcon, AddIcon, DeleteIcon } from '@chakra-ui/icons';
 import { useAuth } from '../contexts/AuthContext';
 import { useCart } from '../contexts/CartContext';
 import { MdFavorite, MdShoppingCart } from 'react-icons/md';
-
 
 const RightBar = () => {
   const bgColor = useColorModeValue('#FFFFFF', '#141026');
@@ -65,7 +65,7 @@ const RightBar = () => {
             borderRadius="1rem"
             mr={5}
             placeholder="Search"
-            display={{md: 'none', lg: "block"}}
+            display={{ md: 'none', lg: 'block' }}
           />
 
           {user?.photoURL && <Avatar src={user.photoURL} />}
@@ -80,9 +80,8 @@ const RightBar = () => {
           h="230px"
           borderRadius="1rem"
           m={2}
-          display={{md: 'none', lg: "block"}}
-        >
-        </Flex>
+          display={{ md: 'none', lg: 'block' }}
+        ></Flex>
       </Flex>
 
       <Flex
@@ -96,7 +95,7 @@ const RightBar = () => {
       >
         {/* Shopping Cart */}
         <Flex flexDir="column" my={3} w="85%" alignItems="center">
-          <Text fontWeight="bold" my={2} display={{md: 'none', lg: "block"}}>
+          <Text fontWeight="bold" my={2} display={{ md: 'none', lg: 'block' }}>
             My Shopping Cart
           </Text>
 
@@ -134,21 +133,25 @@ const RightBar = () => {
                   borderRadius="0.5rem"
                 />
 
-                <Flex flexDir="column" px={2} display={{md: 'none', lg: "block"}} >
+                <Flex
+                  flexDir="column"
+                  px={2}
+                  display={{ md: 'none', lg: 'block' }}
+                >
                   <Tooltip label={item.productName}>
                     <Text color="white" fontWeight="bold" w="120px" isTruncated>
                       {item.productName}
                     </Text>
                   </Tooltip>
-                  <HStack >
+                  <HStack>
                     <Text color="white" fontWeight="light">
                       HKD {item.price}
                     </Text>
                   </HStack>
                 </Flex>
-                <Flex display={{md: 'none', lg: "block"}}>
+                <Flex display={{ md: 'none', lg: 'block' }}>
                   <IconButton
-                  mr={1}
+                    mr={1}
                     borderRadius="50%"
                     size="xs"
                     icon={
@@ -170,7 +173,6 @@ const RightBar = () => {
           ))}
         </Flex>
 
-
         {/* Checkout button */}
         <Flex justifyContent="center" w="100%">
           <Button
@@ -180,11 +182,14 @@ const RightBar = () => {
             colorScheme="twitter"
             fontWeight="bold"
             disabled={cartItems.length == 0}
-            display={{md: 'none', lg: "block"}}
+            display={{ md: 'none', lg: 'block' }}
           >
             Check Out
           </Button>
-          <IconButton icon={<MdShoppingCart />}  display={{md: 'flex', lg: "none"}}/>
+          <IconButton
+            icon={<MdShoppingCart />}
+            display={{ md: 'flex', lg: 'none' }}
+          />
         </Flex>
       </Flex>
     </Flex>
