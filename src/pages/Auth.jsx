@@ -11,13 +11,12 @@ import {
   FormHelperText,
   Input,
   Button,
-  useColorModeValue
+  useColorModeValue,
 } from '@chakra-ui/react';
 import { useAuth } from '../contexts/AuthContext';
 
 const PagesAuth = () => {
-    const secondaryBgColor = useColorModeValue('#FFFFFF', '#1D213C');
-     const bgColor = useColorModeValue('#F4F4F4', '#13031F')
+  const secondaryBgColor = useColorModeValue('#FFFFFF', '#1D213C');
 
   const [isSignup, setIsSignup] = useState(false);
   const emailRef = useRef();
@@ -43,29 +42,34 @@ const PagesAuth = () => {
     setLoading(false);
   };
 
-  const handleLogin = async (e) => {
-    e.preventDefault()
+  const handleLogin = async e => {
+    e.preventDefault();
     try {
-      setError('')
-      setLoading(true)
-      await login(emailRef.current.value, passwordRef.current.value)
+      setError('');
+      setLoading(true);
+      await login(emailRef.current.value, passwordRef.current.value);
     } catch {
-      setError('Failed to log in')
+      setError('Failed to log in');
     }
-     setLoading(false);
-  }
+    setLoading(false);
+  };
 
   const switchMode = () => {
     setIsSignup(prevIsSignup => !prevIsSignup);
   };
 
-  if (user) return <Flex>You're logged in already</Flex>
+  if (user) return <Flex>You're logged in already</Flex>;
 
   return (
-    <Flex flexDir="column" w="100%" p={5} bg={bgColor} h="100vh" alignItems="center">
-
-
-      <VStack bg={secondaryBgColor} borderRadius="1rem" m={8} p={8} w="100%" maxW="400px">
+    <Flex flexDir="column" w="100%" p={5} h="100vh" alignItems="center">
+      <VStack
+        bg={secondaryBgColor}
+        borderRadius="1rem"
+        m={8}
+        p={8}
+        w="100%"
+        maxW="400px"
+      >
         {isSignup && (
           <FormControl>
             <Text fontWeight="bold" fontSize="3xl">

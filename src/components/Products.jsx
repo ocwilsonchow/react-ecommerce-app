@@ -39,6 +39,7 @@ const Products = () => {
             m={2}
             bg={secondaryBgColor}
             _hover={{ bg: secondaryHoverBgColor }}
+            cursor="pointer"
             transition="all ease 0.3s"
             borderRadius="1rem"
             boxShadow="rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;"
@@ -75,7 +76,7 @@ const Products = () => {
             </Link>
 
             <Flex>
-              <Text fontWeight="thin">HKD {product.price}</Text>
+              <Text fontWeight="light">HKD {product.price}</Text>
             </Flex>
 
             <Flex justifyContent="flex-end">

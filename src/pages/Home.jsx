@@ -1,16 +1,13 @@
-import React from 'react'
-import {Flex,VStack,useColorModeValue, Image } from '@chakra-ui/react'
-import Products from '../components/Products'
-import Categories from '../components/Categories'
+import React from 'react';
+import { Flex, VStack, useColorModeValue, Image } from '@chakra-ui/react';
+import Products from '../components/Products';
 
 const PagesHome = () => {
-  const bgColor = useColorModeValue('#f5f5f5', '#13031F')
   return (
-    <Flex flexDir="column" bg={bgColor} w="100%" h="100vh" overflow="auto">
-      <Categories />
+    <Flex flexDir="column" w="100%" h="100vh" overflow="auto">
       <Products />
     </Flex>
-  )
-}
+  );
+};
 
-export default PagesHome
+export default PagesHome;

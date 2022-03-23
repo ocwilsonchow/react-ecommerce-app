@@ -46,7 +46,6 @@ const PagesShow = () => {
       overflow="auto"
       alignItems="center"
     >
-      <Categories />
       <VStack justifyContent="space-between" h="100%" py={6}>
         {product && (
           <Flex
@@ -86,7 +85,9 @@ const PagesShow = () => {
                   )}
                 </HStack>
               </Flex>
-              <Text m={4} fontWeight="light">{product?.description || 'No description.'}</Text>
+              <Text m={4} fontWeight="light">
+                {product?.description || 'No description.'}
+              </Text>
               <Text m={4} fontSize="xl" fontWeight="medium">
                 HKD {product?.price}
               </Text>

@@ -40,7 +40,7 @@ const SuggestedProducts = productCategory => {
             mx={2}
             my={2}
             bg={secondaryBgColor}
-            bg={secondaryBgColor}
+            cursor="pointer"
             _hover={{ bg: secondaryHoverBgColor }}
             transition="all ease 0.5s"
             borderRadius="1rem"

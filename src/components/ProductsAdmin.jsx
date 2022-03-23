@@ -38,7 +38,7 @@ const ProductsAdmin = () => {
           p={3}
           m={2}
           bg={secondaryBgColor}
-
+          cursor="pointer"
           _hover={{ bg: secondaryHoverBgColor }}
           transition="all ease 0.3s"
           borderRadius="1rem"
