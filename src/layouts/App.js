@@ -13,18 +13,18 @@ function App() {
       <Flex w="100vw">
         <Flex
           h="100vh"
-          minW={['0px', '80px', '80px', '80px']}
-          display={{ sm: 'none', md: 'block' }}
+          minW="80px"
+          display={{ base: 'none',sm: 'none', md: 'grid' }}
         >
           <LeftBar />
         </Flex>
-        <Flex h="100vh" overflow="auto" w="100%">
+        <Flex display="block" h="100vh" overflow="auto" flexGrow="1">
           <Outlet />
         </Flex>
         <Flex
           h="100vh"
-          minW={['0px', '300px', '300px', '300px']}
-          display={{ sm: 'none', md: 'block' }}
+          minW={["80px","80px","90px","300px"]}
+          display={{ base: 'none',sm: 'none', md: 'grid' }}
           overflow="auto"
         >
           <RightBar />

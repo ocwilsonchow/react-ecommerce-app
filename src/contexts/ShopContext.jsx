@@ -11,6 +11,7 @@ import {
   orderBy,
   deleteDoc,
   increment,
+  getDoc,
 } from 'firebase/firestore';
 import { db } from '../firebase';
 import { useToast } from '@chakra-ui/react';
@@ -20,6 +21,7 @@ const ShopContext = createContext();
 export function ShopProvider({ children }) {
   const [categories, setCategories] = useState();
   const [products, setProducts] = useState();
+  const [product, setProduct] = useState()
   const toast = useToast();
 
   // Get categories
@@ -40,6 +42,13 @@ export function ShopProvider({ children }) {
   };
 
   // Get single product
+  const getProduct = async (id) => {
+    const q = query(doc(db, "products", id))
+    const querySnapshot = await getDoc(q)
+    setProduct(querySnapshot.data())
+  }
+
+  console.log(product)
 
   // Create product
   const createProduct = async (
@@ -129,7 +138,9 @@ export function ShopProvider({ children }) {
     products,
     increaseProductStock,
     decreaseProductStock,
-    deleteProduct
+    deleteProduct,
+    getProduct,
+    product
   };
 
   return (

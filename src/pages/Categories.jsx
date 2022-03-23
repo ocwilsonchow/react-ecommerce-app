@@ -6,7 +6,7 @@ const Categories = () => {
 
 
   return (
-    <Flex w="100%" bg={bgColor}>
+    <Flex w="100%" bg={bgColor} h="100vh">
      <Center w="100%">
         <Text fontWeight="bold" fontSize="4xl">Categories Page is still under development</Text>
      </Center>

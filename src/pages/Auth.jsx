@@ -62,7 +62,7 @@ const PagesAuth = () => {
   if (user) return <Flex>You're logged in already</Flex>
 
   return (
-    <VStack w="100%" p={5} bg={bgColor}>
+    <VStack w="100%" p={5} bg={bgColor} h="100vh">
 
 
       <VStack bg={secondaryBgColor} borderRadius="1rem" m={8} p={8} minW="400px">

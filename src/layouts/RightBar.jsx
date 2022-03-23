@@ -22,6 +22,8 @@ import { getDoc } from 'firebase/firestore';
 import { MinusIcon, AddIcon, DeleteIcon } from '@chakra-ui/icons';
 import { useAuth } from '../contexts/AuthContext';
 import { useCart } from '../contexts/CartContext';
+import { MdFavorite, MdShoppingCart } from 'react-icons/md';
+
 
 const RightBar = () => {
   const bgColor = useColorModeValue('#FFFFFF', '#141026');
@@ -37,7 +39,6 @@ const RightBar = () => {
 
   useEffect(() => {
     getCart();
-    console.log(cartItems);
   }, [user]);
 
   return (
@@ -64,6 +65,7 @@ const RightBar = () => {
             borderRadius="1rem"
             mr={5}
             placeholder="Search"
+            display={{md: 'none', lg: "block"}}
           />
 
           {user?.photoURL && <Avatar src={user.photoURL} />}
@@ -78,6 +80,7 @@ const RightBar = () => {
           h="230px"
           borderRadius="1rem"
           m={2}
+          display={{md: 'none', lg: "block"}}
         >
         </Flex>
       </Flex>
@@ -92,8 +95,8 @@ const RightBar = () => {
         overflow="auto"
       >
         {/* Shopping Cart */}
-        <Flex flexDir="column" my={3} w="85%">
-          <Text fontWeight="bold" my={2}>
+        <Flex flexDir="column" my={3} w="85%" alignItems="center">
+          <Text fontWeight="bold" my={2} display={{md: 'none', lg: "block"}}>
             My Shopping Cart
           </Text>
 
@@ -131,20 +134,21 @@ const RightBar = () => {
                   borderRadius="0.5rem"
                 />
 
-                <Flex flexDir="column">
+                <Flex flexDir="column" px={2} display={{md: 'none', lg: "block"}} >
                   <Tooltip label={item.productName}>
                     <Text color="white" fontWeight="bold" w="120px" isTruncated>
                       {item.productName}
                     </Text>
                   </Tooltip>
-                  <HStack>
+                  <HStack >
                     <Text color="white" fontWeight="light">
                       HKD {item.price}
                     </Text>
                   </HStack>
                 </Flex>
-                <HStack>
+                <Flex display={{md: 'none', lg: "block"}}>
                   <IconButton
+                  mr={1}
                     borderRadius="50%"
                     size="xs"
                     icon={
@@ -160,7 +164,7 @@ const RightBar = () => {
                     icon={<AddIcon />}
                     onClick={() => increaseCartItemQuantity(item.id)}
                   />
-                </HStack>
+                </Flex>
               </Flex>
             </Box>
           ))}
@@ -176,9 +180,11 @@ const RightBar = () => {
             colorScheme="twitter"
             fontWeight="bold"
             disabled={cartItems.length == 0}
+            display={{md: 'none', lg: "block"}}
           >
             Check Out
           </Button>
+          <IconButton icon={<MdShoppingCart />}  display={{md: 'flex', lg: "none"}}/>
         </Flex>
       </Flex>
     </Flex>
