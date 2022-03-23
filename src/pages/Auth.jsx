@@ -62,10 +62,10 @@ const PagesAuth = () => {
   if (user) return <Flex>You're logged in already</Flex>
 
   return (
-    <VStack w="100%" p={5} bg={bgColor} h="100vh">
+    <Flex flexDir="column" w="100%" p={5} bg={bgColor} h="100vh" alignItems="center">
 
 
-      <VStack bg={secondaryBgColor} borderRadius="1rem" m={8} p={8} minW="400px">
+      <VStack bg={secondaryBgColor} borderRadius="1rem" m={8} p={8} w="100%" maxW="400px">
         {isSignup && (
           <FormControl>
             <Text fontWeight="bold" fontSize="3xl">
@@ -167,7 +167,7 @@ const PagesAuth = () => {
 
         {error && <Flex>{error}</Flex>}
       </VStack>
-    </VStack>
+    </Flex>
   );
 };
 

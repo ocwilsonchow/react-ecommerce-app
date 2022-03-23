@@ -10,6 +10,7 @@ import {
   Code,
   IconButton,
   HStack,
+  Tooltip,
 } from '@chakra-ui/react';
 import { AddIcon, MinusIcon, DeleteIcon } from '@chakra-ui/icons';
 
@@ -48,9 +49,11 @@ const ProductsAdmin = () => {
               stock: {product.stock}
             </Badge>
           </Flex>
-          <Text mt={2} fontWeight="bold">
+         <Tooltip label={product.name}>
+            <Text mt={2} fontWeight="bold" isTruncated maxW="200px">
             {product.name}
           </Text>
+         </Tooltip>
           <Flex>
             <Text fontWeight="light">HKD {product.price}</Text>
           </Flex>

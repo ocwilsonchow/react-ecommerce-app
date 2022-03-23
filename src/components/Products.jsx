@@ -66,7 +66,7 @@ const Products = () => {
             </Tooltip>
 
             <Link to={`/product/${product.id}`} key={product.id}>
-              <Text mt={2} fontWeight="bold" isTruncated>
+              <Text mt={2} fontWeight="bold" isTruncated maxW="210px">
                 {product.name}
               </Text>
             </Link>

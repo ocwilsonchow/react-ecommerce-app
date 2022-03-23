@@ -65,7 +65,7 @@ const RightBar = () => {
             borderRadius="1rem"
             mr={5}
             placeholder="Search"
-            display={{ md: 'none', lg: 'block' }}
+            display={{ md: 'none', lg: 'flex' }}
           />
 
           {user?.photoURL && <Avatar src={user.photoURL} />}
@@ -94,8 +94,8 @@ const RightBar = () => {
         overflow="auto"
       >
         {/* Shopping Cart */}
-        <Flex flexDir="column" my={3} w="85%" alignItems="center">
-          <Text fontWeight="bold" my={2} display={{ md: 'none', lg: 'block' }}>
+        <Flex flexDir="column" my={3}  alignItems="center">
+          <Text fontWeight="bold" my={2} display={{ md: 'none', lg: 'flex' }}>
             My Shopping Cart
           </Text>
 
