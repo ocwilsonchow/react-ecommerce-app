@@ -31,9 +31,12 @@ const PagesShow = () => {
   const { createCartItem } = useCart();
 
   useEffect(() => {
-    getProduct(id);
-    setLoading(false);
-  }, []);
+    if (id) {
+      getProduct(id);
+      setLoading(false);
+
+    }
+  }, [id]);
 
   return (
     <Flex
