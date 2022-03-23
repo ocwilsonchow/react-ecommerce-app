@@ -34,7 +34,6 @@ const PagesShow = () => {
     if (id) {
       getProduct(id);
       setLoading(false);
-
     }
   }, [id]);
 
@@ -56,23 +55,18 @@ const PagesShow = () => {
             flexDir={{ base: 'column', sm: 'column', md: 'row' }}
             justifyContent="center"
             alignItems={{ sm: 'center', md: 'flex-start' }}
-
           >
             {(loading && <Spinner size="xl" />) || (
               <Image
-                boxSize={['100%', '70%', 'xs', '350px']}
+                boxSize={['100%', '50%', 'xs', '350px']}
                 src={product?.image}
                 objectFit="cover"
                 borderRadius="1rem"
                 mb={5}
+                mr={5}
               />
             )}
-            <Flex
-              flexDir="column"
-              px={10}
-              maxW="700px"
-              justifyContent="space-between"
-            >
+            <Flex flexDir="column" maxW="600px" justifyContent="space-between">
               <Flex flexDir="column">
                 <Text fontWeight="bold" fontSize="3xl" mx={4}>
                   {product?.name}
@@ -92,23 +86,19 @@ const PagesShow = () => {
                   )}
                 </HStack>
               </Flex>
-              <Text m={4}>
-                {product?.description ||
-                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'}
-              </Text>
+              <Text m={4}>{product?.description || 'No description.'}</Text>
               <Text m={4} fontSize="xl" fontWeight="medium">
                 HKD {product?.price}
               </Text>
-              <Flex mx={3}>
+              <Flex mx={3} mt={5} alignItems="center">
                 <IconButton
-                  mt={1}
-                  mx={1}
+                  mr={5}
                   size="lg"
                   borderRadius="50%"
                   icon={<MdFavorite />}
                   variant="outline"
                 />
-                <IconButton
+                {/* <IconButton
                   mt={1}
                   mx={1}
                   size="lg"
@@ -117,7 +107,17 @@ const PagesShow = () => {
                   colorScheme="twitter"
                   icon={<MdShoppingCart />}
                   onClick={() => createCartItem(product)}
-                />
+                /> */}
+                <Button
+                  size="lg"
+                  variant="outline"
+                  colorScheme="twitter"
+                  disabled={product?.stock == 0}
+                  borderRadius="1rem"
+                  onClick={() => createCartItem(product)}
+                >
+                  Add to cart
+                </Button>
               </Flex>
             </Flex>
           </Flex>

@@ -8,6 +8,8 @@ import {
   Button,
   Text,
   Input,
+  InputGroup,
+  InputLeftElement,
   Badge,
   Avatar,
   HStack,
@@ -20,7 +22,7 @@ import {
   Fade,
 } from '@chakra-ui/react';
 import { getDoc } from 'firebase/firestore';
-import { MinusIcon, AddIcon, DeleteIcon } from '@chakra-ui/icons';
+import { MinusIcon, AddIcon, DeleteIcon, SearchIcon } from '@chakra-ui/icons';
 import { useAuth } from '../contexts/AuthContext';
 import { useCart } from '../contexts/CartContext';
 import { MdFavorite, MdShoppingCart } from 'react-icons/md';
@@ -61,17 +63,19 @@ const RightBar = () => {
           alignItems="center"
           justifyContent="space-evenly"
         >
-          <Input
-            bg={secondaryBgColor}
-            border="none"
+          <InputGroup>
+            <InputLeftElement pointerEvents='none' children={<SearchIcon />}  />
+            <Input
+            variant="outline"
             borderRadius="1rem"
-            mr={5}
+            mr={3}
             placeholder="Search"
             display={{ md: 'none', lg: 'flex' }}
           />
+          </InputGroup>
 
           {user?.photoURL && <Avatar src={user.photoURL} />}
-          <Avatar bg="teal.500" />
+          <Avatar />
         </Flex>
 
         {/* Gadget Box */}
@@ -102,7 +106,7 @@ const RightBar = () => {
           </Text>
 
           {/* From firestore */}
-          {cartItems.length == 0 && <Text my={2}>Your cart has no item.</Text>}
+          {cartItems.length == 0 && <Text my={2} textAlign="center" >Cart is empty</Text>}
           {cartItems.map(item => (
             <Box
               key={item.id}
