@@ -29,8 +29,10 @@ export function ShopProvider({ children }) {
   const [categoryProducts, setCategoryProducts] = useState();
   const [pageNumber, setPageNumber] = useState(0);
 
-  const productsPerPage = 10;
+  const productsPerPage = 12;
   const productsVisited = pageNumber * productsPerPage;
+  const numberOfPages = Math.ceil(products?.length/productsPerPage)
+
 
   const [displayProducts, setDisplayProducts] = useState();
 
@@ -44,7 +46,7 @@ export function ShopProvider({ children }) {
     setDisplayProducts(
       products?.slice(productsVisited, productsVisited + productsPerPage)
     );
-    console.log('updated displayProducts');
+    console.log(numberOfPages, pageNumber);
   };
 
   const increasePageNumber = () => {
@@ -202,7 +204,7 @@ export function ShopProvider({ children }) {
     increasePageNumber,
     decreasePageNumber,
     pageNumber,
-    updateDisplayProducts
+    updateDisplayProducts,
   };
 
   return (

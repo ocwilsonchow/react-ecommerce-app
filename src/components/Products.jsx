@@ -21,7 +21,7 @@ import { useCart } from '../contexts/CartContext';
 import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons';
 
 const Products = () => {
-  const { getProducts, updateDisplayProducts, displayProducts,increasePageNumber,decreasePageNumber, pageNumber } = useShop();
+  const { getProducts, updateDisplayProducts, displayProducts,increasePageNumber,decreasePageNumber, pageNumber, numberOfPages } = useShop();
   const { createCartItem } = useCart();
 
   const secondaryBgColor = useColorModeValue('#FFFFFF', '#1D213C');
@@ -49,6 +49,7 @@ const Products = () => {
           variant="outline"
           borderRadius="full"
           icon={<ChevronRightIcon />}
+          disabled={pageNumber == 3}
           onClick={() => increasePageNumber()}
         />
       </HStack>
