@@ -55,7 +55,7 @@ const LeftBar = () => {
             icon={<FaThList />}
           />
         </Link>
-        <Link to="/cart">
+        <Link to="/checkout">
           <Box position="relative">
             {user && (
               <Tag

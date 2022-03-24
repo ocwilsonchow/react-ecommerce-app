@@ -1,6 +1,7 @@
 import React from 'react';
 import { Flex, theme, useColorModeValue } from '@chakra-ui/react';
 import './App.scss';
+import "@stripe/stripe-js"
 
 import LeftBar from '../layouts/LeftBar';
 import RightBar from '../layouts/RightBar';

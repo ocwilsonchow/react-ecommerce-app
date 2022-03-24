@@ -15,7 +15,7 @@ import PagesCategories from '../pages/Categories';
 import PagesAdmin from '../pages/Admin';
 import PagesShow from '../pages/Show';
 import PagesShowCategory from '../pages/Category'
-import PagesCart from '../pages/Cart'
+import PagesCheckout from '../pages/Checkout'
 
 function Routing() {
   return (
@@ -31,7 +31,7 @@ function Routing() {
                   <Route path="/categories" element={<PagesCategories />} />
                   <Route path="/categories/:id" element={<PagesShowCategory />} />
                   <Route path="/product/:id" element={<PagesShow />} />
-                  <Route path="/cart" element={<PagesCart />} />
+                  <Route path="/checkout" element={<PagesCheckout />} />
                   <Route path="/admin/stockmanagement" element={<PagesAdmin />}/>
 
                   <Route path="*" element={<PagesNotFound />} />

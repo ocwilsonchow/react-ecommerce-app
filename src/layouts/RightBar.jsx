@@ -21,7 +21,7 @@ import {
   Tag,
   Fade,
 } from '@chakra-ui/react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { MinusIcon, AddIcon, DeleteIcon, SearchIcon } from '@chakra-ui/icons';
 import { useAuth } from '../contexts/AuthContext';
 import { useCart } from '../contexts/CartContext';
@@ -131,7 +131,7 @@ const RightBar = () => {
               <Tag
                 justifyContent="center"
                 alignItems="center"
-                colorScheme="twitter"
+                colorScheme={item.quantity !== 0 && "twitter" || "red"}
                 fontWeight="extrabold"
                 variant="solid"
                 borderRadius="full"
@@ -196,7 +196,8 @@ const RightBar = () => {
           justifyContent="center"
           w="85%"
         >
-          <Button
+          <Link to="/checkout">
+            <Button
             size="lg"
             w="100%"
             my={1}
@@ -207,6 +208,7 @@ const RightBar = () => {
           >
             Check Out
           </Button>
+          </Link>
           {!user && (
             <Button
               w="100%"

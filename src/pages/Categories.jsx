@@ -11,7 +11,7 @@ const PageCategories = () => {
 
 
   return (
-    <Flex flexDir="column" w="100%">
+    <Flex flexDir="column" w="100%" alignItems="center">
     <Center my={5}>
       <Text fontSize="xl" fontWeight="bold">All Categories</Text>
     </Center>
@@ -30,7 +30,7 @@ const PageCategories = () => {
             transition="all ease 0.3s"
           >
             <Image
-              boxSize="xs"
+              boxSize="250px"
               src={category?.thumbnailURL}
               objectFit="cover"
               borderRadius="0.5rem"

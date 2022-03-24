@@ -60,7 +60,7 @@ const Categories = () => {
 
         <Modal isOpen={isOpen} onClose={onClose}>
           <ModalOverlay />
-          <ModalContent p={2}>
+          <ModalContent p={2} mx={2} mt={10}>
             <InputGroup>
               <InputLeftElement
                 pointerEvents="none"
