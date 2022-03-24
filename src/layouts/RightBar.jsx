@@ -68,10 +68,11 @@ const RightBar = () => {
           alignItems="center"
           justifyContent="space-between"
         >
-          <Text fontWeight="bold">Welcome Back!</Text>
+          <Text fontWeight="bold" w="70%">
+            {(user && `Welcome Back, ${user.displayName}!`) || 'Hello there!'}
+          </Text>
 
-
-          <Avatar size="md" src={user?.photoURL || ""}/>
+          <Avatar size="md" src={user?.photoURL || ''} />
         </Flex>
 
         {/* Gadget Box */}
@@ -96,11 +97,11 @@ const RightBar = () => {
         overflow="auto"
       >
         {/* Shopping Cart */}
-        <Flex flexDir="column" my={3} >
+        <Flex flexDir="column" my={3}>
           <Flex w="100%">
             <Text fontWeight="bold" my={2} display={{ md: 'none', lg: 'flex' }}>
-            My Shopping Cart
-          </Text>
+              My Shopping Cart
+            </Text>
           </Flex>
           {/* Shopping cart item*/}
           {cartItems.length == 0 && (
@@ -125,7 +126,7 @@ const RightBar = () => {
               <Tag
                 justifyContent="center"
                 alignItems="center"
-                colorScheme={item.quantity !== 0 && "twitter" || "red"}
+                colorScheme={(item.quantity !== 0 && 'twitter') || 'red'}
                 fontWeight="extrabold"
                 variant="solid"
                 borderRadius="full"
@@ -184,24 +185,19 @@ const RightBar = () => {
         </Flex>
 
         {/* Checkout button */}
-        <Flex
-          flexDir="column"
-
-          justifyContent="center"
-          w="90%"
-        >
+        <Flex flexDir="column" justifyContent="center" w="90%">
           <Link to="/checkout">
             <Button
-            size="lg"
-            w="100%"
-            my={1}
-            colorScheme="twitter"
-            fontWeight="bold"
-            hidden={cartItems.length == 0}
-            display={{ md: 'none', lg: 'block' }}
-          >
-            Check Out
-          </Button>
+              size="lg"
+              w="100%"
+              my={1}
+              colorScheme="twitter"
+              fontWeight="bold"
+              hidden={cartItems.length == 0}
+              display={{ md: 'none', lg: 'block' }}
+            >
+              Check Out
+            </Button>
           </Link>
           {!user && (
             <Button
