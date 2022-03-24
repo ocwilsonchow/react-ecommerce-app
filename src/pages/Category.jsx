@@ -42,7 +42,7 @@ const PagesShowCategory = () => {
         {id}
       </Text>
       {loading && <Spinner size="xl" />}
-      <Flex flexWrap="wrap">
+      <Flex flexWrap="wrap" justifyContent="center" pb={10}>
         {categoryProducts?.map(product => (
           <Flex
             flexDir="column"
