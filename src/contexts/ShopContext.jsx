@@ -71,7 +71,7 @@ export function ShopProvider({ children }) {
       documentSnapshots.docs.map(doc => ({ ...doc.data(), id: doc.id }))
     );
     setLastVisible(documentSnapshots.docs[documentSnapshots.docs.length - 1]);
-
+      setPrevFirstVisible(documentSnapshots.docs[0]);
   };
 
   // Search for next batch of products
@@ -92,7 +92,7 @@ export function ShopProvider({ children }) {
 
   // Search for previous batch of products
   const getPrevProducts = async () => {
-    console.log('getPrev');
+    console.log(prevFirstVisible);
     const prev = query(
       collection(db, 'products'),
       orderBy('category', 'desc'),
