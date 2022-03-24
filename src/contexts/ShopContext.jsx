@@ -29,7 +29,7 @@ export function ShopProvider({ children }) {
   const [categoryProducts, setCategoryProducts] = useState();
   const [pageNumber, setPageNumber] = useState(0);
 
-  const productsPerPage = 12;
+  const productsPerPage = 14;
   const productsVisited = pageNumber * productsPerPage;
   const numberOfPages = Math.ceil(products?.length/productsPerPage)
 
@@ -46,7 +46,6 @@ export function ShopProvider({ children }) {
     setDisplayProducts(
       products?.slice(productsVisited, productsVisited + productsPerPage)
     );
-    console.log(numberOfPages, pageNumber);
   };
 
   const increasePageNumber = () => {

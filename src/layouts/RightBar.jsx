@@ -43,7 +43,7 @@ const RightBar = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (user) {
+    if (user && !cartItems) {
       getCart();
     }
   }, [user]);
@@ -66,12 +66,8 @@ const RightBar = () => {
           py={2}
           mt={4}
           alignItems="center"
-          justifyContent="space-between"
+          justifyContent="flex-end"
         >
-          <Text fontWeight="bold"  w="70%">
-            {(user && `Welcome back, ${user.displayName}!`) || 'Hello there, sign in to explore new features!'}
-          </Text>
-
           <Avatar size="md" src={user?.photoURL || ''} />
         </Flex>
 

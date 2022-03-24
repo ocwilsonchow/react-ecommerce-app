@@ -10,8 +10,6 @@ import { auth } from '../firebase';
 import { useNavigate } from 'react-router-dom';
 import { useToast } from '@chakra-ui/react';
 
-import { useCart } from '../contexts/CartContext';
-
 const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
@@ -86,7 +84,6 @@ export function AuthProvider({ children }) {
         });
       })
       .catch(error => {
-        const errorCode = error.code;
         const errorMessage = error.message;
         console.log(errorMessage);
       });

@@ -2,25 +2,19 @@ import React, { useEffect, useState } from 'react';
 import {
   Flex,
   Text,
-  Center,
   useColorModeValue,
   Image,
   HStack,
   Spinner,
   Button,
   Badge,
-  Tag,
-  Box,
   IconButton,
   VStack,
 } from '@chakra-ui/react';
-import { useParams, Link } from 'react-router-dom';
-import { MdFavorite, MdShoppingCart } from 'react-icons/md';
-
+import { useParams } from 'react-router-dom';
+import { MdFavorite } from 'react-icons/md';
 import { useShop } from '../contexts/ShopContext';
 import { useCart } from '../contexts/CartContext';
-
-import Categories from '../components/Categories';
 import SuggestedProducts from '../components/SuggestedProducts';
 
 const PagesShow = () => {
@@ -99,16 +93,6 @@ const PagesShow = () => {
                   icon={<MdFavorite />}
                   variant="outline"
                 />
-                {/* <IconButton
-                  mt={1}
-                  mx={1}
-                  size="lg"
-                  borderRadius="50%"
-                  disabled={product?.stock == 0}
-                  colorScheme="twitter"
-                  icon={<MdShoppingCart />}
-                  onClick={() => createCartItem(product)}
-                /> */}
                 <Button
                   size="lg"
                   variant="outline"

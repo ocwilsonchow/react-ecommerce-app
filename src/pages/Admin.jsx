@@ -13,10 +13,12 @@ import { useShop } from '../contexts/ShopContext';
 import CreateProduct from '../components/CreateProduct';
 
 const PagesAdmin = () => {
-  const { getCategories } = useShop();
+  const { getCategories, categories } = useShop();
 
   useEffect(() => {
-    getCategories();
+    if (!categories) {
+       getCategories();
+    }
   }, []);
 
   return (

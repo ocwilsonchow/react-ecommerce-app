@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Text,
   Button,
@@ -7,16 +7,13 @@ import {
   Modal,
   ModalOverlay,
   ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
   useDisclosure,
   InputGroup,
   InputLeftElement,
-  Input
+  Input,
+
 } from '@chakra-ui/react';
-import {FaGithub } from 'react-icons/fa';
+import { FaGithub } from 'react-icons/fa';
 import { useShop } from '../contexts/ShopContext';
 import { Link } from 'react-router-dom';
 import { SearchIcon } from '@chakra-ui/icons';
@@ -26,7 +23,9 @@ const Categories = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   useEffect(() => {
-    getCategories();
+    if (!categories) {
+      getCategories()
+    }
   }, []);
 
   return (
@@ -47,16 +46,18 @@ const Categories = () => {
           borderRadius="full"
           onClick={onOpen}
         />
-       <a target="_blank" href="https://github.com/ocwilsonchow/react-ecommerce-app">
+        <a
+          target="_blank"
+          href="https://github.com/ocwilsonchow/react-ecommerce-app"
+        >
           <IconButton
-          icon={<FaGithub />}
-          size="sm"
-          variant="outline"
-          mr={1}
-          borderRadius="full"
-
-        />
-       </a>
+            icon={<FaGithub />}
+            size="sm"
+            variant="outline"
+            mr={1}
+            borderRadius="full"
+          />
+        </a>
 
         <Modal isOpen={isOpen} onClose={onClose}>
           <ModalOverlay />
@@ -72,6 +73,7 @@ const Categories = () => {
           </ModalContent>
         </Modal>
       </>
+
       {categories?.map((category, i) => (
         <Link key={i} to={`/categories/${category.name}`}>
           <Button
