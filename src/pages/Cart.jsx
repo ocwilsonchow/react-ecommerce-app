@@ -1,0 +1,127 @@
+import React from 'react';
+import {
+  Center,
+  Box,
+  Image,
+  Flex,
+  VStack,
+  Button,
+  Text,
+  Input,
+  InputGroup,
+  InputLeftElement,
+  Badge,
+  Avatar,
+  HStack,
+  useColorModeValue,
+  IconButton,
+  Circle,
+  Checkbox,
+  Tooltip,
+  Tag,
+  Fade,
+} from '@chakra-ui/react';
+import { useCart } from '../contexts/CartContext';
+import { MinusIcon, AddIcon, DeleteIcon, SearchIcon } from '@chakra-ui/icons';
+
+const PagesCart = () => {
+  const bgColor = useColorModeValue('#FFFFFF', '#141026');
+  const secondaryBgColor = useColorModeValue('#FBF1F2', '#222D48');
+  const secondaryHoverBgColor = useColorModeValue('teal.600', 'teal.700');
+  const {
+    cartItems,
+    getCart,
+    increaseCartItemQuantity,
+    decreaseCartItemQuantity,
+  } = useCart();
+
+  const tertiaryBgColor = useColorModeValue('#32343B', '#222D48');
+
+  console.log(cartItems);
+
+  return (
+    <Flex w="100%" flexDir="column" alignItems="center">
+      <Center w="100%">
+        <Text fontWeight="bold" fontSize="2xl" my={5}>
+          Cart
+        </Text>
+      </Center>
+
+      <VStack alignItems="center" maxW="600px" spacing='15px'>
+        {cartItems.map(item => (
+          <Flex
+            key={item.id}
+            bg={tertiaryBgColor}
+            p={4}
+            w="100%"
+            borderRadius="1rem"
+            alignItems="center"
+            justifyContent="space-between"
+            position="relative"
+            _hover={{ bg: secondaryHoverBgColor }}
+            transition="all ease 0.3s"
+            cursor="pointer"
+          >
+            <Tag
+              justifyContent="center"
+              alignItems="center"
+              colorScheme="twitter"
+              fontWeight="extrabold"
+              variant="solid"
+              borderRadius="full"
+              position="absolute"
+              top="0px"
+              left="-5px"
+            >
+              {item.quantity}
+            </Tag>
+
+            <Flex alignItems="center" justifyContent="space-between" w="100%">
+              <Image
+                boxSize="60px"
+                src={item.productImageURL}
+                borderRadius="0.5rem"
+              />
+
+              <Flex w="100%" justifyContent="space-between" alignItems="center">
+                <Flex flexDir="column" px={2}>
+                  <Tooltip label={item.productName}>
+                    <Text color="white" fontWeight="bold">
+                      {item.productName}
+                    </Text>
+                  </Tooltip>
+                  <HStack>
+                    <Text color="white" fontWeight="light">
+                      HKD {item.price}
+                    </Text>
+                  </HStack>
+                </Flex>
+                <Flex>
+                  <IconButton
+                    mr={1}
+                    borderRadius="50%"
+                    size="xs"
+                    icon={
+                      (item.quantity > 0 && <MinusIcon />) || <DeleteIcon />
+                    }
+                    onClick={() =>
+                      decreaseCartItemQuantity(item.id, item.quantity)
+                    }
+                  />
+                  <IconButton
+                    borderRadius="50%"
+                    size="xs"
+                    icon={<AddIcon />}
+                    onClick={() => increaseCartItemQuantity(item.id)}
+                  />
+                </Flex>
+              </Flex>
+            </Flex>
+          </Flex>
+        ))}
+      </VStack>
+    </Flex>
+  );
+};
+
+export default PagesCart;

@@ -37,6 +37,7 @@ const Products = () => {
             flexDir="column"
             p={3}
             m={2}
+            key={product.id}
             bg={secondaryBgColor}
             _hover={{ bg: secondaryHoverBgColor }}
             cursor="pointer"
@@ -44,7 +45,7 @@ const Products = () => {
             borderRadius="1rem"
             boxShadow="rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;"
           >
-            <Link to={`/product/${product.id}`} key={product.id}>
+            <Link to={`/product/${product.id}`}>
               <Image
                 src={product.image}
                 boxSize={{ base: '100%', sm: '100%', md: '210px' }}

@@ -16,11 +16,11 @@ const PageCategories = () => {
       <Text fontSize="xl" fontWeight="bold">All Categories</Text>
     </Center>
       <Flex flexWrap="wrap" justifyContent="center">
-        {categories?.map(category => (
+        {categories?.map((category, i) => (
           <Link to={`/categories/${category.name}`}>
             <Flex
             flexDir="column"
-            key={category?.name}
+            key={i}
             p={3}
             borderRadius="1rem"
             m={2}
