@@ -31,7 +31,7 @@ const Products = () => {
 
   return (
     <>
-      <Flex flexWrap="wrap" justifyContent="center" w="100%" px="1rem">
+      <Flex flexWrap="wrap" justifyContent="center" w="100%" px="1rem" pb={10}>
         {products?.map(product => (
           <Flex
             flexDir="column"
