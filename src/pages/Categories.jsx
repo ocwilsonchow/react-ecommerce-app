@@ -9,7 +9,6 @@ const PageCategories = () => {
   const secondaryBgColor = useColorModeValue('#FFFFFF', '#1D213C');
   const secondaryHoverBgColor = useColorModeValue('teal.200', 'teal.700');
 
-
   return (
     <Flex flexDir="column" w="100%" alignItems="center">
     <Center my={5}>
