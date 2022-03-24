@@ -1,5 +1,12 @@
 import React from 'react';
-import { Flex, VStack, useColorModeValue, IconButton } from '@chakra-ui/react';
+import {
+  Flex,
+  VStack,
+  useColorModeValue,
+  IconButton,
+  Box,
+  Tag,
+} from '@chakra-ui/react';
 import { FaStore, FaThList, FaCartArrowDown } from 'react-icons/fa';
 import { AiTwotoneSetting } from 'react-icons/ai';
 import { RiLoginBoxLine, RiLogoutBoxFill, RiAdminFill } from 'react-icons/ri';
@@ -7,16 +14,16 @@ import { RiLoginBoxLine, RiLogoutBoxFill, RiAdminFill } from 'react-icons/ri';
 import { Link } from 'react-router-dom';
 
 import { useAuth } from '../contexts/AuthContext';
-import { useCart } from '../contexts/CartContext'
+import { useCart } from '../contexts/CartContext';
 import { ColorModeSwitcher } from '../ColorModeSwitcher';
 
 const LeftBar = () => {
   const bgColor = useColorModeValue('#FFFFFF', '#141026');
   const { signout, user } = useAuth();
-  const {resetCartOnLogout } = useCart()
+  const { resetCartOnLogout, cartItems } = useCart();
 
   const handleSignOut = () => {
-    resetCartOnLogout()
+    resetCartOnLogout();
     signout();
   };
 
@@ -49,13 +56,31 @@ const LeftBar = () => {
           />
         </Link>
         <Link to="/cart">
-          <IconButton
-            variant="ghost"
-            borderRadius="50%"
-            size="lg"
-            my={2}
-            icon={<FaCartArrowDown />}
-          />
+          <Box position="relative">
+            {user && (
+              <Tag
+                justifyContent="center"
+                alignItems="center"
+                colorScheme="twitter"
+                fontWeight="extrabold"
+                variant="solid"
+                borderRadius="full"
+                position="absolute"
+                top="0.5rem"
+                right="0px"
+                fontSize="xs"
+              >
+                {cartItems && cartItems.length}
+              </Tag>
+            )}
+            <IconButton
+              variant="ghost"
+              borderRadius="50%"
+              size="lg"
+              my={2}
+              icon={<FaCartArrowDown />}
+            />
+          </Box>
         </Link>
         <Link to="/my/account">
           <IconButton
