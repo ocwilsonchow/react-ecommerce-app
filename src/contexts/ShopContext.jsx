@@ -12,27 +12,57 @@ import {
   deleteDoc,
   increment,
   getDoc,
-  startAfter,
-  startAt,
-  limit,
-  endBefore,
-  endAt,
 } from 'firebase/firestore';
 import { db } from '../firebase';
 import { useToast } from '@chakra-ui/react';
+import ReactPaginate from 'react-paginate';
 
 const ShopContext = createContext();
 
 export function ShopProvider({ children }) {
+  const toast = useToast();
   const [categories, setCategories] = useState();
   const [similarProducts, setSimilarProducts] = useState();
   const [products, setProducts] = useState();
+
   const [product, setProduct] = useState();
   const [categoryProducts, setCategoryProducts] = useState();
-  const toast = useToast();
+  const [pageNumber, setPageNumber] = useState(0);
 
-  const [lastVisible, setLastVisible] = useState();
-  const [prevFirstVisible, setPrevFirstVisible] = useState();
+  const productsPerPage = 10;
+  const productsVisited = pageNumber * productsPerPage;
+
+  const [displayProducts, setDisplayProducts] = useState();
+
+  useEffect(() => {
+    if (products) {
+      updateDisplayProducts();
+    }
+  }, [products]);
+
+  const updateDisplayProducts = () => {
+    setDisplayProducts(
+      products?.slice(productsVisited, productsVisited + productsPerPage)
+    );
+    console.log('updated displayProducts');
+  };
+
+  const increasePageNumber = () => {
+    setPageNumber(pageNumber + 1);
+  };
+
+  const decreasePageNumber = () => {
+    setPageNumber(pageNumber - 1);
+  };
+
+  // Get products
+  const getProducts = async () => {
+    const q = query(collection(db, 'products'), orderBy('category', 'desc'));
+    const documentSnapshots = await getDocs(q);
+    setProducts(
+      documentSnapshots.docs.map(doc => ({ ...doc.data(), id: doc.id }))
+    );
+  };
 
   // Get categories
   const getCategories = async () => {
@@ -43,68 +73,6 @@ export function ShopProvider({ children }) {
       querySnapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }))
     );
   };
-
-  // Get products
-  // const getProducts = async () => {
-  //   const first = query(collection(db, 'products'), orderBy('category', 'desc'), limit(15));
-  //   const documentSnapshots = await getDocs(first);
-  //   setProducts(documentSnapshots.docs.map(doc => ({ ...doc.data(), id: doc.id })));
-
-  //   const lastVisible = documentSnapshots.docs[documentSnapshots.docs.length-1]
-  //   console.log("last", lastVisible)
-
-  //   const next = query(collection(db, "products"), orderBy('category', 'desc'), startAfter(lastVisible), limit(15))
-  //   console.log(next)
-  // };
-
-  let documentSnapshots, nextDocumentSnaps, prevDocumentSnaps;
-
-  // First time get products
-  const getProducts = async () => {
-    const first = query(
-      collection(db, 'products'),
-      orderBy('category', 'desc'),
-      limit(12)
-    );
-    documentSnapshots = await getDocs(first);
-    setProducts(
-      documentSnapshots.docs.map(doc => ({ ...doc.data(), id: doc.id }))
-    );
-    setLastVisible(documentSnapshots.docs[documentSnapshots.docs.length - 1]);
-      setPrevFirstVisible(documentSnapshots.docs[0]);
-  };
-
-  // Search for next batch of products
-  const getNextProducts = async () => {
-    console.log('getNext');
-    const next = query(
-      collection(db, 'products'),
-      orderBy('category', 'desc'),
-      startAfter(lastVisible),
-      limit(12)
-    );
-    nextDocumentSnaps = await getDocs(next);
-    setProducts(nextDocumentSnaps.docs.map(doc => ({ ...doc.data(), id: doc.id })));
-
-    setLastVisible(nextDocumentSnaps.docs[nextDocumentSnaps.docs.length - 1]);
-    setPrevFirstVisible(nextDocumentSnaps.docs[0]);
-  };
-
-  // Search for previous batch of products
-  const getPrevProducts = async () => {
-    console.log(prevFirstVisible);
-    const prev = query(
-      collection(db, 'products'),
-      orderBy('category', 'desc'),
-      endAt(prevFirstVisible),
-      limit(12)
-    );
-    prevDocumentSnaps = await getDocs(prev);
-    setProducts(prevDocumentSnaps.docs.map(doc => ({ ...doc.data(), id: doc.id })));
-    setLastVisible(prevDocumentSnaps.docs[prevDocumentSnaps.docs.length - 1]);
-  };
-
-
 
   // Get category products
   const getCategoryProducts = async name => {
@@ -230,8 +198,11 @@ export function ShopProvider({ children }) {
     similarProducts,
     categoryProducts,
     getCategoryProducts,
-    getNextProducts,
-    getPrevProducts,
+    displayProducts,
+    increasePageNumber,
+    decreasePageNumber,
+    pageNumber,
+    updateDisplayProducts
   };
 
   return (

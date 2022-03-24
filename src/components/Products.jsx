@@ -21,7 +21,7 @@ import { useCart } from '../contexts/CartContext';
 import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons';
 
 const Products = () => {
-  const { getProducts, products, getNextProducts, getPrevProducts } = useShop();
+  const { getProducts, updateDisplayProducts, displayProducts,increasePageNumber,decreasePageNumber, pageNumber } = useShop();
   const { createCartItem } = useCart();
 
   const secondaryBgColor = useColorModeValue('#FFFFFF', '#1D213C');
@@ -31,11 +31,26 @@ const Products = () => {
     getProducts();
   }, []);
 
+  useEffect(() => {
+    updateDisplayProducts()
+  }, [pageNumber])
+
   return (
     <>
       <HStack justifyContent="center" w="100%" p={2}>
-        <IconButton variant="outline" borderRadius="full" onClick={getPrevProducts} icon={<ChevronLeftIcon />} />
-        <IconButton variant="outline" borderRadius="full" onClick={getNextProducts} icon={<ChevronRightIcon />} />
+        <IconButton
+          variant="outline"
+          borderRadius="full"
+          icon={<ChevronLeftIcon />}
+          disabled={pageNumber == 0}
+          onClick={() => decreasePageNumber()}
+        />
+        <IconButton
+          variant="outline"
+          borderRadius="full"
+          icon={<ChevronRightIcon />}
+          onClick={() => increasePageNumber()}
+        />
       </HStack>
       <Flex
         flexWrap="wrap"
@@ -45,7 +60,7 @@ const Products = () => {
         pb={10}
         position="relative"
       >
-        {products?.map(product => (
+        {displayProducts?.map(product => (
           <Flex
             flexDir="column"
             p={3}
