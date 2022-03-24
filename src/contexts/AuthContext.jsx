@@ -20,56 +20,53 @@ export function AuthProvider({ children }) {
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(user => {
-      setUser(user)
-    })
-
-  }, [])
+      setUser(user);
+    });
+  }, []);
 
   // Sign Up
   const signup = async (email, password) => {
     await createUserWithEmailAndPassword(auth, email, password)
-        .then(userCredential => {
-          // Signed in
-          setUser(userCredential.user);
+      .then(userCredential => {
+        // Signed in
+        setUser(userCredential.user);
 
-          navigation('/');
-          toast({
-            title: 'Account created.',
-            description: "You've successfully signed up",
-            status: 'success',
-            duration: 2000,
-            isClosable: true,
-          });
-        })
-        .catch(error => {
-          const errorMessage = error.message;
-          console.log(errorMessage);
+        navigation('/');
+        toast({
+          title: 'Account created.',
+          description: "You've successfully signed up",
+          status: 'success',
+          duration: 2000,
+          isClosable: true,
         });
-
+      })
+      .catch(error => {
+        const errorMessage = error.message;
+        console.log(errorMessage);
+      });
   };
 
   // Sign In
   const login = async (email, password) => {
     await signInWithEmailAndPassword(auth, email, password)
-        .then(userCredential => {
-          // Signed in
-          setUser(userCredential.user);
+      .then(userCredential => {
+        // Signed in
+        setUser(userCredential.user);
 
-          navigation('/');
-          toast({
-            title: 'Logged in.',
-            description: "You've successfully logged in",
-            status: 'success',
-            duration: 2000,
-            isClosable: true,
-          });
-        })
-        .catch(error => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          console.log(errorMessage);
+        navigation('/');
+        toast({
+          title: 'Logged in.',
+          description: "You've successfully logged in",
+          status: 'success',
+          duration: 2000,
+          isClosable: true,
         });
-
+      })
+      .catch(error => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorMessage);
+      });
   };
 
   // Sign Out

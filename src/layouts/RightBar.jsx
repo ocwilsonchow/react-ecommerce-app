@@ -194,7 +194,7 @@ const RightBar = () => {
         {/* Checkout button */}
         <Flex
           flexDir="column"
-          alignItems="center"
+
           justifyContent="center"
           w="85%"
         >
@@ -227,6 +227,7 @@ const RightBar = () => {
           <IconButton
             icon={<MdShoppingCart />}
             display={{ md: 'flex', lg: 'none' }}
+            variant="ghost"
           />
         </Flex>
       </Flex>
