@@ -43,7 +43,9 @@ const RightBar = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    getCart();
+    if (user) {
+      getCart();
+    }
   }, [user]);
 
   return (

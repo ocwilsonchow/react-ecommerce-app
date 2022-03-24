@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {loadStripe} from '@stripe/stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
 import {
   Center,
   Image,
@@ -17,42 +17,62 @@ import {
 import { useCart } from '../contexts/CartContext';
 import { useAuth } from '../contexts/AuthContext';
 import { MinusIcon, AddIcon, DeleteIcon, SearchIcon } from '@chakra-ui/icons';
+import { useToast } from '@chakra-ui/react';
 
-const PagesCheckout =  () => {
-  const [message, setMessage] = useState('');
+const PagesCheckout = () => {
   const secondaryHoverBgColor = useColorModeValue('teal.600', 'teal.700');
   const { cartItems, increaseCartItemQuantity, decreaseCartItemQuantity } =
     useCart();
   const { user } = useAuth();
   const tertiaryBgColor = useColorModeValue('#32343B', '#222D48');
-  let stripePromise
+  const toast = useToast();
+  const [loading, setLoading] = useState(false)
 
+  let stripePromise;
+
+  // Get Stripe
   const getStripe = () => {
     if (!stripePromise) {
       stripePromise = loadStripe(process.env.REACT_APP_STRIPE_KEY);
-    } return stripePromise
-  }
+    }
+    return stripePromise;
+  };
 
+  // Define Stripe Checkout Item
   const item = {
-    price: "price_1KgkaIGL048Bas4mW4WP2Ep2",
-    quantity: 1
-  }
+    price: 'price_1KgkaIGL048Bas4mW4WP2Ep2',
+    quantity: 1,
+  };
 
+  // Define Stripe Checkout Options
   const checkoutOptions = {
     lineItems: [item],
-    mode: "payment",
+    mode: 'payment',
     successUrl: `${window.location.origin}/success`,
-    cancelUrl: `${window.location.origin}/cancel`
-  }
+    cancelUrl: `${window.location.origin}/checkout`,
+  };
 
+  // Check out call
   const redirectToCheckout = async () => {
-    console.log("redirected")
-
-    const stripe = await getStripe()
-    const { error } = await stripe.redirectToCheckout(checkoutOptions)
-    console.log("stripe checkout error", error)
-  }
-
+    setLoading(true)
+    const stripe = await getStripe();
+    const { error } = await stripe
+      .redirectToCheckout(checkoutOptions)
+      .then(() => {
+        setLoading(false)
+        console.log('redirected');
+      })
+      .catch((err) => {
+        setLoading(false)
+        toast({
+          title: 'Error',
+          description: err.message,
+          status: 'error',
+          duration: 8000,
+          isClosable: true,
+        });
+      });
+  };
 
   return (
     <Flex w="100%" flexDir="column" alignItems="center">
@@ -145,7 +165,7 @@ const PagesCheckout =  () => {
           </Flex>
         ))}
         <Center py={10}>
-          <Button disabled={!user} type="submit" onClick={redirectToCheckout}>
+          <Button disabled={!user || loading} isLoading={loading} type="submit" onClick={redirectToCheckout}>
             {(cartItems.length == 0 &&
               'Please login to view your shopping cart.') ||
               'Go to Payment'}
