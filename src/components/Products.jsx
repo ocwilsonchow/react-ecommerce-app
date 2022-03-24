@@ -33,7 +33,7 @@ const Products = () => {
 
   return (
     <>
-      <HStack justifyContent="center" w="100%">
+      <HStack justifyContent="center" w="100%" p={2}>
         <IconButton variant="outline" borderRadius="full" onClick={getPrevProducts} icon={<ChevronLeftIcon />} />
         <IconButton variant="outline" borderRadius="full" onClick={getNextProducts} icon={<ChevronRightIcon />} />
       </HStack>
