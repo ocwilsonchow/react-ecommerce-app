@@ -20,6 +20,8 @@ import {
   Tooltip,
   Tag,
   Fade,
+  Container,
+  Square,
 } from '@chakra-ui/react';
 import { useCart } from '../contexts/CartContext';
 import { useAuth } from '../contexts/AuthContext';
@@ -47,7 +49,7 @@ const PagesCart = () => {
         </Text>
       </VStack>
 
-      <VStack alignItems="center" minW="350px" maxW="700px" spacing="15px">
+      <VStack alignItems="center" minW="350px" maxW="700px" spacing="15px" p={3}>
         {cartItems.map(item => (
           <Flex
             key={item.id}
@@ -76,13 +78,16 @@ const PagesCart = () => {
               {item.quantity}
             </Tag>
 
-            <Flex alignItems="center" justifyContent="space-between" w="100%">
-              <Image
-                boxSize="5rem"
+            <Flex alignItems="center" w="100%">
+             <Square>
+                <Image
+                objectFit="cover"
+                boxSize="100px"
                 src={item.productImageURL}
                 borderRadius="0.5rem"
                 mr={2}
               />
+             </Square>
 
               <Flex w="100%" justifyContent="space-between" alignItems="center">
                 <Flex flexDir="column" px={2}>
@@ -97,7 +102,7 @@ const PagesCart = () => {
                     </Text>
                   </HStack>
                 </Flex>
-                <Flex>
+                <Flex p={2}>
                   <IconButton
                     mr={1}
                     borderRadius="50%"
@@ -121,7 +126,12 @@ const PagesCart = () => {
           </Flex>
         ))}
         <Center py={10}>
-          <Button disabled={!user}> {cartItems.length == 0 && 'Please login to view your shopping cart.' || "Go to Payment"}</Button>
+          <Button disabled={!user}>
+            {' '}
+            {(cartItems.length == 0 &&
+              'Please login to view your shopping cart.') ||
+              'Go to Payment'}
+          </Button>
         </Center>
       </VStack>
     </Flex>
