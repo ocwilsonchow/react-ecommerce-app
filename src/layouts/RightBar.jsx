@@ -21,7 +21,7 @@ import {
   Tag,
   Fade,
 } from '@chakra-ui/react';
-import { getDoc } from 'firebase/firestore';
+import { useNavigate } from 'react-router-dom';
 import { MinusIcon, AddIcon, DeleteIcon, SearchIcon } from '@chakra-ui/icons';
 import { useAuth } from '../contexts/AuthContext';
 import { useCart } from '../contexts/CartContext';
@@ -40,6 +40,7 @@ const RightBar = () => {
     increaseCartItemQuantity,
     decreaseCartItemQuantity,
   } = useCart();
+  const navigate = useNavigate();
 
   useEffect(() => {
     getCart();
@@ -69,21 +70,15 @@ const RightBar = () => {
             <InputLeftElement pointerEvents="none" children={<SearchIcon />} />
             <Input
               variant="outline"
-              borderRadius="1rem"
+              borderRadius="full"
               mr={3}
               placeholder="Search"
             />
           </InputGroup>
 
           {user?.photoURL && <Avatar src={user.photoURL} />}
-          <Avatar />
+          <Avatar size="md" />
         </Flex>
-        {/* <IconButton
-          icon={<SearchIcon />}
-          display={{ md: 'flex', lg: 'none' }}
-          variant="ghost"
-          borderRadius="50%"
-        /> */}
 
         {/* Gadget Box */}
         <Flex
@@ -107,14 +102,15 @@ const RightBar = () => {
         overflow="auto"
       >
         {/* Shopping Cart */}
-        <Flex flexDir="column" my={3} alignItems="center">
-          <Text fontWeight="bold" my={2} display={{ md: 'none', lg: 'flex' }}>
+        <Flex flexDir="column" my={3} >
+          <Flex w="100%">
+            <Text fontWeight="bold" my={2} display={{ md: 'none', lg: 'flex' }}>
             My Shopping Cart
           </Text>
-
+          </Flex>
           {/* Shopping cart item*/}
           {cartItems.length == 0 && (
-            <Text my={2} textAlign="center">
+            <Text my={1} fontWeight="light" textAlign="center">
               Cart is empty
             </Text>
           )}
@@ -194,18 +190,36 @@ const RightBar = () => {
         </Flex>
 
         {/* Checkout button */}
-        <Flex justifyContent="center" w="100%">
+        <Flex
+          flexDir="column"
+          alignItems="center"
+          justifyContent="center"
+          w="85%"
+        >
           <Button
             size="lg"
-            w="85%"
-            my={3}
+            w="100%"
+            my={1}
             colorScheme="twitter"
             fontWeight="bold"
-            disabled={cartItems.length == 0}
+            hidden={cartItems.length == 0}
             display={{ md: 'none', lg: 'block' }}
           >
             Check Out
           </Button>
+          {!user && (
+            <Button
+              w="100%"
+              size="lg"
+              my={1}
+              colorScheme="gray"
+              fontWeight="bold"
+              display={{ md: 'none', lg: 'block' }}
+              onClick={() => navigate('/auth')}
+            >
+              Log in
+            </Button>
+          )}
           <IconButton
             icon={<MdShoppingCart />}
             display={{ md: 'flex', lg: 'none' }}

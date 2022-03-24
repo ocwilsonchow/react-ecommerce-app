@@ -62,6 +62,7 @@ const PagesShow = () => {
                 borderRadius="1rem"
                 mb={5}
                 mr={5}
+                ml={4}
               />
             )}
             <Flex flexDir="column" maxW="600px" justifyContent="space-between">

@@ -23,6 +23,7 @@ export function ShopProvider({ children }) {
   const [similarProducts, setSimilarProducts] = useState()
   const [products, setProducts] = useState();
   const [product, setProduct] = useState()
+  const [categoryProducts, setCategoryProducts] = useState()
   const toast = useToast();
 
   // Get categories
@@ -42,6 +43,14 @@ export function ShopProvider({ children }) {
     setProducts(querySnapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })));
   };
 
+  // Get category products
+  const getCategoryProducts = async (name) => {
+    setCategoryProducts()
+    const q = query(collection(db, 'products'), where("category", "==", name))
+    const querySnapshot = await getDocs(q);
+    setCategoryProducts(querySnapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })));
+  }
+
   // Get single product
   const getProduct = async (id) => {
     setProduct()
@@ -52,7 +61,6 @@ export function ShopProvider({ children }) {
 
   // Get similar products
   const getSimilarProducts = async (category) => {
-    console.log(category)
     setSimilarProducts()
     const q = query(collection(db, 'products'), where('category', '==', category.productCategory))
     const querySnapshot = await getDocs(q);
@@ -152,7 +160,9 @@ export function ShopProvider({ children }) {
     getProduct,
     product,
     getSimilarProducts,
-    similarProducts
+    similarProducts,
+    categoryProducts,
+    getCategoryProducts,
   };
 
   return (

@@ -9,7 +9,7 @@ function PagesNotFound() {
   return (
      <Flex w="100%" bg={bgColor}>
      <Center w="100%">
-        <Text fontWeight="bold" fontSize="4xl">Page Not Found!</Text>
+        <Text fontWeight="bold" fontSize="4xl" p={10}>Page Not Found!</Text>
      </Center>
     </Flex>
   )

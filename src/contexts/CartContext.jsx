@@ -80,7 +80,7 @@ export function CartProvider({ children }) {
 
   // Get cart
   const getCart = async () => {
-    if (!user) return console.log('no user');
+    if (!user) return;
     if (user) {
       const q = query(
         collection(db, 'cartItems'),
