@@ -68,10 +68,10 @@ const RightBar = () => {
           alignItems="center"
           justifyContent="space-between"
         >
-          <Text>Welcome Back!</Text>
+          <Text fontWeight="bold">Welcome Back!</Text>
 
-          {user?.photoURL && <Avatar src={user.photoURL} />}
-          <Avatar size="md" />
+
+          <Avatar size="md" src={user?.photoURL || ""}/>
         </Flex>
 
         {/* Gadget Box */}
@@ -188,7 +188,7 @@ const RightBar = () => {
           flexDir="column"
 
           justifyContent="center"
-          w="85%"
+          w="90%"
         >
           <Link to="/checkout">
             <Button

@@ -2,6 +2,7 @@ import React, { useState, createContext, useContext, useEffect } from 'react';
 import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
+  updateProfile,
   signInWithEmailAndPassword,
   signOut,
 } from 'firebase/auth';
@@ -25,14 +26,34 @@ export function AuthProvider({ children }) {
   }, []);
 
   // Update User's Profile
+  const updateUserProfile = async (displayName, imageURL) => {
+    console.log(displayName, imageURL )
+    await updateProfile(auth.currentUser, {
+      displayName: displayName,
+      photoURL: imageURL || user.photoURL
+    }).then(() => {
+        toast({
+          title: 'Profile Updated',
+          description: "You've successfully updated your profile",
+          status: 'success',
+          duration: 2000,
+          isClosable: true,
+        });
+
+    }).catch((err) => {
+      console.log(err.message)
+    })
+  }
 
   // Sign Up
-  const signup = async (email, password) => {
+  const signup = async (email, password, username) => {
     await createUserWithEmailAndPassword(auth, email, password)
       .then(userCredential => {
         // Signed in
         setUser(userCredential.user);
-
+        updateProfile(auth.currentUser, {
+          displayName: username
+        })
         navigation('/');
         toast({
           title: 'Account created.',
@@ -92,6 +113,7 @@ export function AuthProvider({ children }) {
     signout,
     login,
     user,
+    updateUserProfile
   };
 
   return (

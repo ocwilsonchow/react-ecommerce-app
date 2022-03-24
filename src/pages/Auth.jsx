@@ -21,6 +21,7 @@ const PagesAuth = () => {
   const [isSignup, setIsSignup] = useState(false);
   const emailRef = useRef();
   const passwordRef = useRef();
+  const usernameRef = useRef()
   const confirmPasswordRef = useRef();
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -35,7 +36,7 @@ const PagesAuth = () => {
     try {
       setError('');
       setLoading(true);
-      await signup(emailRef.current.value, passwordRef.current.value);
+      await signup(emailRef.current.value, passwordRef.current.value, usernameRef.current.value);
     } catch {
       setError('Failed to create an account');
     }
@@ -75,6 +76,17 @@ const PagesAuth = () => {
             <Text fontWeight="bold" fontSize="3xl">
               Sign up
             </Text>
+
+            <Flex flexDir="column" my={4}>
+              <FormLabel>Username</FormLabel>
+              <Input
+                placeholder="Username"
+                id="username"
+                type="text"
+                ref={usernameRef}
+                required
+              />
+            </Flex>
 
             <Flex flexDir="column" my={4}>
               <FormLabel>Email</FormLabel>

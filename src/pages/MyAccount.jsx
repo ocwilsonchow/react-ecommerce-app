@@ -20,16 +20,15 @@ import {
 import { useToast } from '@chakra-ui/react';
 
 const PagesMyAccount = () => {
-  const { user } = useAuth();
+  const { user, updateUserProfile } = useAuth();
   const [image, setImage] = useState();
   const [imageURL, setImageURL] = useState();
   const [loading, setLoading] = useState(false);
   const toast = useToast();
-
   const storage = getStorage();
-
   const storageRef = ref(storage, 'images/' + image?.name);
   const uploadTask = uploadBytesResumable(storageRef, image);
+  const [displayName, setDisplayName] = useState(user?.displayName)
 
   // Upload image onChange of image's state
   useEffect(() => {
@@ -90,10 +89,22 @@ const PagesMyAccount = () => {
   const handleChange = async e => {
     setLoading(true);
     if (e.target.files[0]) {
-      setImage(e.target.files[0]);
+    setImage(e.target.files[0])
     }
     setLoading(false);
   };
+
+  const handleNameChange = (name) => {
+    setDisplayName(name)
+  }
+
+  const handleUpdateUserProfile = async (e) => {
+    e.preventDefault()
+    await updateUserProfile(displayName, imageURL).then(() => {
+     setDisplayName()
+    })
+  }
+
 
   return (
     <Flex>
@@ -103,11 +114,12 @@ const PagesMyAccount = () => {
         </Text>
         <FormControl display="flex" flexDir="column" maxW="500px">
           <VStack p={5}>
-            <Avatar size="xl" />
+              <Avatar size="xl" src={user?.photoURL}/>
           </VStack>
           <Input
+            p={1}
             type="file"
-            variant="flushed"
+            variant="outline"
             name="image"
             id="image"
             mb={4}
@@ -117,18 +129,14 @@ const PagesMyAccount = () => {
           <FormLabel>Username</FormLabel>
           <Input
             mb={4}
-            placeholder={
-              user?.displayName || 'You have not set up your username'
-            }
+            placeholder={user?.displayName || 'You have not set up your username'}
+            type="text"
+            value={displayName}
+            onChange={(e) => handleNameChange(e.target.value)}
           />
-
-          <FormLabel>Email</FormLabel>
-          <Input mb={4} value="" placeholder={user?.email} />
-
-          <FormLabel>Username</FormLabel>
-          <Input mb={4} placeholder="Password" type="password" />
         </FormControl>
-        <Button type="submit" isLoading={loading} disabled={loading}>Update My Profile</Button>
+
+        <Button type="submit" isLoading={loading} disabled={loading} onClick={(e) => handleUpdateUserProfile(e)}>Update My Profile</Button>
       </VStack>
     </Flex>
   );
