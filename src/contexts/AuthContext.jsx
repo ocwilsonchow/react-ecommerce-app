@@ -24,6 +24,8 @@ export function AuthProvider({ children }) {
     });
   }, []);
 
+  // Update User's Profile
+
   // Sign Up
   const signup = async (email, password) => {
     await createUserWithEmailAndPassword(auth, email, password)

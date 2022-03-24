@@ -66,17 +66,9 @@ const RightBar = () => {
           py={2}
           mt={4}
           alignItems="center"
-          justifyContent="space-evenly"
+          justifyContent="space-between"
         >
-          <InputGroup display={{ md: 'none', lg: 'flex' }}>
-            <InputLeftElement pointerEvents="none" children={<SearchIcon />} />
-            <Input
-              variant="outline"
-              borderRadius="full"
-              mr={3}
-              placeholder="Search"
-            />
-          </InputGroup>
+          <Text>Welcome Back!</Text>
 
           {user?.photoURL && <Avatar src={user.photoURL} />}
           <Avatar size="md" />
@@ -85,7 +77,7 @@ const RightBar = () => {
         {/* Gadget Box */}
         <Flex
           bg={secondaryBgColor}
-          w="85%"
+          w="90%"
           p={5}
           h="230px"
           borderRadius="1rem"

@@ -18,6 +18,7 @@ import PagesShowCategory from '../pages/Category'
 import PagesCheckout from '../pages/Checkout'
 import PagesCheckoutSuccess from '../pages/CheckoutSuccess'
 import PagesCheckoutCanceled from '../pages/CheckoutCanceled'
+import PagesMyAccount from '../pages/MyAccount'
 
 function Routing() {
   return (
@@ -36,6 +37,7 @@ function Routing() {
                   <Route path="/checkout" element={<PagesCheckout />} />
                   <Route path="/success" element={<PagesCheckoutSuccess />} />
                   <Route path="/canceled" element={<PagesCheckoutCanceled />} />
+                  <Route path="/my/account" element={<PagesMyAccount />} />
                   <Route path="/admin/stockmanagement" element={<PagesAdmin />}/>
 
                   <Route path="*" element={<PagesNotFound />} />
