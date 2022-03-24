@@ -29,6 +29,12 @@ const ProductsAdmin = () => {
 
   const [loading, setLoading] = useState(false);
 
+  useEffect(() => {
+    if (!products) {
+      getProducts()
+    }
+  }, [])
+
   return (
     <Flex flexWrap="wrap" justifyContent="center">
       {products?.map(product => (

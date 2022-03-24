@@ -76,7 +76,7 @@ const RightBar = () => {
           bg={secondaryBgColor}
           w="90%"
           p={5}
-          h="230px"
+          h="150px"
           borderRadius="1rem"
           m={2}
           display={{ md: 'none', lg: 'block' }}
