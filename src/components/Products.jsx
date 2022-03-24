@@ -12,18 +12,20 @@ import {
   Center,
   Tooltip,
   HStack,
+  Button,
 } from '@chakra-ui/react';
 import { MdFavorite, MdShoppingCart } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 import { useShop } from '../contexts/ShopContext';
 import { useCart } from '../contexts/CartContext';
+import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons';
 
 const Products = () => {
-  const { getProducts, products } = useShop();
-  const { createCartItem, getCart, cartItems } = useCart();
+  const { getProducts, products, getNextProducts, getPrevProducts } = useShop();
+  const { createCartItem } = useCart();
 
   const secondaryBgColor = useColorModeValue('#FFFFFF', '#1D213C');
-  const secondaryHoverBgColor = useColorModeValue('teal.200', 'teal.700')
+  const secondaryHoverBgColor = useColorModeValue('teal.200', 'teal.700');
 
   useEffect(() => {
     getProducts();
@@ -31,7 +33,30 @@ const Products = () => {
 
   return (
     <>
-      <Flex flexWrap="wrap" justifyContent="center" w="100%" px="1rem" pb={10}>
+      <Flex
+        flexWrap="wrap"
+        justifyContent="center"
+        w="100%"
+        px="1rem"
+        pb={10}
+        position="relative"
+      >
+        <IconButton
+          position="absolute"
+          right="0%"
+          top="30%"
+          onClick={getNextProducts}
+          icon={<ChevronRightIcon />}
+        />
+
+        <IconButton
+          position="absolute"
+          left="0%"
+          top="30%"
+          onClick={getPrevProducts}
+          icon={<ChevronLeftIcon />}
+        />
+
         {products?.map(product => (
           <Flex
             flexDir="column"

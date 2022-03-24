@@ -131,7 +131,7 @@ const PagesMyAccount = () => {
             mb={4}
             placeholder={user?.displayName || 'You have not set up your username'}
             type="text"
-            value={displayName}
+
             onChange={(e) => handleNameChange(e.target.value)}
           />
         </FormControl>

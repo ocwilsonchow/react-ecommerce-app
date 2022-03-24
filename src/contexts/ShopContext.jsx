@@ -12,6 +12,9 @@ import {
   deleteDoc,
   increment,
   getDoc,
+  startAfter,
+  startAt,
+  limit,
 } from 'firebase/firestore';
 import { db } from '../firebase';
 import { useToast } from '@chakra-ui/react';
@@ -20,11 +23,14 @@ const ShopContext = createContext();
 
 export function ShopProvider({ children }) {
   const [categories, setCategories] = useState();
-  const [similarProducts, setSimilarProducts] = useState()
+  const [similarProducts, setSimilarProducts] = useState();
   const [products, setProducts] = useState();
-  const [product, setProduct] = useState()
-  const [categoryProducts, setCategoryProducts] = useState()
+  const [product, setProduct] = useState();
+  const [categoryProducts, setCategoryProducts] = useState();
   const toast = useToast();
+
+ const [lastVisible, setLastVisible] = useState()
+ const [prevFirstVisible, setPrevFirstVisible] = useState()
 
   // Get categories
   const getCategories = async () => {
@@ -37,36 +43,86 @@ export function ShopProvider({ children }) {
   };
 
   // Get products
+  // const getProducts = async () => {
+  //   const first = query(collection(db, 'products'), orderBy('category', 'desc'), limit(15));
+  //   const documentSnapshots = await getDocs(first);
+  //   setProducts(documentSnapshots.docs.map(doc => ({ ...doc.data(), id: doc.id })));
+
+  //   const lastVisible = documentSnapshots.docs[documentSnapshots.docs.length-1]
+  //   console.log("last", lastVisible)
+
+  //   const next = query(collection(db, "products"), orderBy('category', 'desc'), startAfter(lastVisible), limit(15))
+  //   console.log(next)
+  // };
+
+  let documentSnapshots, nextDocumentSnaps,prevDocumentSnaps
+
   const getProducts = async () => {
-    const q = query(collection(db, 'products'), orderBy('category', 'desc'));
-    const querySnapshot = await getDocs(q);
-    setProducts(querySnapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })));
+    const first = query(
+      collection(db, 'products'),
+      orderBy('category', 'desc'),
+      limit(15)
+    );
+    documentSnapshots = await getDocs(first);
+    setProducts(
+      documentSnapshots.docs.map(doc => ({ ...doc.data(), id: doc.id }))
+    );
+
+    setLastVisible(documentSnapshots.docs[documentSnapshots.docs.length - 1]);
+    setPrevFirstVisible(documentSnapshots.docs[0])
   };
 
-  // Get category products
-  const getCategoryProducts = async (name) => {
-    setCategoryProducts()
-    const q = query(collection(db, 'products'), where("category", "==", name))
-    const querySnapshot = await getDocs(q);
-    setCategoryProducts(querySnapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })));
+  const getNextProducts = async () => {
+    const next = query(
+      collection(db, 'products'),
+      orderBy('category', 'desc'),
+      startAfter(lastVisible),
+      limit(15)
+    );
+    nextDocumentSnaps = await getDocs(next);
+    setProducts(
+      nextDocumentSnaps.docs.map(doc => ({ ...doc.data(), id: doc.id }))
+    );
+  };
+
+  const getPrevProducts = async () => {
+    const prev = query(collection(db, 'products'), orderBy('category', 'desc'), startAt(prevFirstVisible), limit(15))
+    prevDocumentSnaps = await getDocs(prev)
+    setProducts(prevDocumentSnaps.docs.map(doc => ({ ...doc.data(), id: doc.id })))
   }
+
+  // console.log(nextProducts);
+
+  // Get category products
+  const getCategoryProducts = async name => {
+    setCategoryProducts();
+    const q = query(collection(db, 'products'), where('category', '==', name));
+    const querySnapshot = await getDocs(q);
+    setCategoryProducts(
+      querySnapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }))
+    );
+  };
 
   // Get single product
-  const getProduct = async (id) => {
-    setProduct()
-    const q = query(doc(db, "products", id))
-    const querySnapshot = await getDoc(q)
-    setProduct({...querySnapshot.data(), id: querySnapshot.id})
-  }
+  const getProduct = async id => {
+    setProduct();
+    const q = query(doc(db, 'products', id));
+    const querySnapshot = await getDoc(q);
+    setProduct({ ...querySnapshot.data(), id: querySnapshot.id });
+  };
 
   // Get similar products
-  const getSimilarProducts = async (category) => {
-    setSimilarProducts()
-    const q = query(collection(db, 'products'), where('category', '==', category.productCategory))
+  const getSimilarProducts = async category => {
+    setSimilarProducts();
+    const q = query(
+      collection(db, 'products'),
+      where('category', '==', category.productCategory)
+    );
     const querySnapshot = await getDocs(q);
-    setSimilarProducts(querySnapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })));
-  }
-
+    setSimilarProducts(
+      querySnapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }))
+    );
+  };
 
   // Create product
   const createProduct = async (
@@ -133,9 +189,8 @@ export function ShopProvider({ children }) {
   };
 
   // Delete product
- const deleteProduct =async  (productId) => {
-    await deleteDoc(doc(db, "products", productId))
-    .then(() => {
+  const deleteProduct = async productId => {
+    await deleteDoc(doc(db, 'products', productId)).then(() => {
       getProducts();
       toast({
         title: 'Product deleted',
@@ -145,8 +200,7 @@ export function ShopProvider({ children }) {
         isClosable: true,
       });
     });
- }
-
+  };
 
   const contextData = {
     getCategories,
@@ -163,6 +217,8 @@ export function ShopProvider({ children }) {
     similarProducts,
     categoryProducts,
     getCategoryProducts,
+    getNextProducts,
+    getPrevProducts
   };
 
   return (

@@ -68,8 +68,8 @@ const RightBar = () => {
           alignItems="center"
           justifyContent="space-between"
         >
-          <Text fontWeight="bold" w="70%">
-            {(user && `Welcome Back, ${user.displayName}!`) || 'Hello there!'}
+          <Text fontWeight="bold"  w="70%">
+            {(user && `Welcome back, ${user.displayName}!`) || 'Hello there, sign in to explore new features!'}
           </Text>
 
           <Avatar size="md" src={user?.photoURL || ''} />
