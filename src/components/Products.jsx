@@ -33,6 +33,10 @@ const Products = () => {
 
   return (
     <>
+      <HStack justifyContent="center" w="100%">
+        <IconButton variant="outline" borderRadius="full" onClick={getPrevProducts} icon={<ChevronLeftIcon />} />
+        <IconButton variant="outline" borderRadius="full" onClick={getNextProducts} icon={<ChevronRightIcon />} />
+      </HStack>
       <Flex
         flexWrap="wrap"
         justifyContent="center"
@@ -41,22 +45,6 @@ const Products = () => {
         pb={10}
         position="relative"
       >
-        <IconButton
-          position="absolute"
-          right="0%"
-          top="30%"
-          onClick={getNextProducts}
-          icon={<ChevronRightIcon />}
-        />
-
-        <IconButton
-          position="absolute"
-          left="0%"
-          top="30%"
-          onClick={getPrevProducts}
-          icon={<ChevronLeftIcon />}
-        />
-
         {products?.map(product => (
           <Flex
             flexDir="column"

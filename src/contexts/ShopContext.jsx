@@ -73,6 +73,7 @@ export function ShopProvider({ children }) {
   };
 
   const getNextProducts = async () => {
+     console.log('getNext')
     const next = query(
       collection(db, 'products'),
       orderBy('category', 'desc'),
@@ -86,6 +87,7 @@ export function ShopProvider({ children }) {
   };
 
   const getPrevProducts = async () => {
+    console.log('getPrev')
     const prev = query(collection(db, 'products'), orderBy('category', 'desc'), startAt(prevFirstVisible), limit(15))
     prevDocumentSnaps = await getDocs(prev)
     setProducts(prevDocumentSnaps.docs.map(doc => ({ ...doc.data(), id: doc.id })))
