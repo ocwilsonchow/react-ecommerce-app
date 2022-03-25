@@ -14,6 +14,7 @@ import {
   useColorModeValue,
 } from '@chakra-ui/react';
 import { useAuth } from '../contexts/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 const PagesAuth = () => {
   const secondaryBgColor = useColorModeValue('#FFFFFF', '#1D213C');
@@ -21,10 +22,11 @@ const PagesAuth = () => {
   const [isSignup, setIsSignup] = useState(false);
   const emailRef = useRef();
   const passwordRef = useRef();
-  const usernameRef = useRef()
+  const usernameRef = useRef();
   const confirmPasswordRef = useRef();
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const { signup, login, user } = useAuth();
 
@@ -36,7 +38,11 @@ const PagesAuth = () => {
     try {
       setError('');
       setLoading(true);
-      await signup(emailRef.current.value, passwordRef.current.value, usernameRef.current.value);
+      await signup(
+        emailRef.current.value,
+        passwordRef.current.value,
+        usernameRef.current.value
+      );
     } catch {
       setError('Failed to create an account');
     }
@@ -59,7 +65,15 @@ const PagesAuth = () => {
     setIsSignup(prevIsSignup => !prevIsSignup);
   };
 
-  if (user) return <Flex>You're logged in already</Flex>;
+  if (user)
+    return (
+      <VStack w="100%">
+        <Center w="100%" py={10} fontWeight="bold" fontSize="xl">
+          You have successfully logged in
+        </Center>
+        <Button   onClick={() => navigate('/')}>Go to Home Page</Button>
+      </VStack>
+    );
 
   return (
     <Flex flexDir="column" w="100%" p={5} alignItems="center">

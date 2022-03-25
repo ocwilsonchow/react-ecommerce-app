@@ -165,10 +165,9 @@ const PagesCheckout = () => {
           </Flex>
         ))}
         <Center py={10}>
-          <Button disabled={!user || loading} isLoading={loading} type="submit" onClick={redirectToCheckout}>
-            {(cartItems.length == 0 &&
-              'Please login to view your shopping cart.') ||
-              'Go to Payment'}
+          <Button disabled={!user || loading || cartItems.length == 0 } isLoading={loading} type="submit" onClick={redirectToCheckout}>
+            {(cartItems.length == 0 && "No item in shopping cart"
+            )}
           </Button>
         </Center>
       </VStack>

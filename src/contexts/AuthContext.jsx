@@ -69,7 +69,6 @@ export function AuthProvider({ children }) {
       });
   };
 
-  console.log(user)
 
   // Sign In Anonymously
   const anonymousLogin = async () => {
@@ -77,8 +76,8 @@ export function AuthProvider({ children }) {
       .then((userCredential) => {
         setUser(userCredential.user);
         toast({
-          title: 'Signed in as a guest',
-          description: 'Welcome!',
+          title: 'Welcome!',
+          description: 'You have successfully signed in as a guest, enjoy!',
           status: 'success',
           duration: 2000,
           isClosable: true,

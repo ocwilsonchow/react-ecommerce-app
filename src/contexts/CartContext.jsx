@@ -32,8 +32,7 @@ export function CartProvider({ children }) {
   const createCartItem = async product => {
     console.log(product)
     if (!user) {
-      anonymousLogin()
-      return
+      await anonymousLogin()
     }
 
     // Check if this item is already in the cart

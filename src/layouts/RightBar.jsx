@@ -1,22 +1,14 @@
 import React, { useEffect } from 'react';
 import {
-  Center,
   Box,
   Image,
   Flex,
-  VStack,
   Button,
   Text,
-  Input,
-  InputGroup,
-  InputLeftElement,
-  Badge,
   Avatar,
   HStack,
   useColorModeValue,
   IconButton,
-  Circle,
-  Checkbox,
   Tooltip,
   Tag,
 } from '@chakra-ui/react';
@@ -24,7 +16,6 @@ import { useNavigate, Link } from 'react-router-dom';
 import { MinusIcon, AddIcon, DeleteIcon, SearchIcon } from '@chakra-ui/icons';
 import { useAuth } from '../contexts/AuthContext';
 import { useCart } from '../contexts/CartContext';
-import { MdFavorite, MdShoppingCart } from 'react-icons/md';
 import { FaCartArrowDown } from 'react-icons/fa';
 
 const RightBar = () => {
@@ -33,7 +24,7 @@ const RightBar = () => {
   const secondaryHoverBgColor = useColorModeValue('teal.600', 'teal.700');
 
   const tertiaryBgColor = useColorModeValue('#32343B', '#222D48');
-  const { user } = useAuth();
+  const { user, anonymousLogin } = useAuth();
   const {
     cartItems,
     getCart,
@@ -62,12 +53,15 @@ const RightBar = () => {
       {/* Search Bar + Avatar */}
       <Flex flexDir="column" alignItems="center" w="100%">
         <Flex
-          w="85%"
+          w="90%"
           py={2}
           mt={4}
           alignItems="center"
-          justifyContent="flex-end"
+          justifyContent="space-between"
         >
+          {!user && <Tag fontSize="xs">Not signed in </Tag>}
+          {user?.isAnonymous && <Tag fontSize="xs">Signed in as: Guest </Tag>}
+          {user && !user?.isAnonymous && <Tag fontSize="xs">Signed in as: {user.displayName} </Tag>}
           <Avatar size="md" src={user?.photoURL || ''} />
         </Flex>
 
@@ -94,16 +88,19 @@ const RightBar = () => {
       >
         {/* Shopping Cart */}
         <Flex flexDir="column" my={3}>
-          <Flex w="100%">
+          <Flex w="100%" justifyContent="center">
             <Text fontWeight="bold" my={2} display={{ md: 'none', lg: 'flex' }}>
               My Shopping Cart
             </Text>
           </Flex>
           {/* Shopping cart item*/}
-          {cartItems.length == 0 && (
+          {user && cartItems.length === 0 && (
             <Text my={1} fontWeight="light" textAlign="center">
               Cart is empty
             </Text>
+          )}
+          {!user && (
+            <Button onClick={() => anonymousLogin()}>Continue as Guest</Button>
           )}
           {cartItems.map(item => (
             <Box
@@ -186,15 +183,15 @@ const RightBar = () => {
             <Button
               position="relative"
               size="lg"
+              fontSize="md"
               w="100%"
               my={1}
               colorScheme="orange"
               fontWeight="bold"
-              hidden={cartItems.length == 0}
+              hidden={cartItems.length === 0}
               display={{ md: 'none', lg: 'block' }}
             >
-              Check Out
-
+              Proceed to Checkout
             </Button>
           </Link>
           {!user && (

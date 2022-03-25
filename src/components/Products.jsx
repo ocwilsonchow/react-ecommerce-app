@@ -1,20 +1,24 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import {
   Badge,
   Box,
   Flex,
   Image,
   Text,
-  Spinner,
   useColorModeValue,
-  Code,
   IconButton,
-  Center,
   Tooltip,
   HStack,
-  Button,
-  Circle,
-  Container,
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+  PopoverHeader,
+  PopoverBody,
+  PopoverFooter,
+  PopoverArrow,
+  PopoverCloseButton,
+  PopoverAnchor,
+  Button, Portal
 } from '@chakra-ui/react';
 import { MdFavorite, MdShoppingCart } from 'react-icons/md';
 import { Link } from 'react-router-dom';
@@ -23,19 +27,33 @@ import { useCart } from '../contexts/CartContext';
 import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons';
 
 const Products = () => {
-  const { getProducts, updateDisplayProducts, displayProducts,increasePageNumber,decreasePageNumber, pageNumber, numberOfPages } = useShop();
+  const {
+    getProducts,
+    products,
+    updateDisplayProducts,
+    displayProducts,
+    increasePageNumber,
+    decreasePageNumber,
+    pageNumber,
+  } = useShop();
   const { createCartItem } = useCart();
 
   const secondaryBgColor = useColorModeValue('#FFFFFF', '#1D213C');
   const secondaryHoverBgColor = useColorModeValue('teal.200', 'teal.700');
 
   useEffect(() => {
-    getProducts();
+    if (!products) {
+      getProducts();
+    }
   }, []);
 
   useEffect(() => {
-    updateDisplayProducts()
-  }, [pageNumber])
+    updateDisplayProducts();
+  }, [pageNumber]);
+
+  const handleCreateCartItem = product => {
+    createCartItem(product);
+  };
 
   return (
     <>
@@ -44,17 +62,17 @@ const Products = () => {
           variant="outline"
           borderRadius="full"
           icon={<ChevronLeftIcon />}
-          disabled={pageNumber == 0}
+          disabled={pageNumber === 0}
           onClick={() => decreasePageNumber()}
         />
         <Box px={2} fontWeight="bold">
-          {pageNumber+1}
+          {pageNumber + 1}
         </Box>
         <IconButton
           variant="outline"
           borderRadius="full"
           icon={<ChevronRightIcon />}
-          disabled={pageNumber == 3}
+          disabled={pageNumber === 3}
           onClick={() => increasePageNumber()}
         />
       </HStack>
@@ -128,10 +146,10 @@ const Products = () => {
                 mx={1}
                 size="md"
                 borderRadius="50%"
-                disabled={product.stock == 0}
+                disabled={product.stock === 0}
                 icon={<MdShoppingCart />}
                 variant="outline"
-                onClick={() => createCartItem(product)}
+                onClick={() => handleCreateCartItem(product)}
               />
             </Flex>
           </Flex>
