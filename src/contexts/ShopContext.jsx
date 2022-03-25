@@ -15,7 +15,8 @@ import {
 } from 'firebase/firestore';
 import { db } from '../firebase';
 import { useToast } from '@chakra-ui/react';
-import ReactPaginate from 'react-paginate';
+import { useAuth } from '../contexts/AuthContext';
+
 
 const ShopContext = createContext();
 
@@ -24,6 +25,7 @@ export function ShopProvider({ children }) {
   const [categories, setCategories] = useState();
   const [similarProducts, setSimilarProducts] = useState();
   const [products, setProducts] = useState();
+    const { user } = useAuth();
 
   const [product, setProduct] = useState();
   const [categoryProducts, setCategoryProducts] = useState();
@@ -140,6 +142,17 @@ export function ShopProvider({ children }) {
 
   // Increase stock count
   const increaseProductStock = async id => {
+
+    if (user.uid !== "74SPEqEyR0VaYoeTHcG7Fyq02S92") {
+      return toast({
+        title: 'Permission Restricted',
+        description: 'You do not have the permission',
+        status: 'warning',
+        duration: 2000,
+        isClosable: true,
+      });
+    }
+
     await updateDoc(doc(db, 'products', id), {
       stock: increment(1),
     }).then(() => {
@@ -156,6 +169,15 @@ export function ShopProvider({ children }) {
 
   // Decrease stock count
   const decreaseProductStock = async id => {
+    if (user.uid !== "74SPEqEyR0VaYoeTHcG7Fyq02S92") {
+      return toast({
+        title: 'Permission Restricted',
+        description: 'You do not have the permission',
+        status: 'warning',
+        duration: 2000,
+        isClosable: true,
+      });
+    }
     await updateDoc(doc(db, 'products', id), {
       stock: increment(-1),
     }).then(() => {
@@ -172,6 +194,15 @@ export function ShopProvider({ children }) {
 
   // Delete product
   const deleteProduct = async productId => {
+    if (user.uid !== "74SPEqEyR0VaYoeTHcG7Fyq02S92") {
+      return toast({
+        title: 'Permission Restricted',
+        description: 'You do not have the permission',
+        status: 'warning',
+        duration: 2000,
+        isClosable: true,
+      });
+    }
     await deleteDoc(doc(db, 'products', productId)).then(() => {
       getProducts();
       toast({

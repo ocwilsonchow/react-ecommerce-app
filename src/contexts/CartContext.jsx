@@ -30,8 +30,6 @@ export function CartProvider({ children }) {
     console.log('cart items cleaned');
   };
 
-  console.log(favoriteItems)
-
   // Create favorite items
   const createFavoriteItems = async product => {
     console.log(product)
