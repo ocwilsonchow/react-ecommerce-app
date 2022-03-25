@@ -36,7 +36,7 @@ function Routing() {
                   <Route path="/categories/:id" element={<PagesShowCategory />} />
                   <Route path="/product/:id" element={<PagesShow />} />
                   <Route path="/checkout" element={<PagesCheckout />} />
-                    <Route path="/favorites" element={<PagesFavorites />} />
+                  <Route path="/favorites" element={<PagesFavorites />} />
                   <Route path="/success" element={<PagesCheckoutSuccess />} />
                   <Route path="/canceled" element={<PagesCheckoutCanceled />} />
                   <Route path="/my/account" element={<PagesMyAccount />} />

@@ -31,7 +31,7 @@ export function ShopProvider({ children }) {
   const [categoryProducts, setCategoryProducts] = useState();
   const [pageNumber, setPageNumber] = useState(0);
 
-  const productsPerPage = 14;
+  const productsPerPage = 18;
   const productsVisited = pageNumber * productsPerPage;
   const numberOfPages = Math.ceil(products?.length/productsPerPage)
 
@@ -44,16 +44,19 @@ export function ShopProvider({ children }) {
     }
   }, [products]);
 
+  // Set the array of products to be displayed
   const updateDisplayProducts = () => {
     setDisplayProducts(
       products?.slice(productsVisited, productsVisited + productsPerPage)
     );
   };
 
+  // Set next product page
   const increasePageNumber = () => {
     setPageNumber(pageNumber + 1);
   };
 
+  //Set previous product page
   const decreasePageNumber = () => {
     setPageNumber(pageNumber - 1);
   };
@@ -70,7 +73,6 @@ export function ShopProvider({ children }) {
   // Get categories
   const getCategories = async () => {
     const q = query(collection(db, 'categories'));
-
     const querySnapshot = await getDocs(q);
     setCategories(
       querySnapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }))
@@ -142,7 +144,6 @@ export function ShopProvider({ children }) {
 
   // Increase stock count
   const increaseProductStock = async id => {
-
     if (user.uid !== process.env.REACT_APP_ADMIN_UID) {
       return toast({
         title: 'Permission Restricted',

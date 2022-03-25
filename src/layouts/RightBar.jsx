@@ -18,6 +18,7 @@ import { useAuth } from '../contexts/AuthContext';
 import { useCart } from '../contexts/CartContext';
 import { FaCartArrowDown } from 'react-icons/fa';
 import { MdFavorite } from 'react-icons/md';
+import CartTotal from '../components/CartTotal';
 
 const RightBar = () => {
   const bgColor = useColorModeValue('#FFFFFF', '#141026');
@@ -34,6 +35,7 @@ const RightBar = () => {
     favoriteItems,
     getFavorites,
     removeFavoriteItem,
+    calculateCartTotal
   } = useCart();
   const navigate = useNavigate();
 
@@ -41,6 +43,7 @@ const RightBar = () => {
     if (user) {
       getCart();
       getFavorites();
+      calculateCartTotal()
     }
   }, [user]);
 
@@ -287,6 +290,7 @@ const RightBar = () => {
 
         {/* Checkout button */}
         <Flex flexDir="column" justifyContent="center" w="90%">
+          <CartTotal />
           <Link to="/checkout">
             <Button
               position="relative"

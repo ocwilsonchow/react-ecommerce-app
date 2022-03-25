@@ -13,11 +13,13 @@ import {
   Tooltip,
   Tag,
   Square,
+  Spinner
 } from '@chakra-ui/react';
 import { useCart } from '../contexts/CartContext';
 import { useAuth } from '../contexts/AuthContext';
 import { MinusIcon, AddIcon, DeleteIcon, SearchIcon } from '@chakra-ui/icons';
 import { useToast } from '@chakra-ui/react';
+import CartTotal from '../components/CartTotal';
 
 const PagesCheckout = () => {
   const secondaryHoverBgColor = useColorModeValue('teal.600', 'teal.700');
@@ -26,8 +28,8 @@ const PagesCheckout = () => {
   const { user } = useAuth();
   const tertiaryBgColor = useColorModeValue('#32343B', '#222D48');
   const toast = useToast();
-  const [loading, setLoading] = useState(false)
-
+  const [loading, setLoading] = useState(false);
+  const bgColor = useColorModeValue('#FFFFFF', '#141026');
   let stripePromise;
 
   // Get Stripe
@@ -54,16 +56,16 @@ const PagesCheckout = () => {
 
   // Check out call
   const redirectToCheckout = async () => {
-    setLoading(true)
+    setLoading(true);
     const stripe = await getStripe();
     const { error } = await stripe
       .redirectToCheckout(checkoutOptions)
       .then(() => {
-        setLoading(false)
+        setLoading(false);
         console.log('redirected');
       })
-      .catch((err) => {
-        setLoading(false)
+      .catch(err => {
+        setLoading(false);
         toast({
           title: 'Error',
           description: err.message,
@@ -87,8 +89,11 @@ const PagesCheckout = () => {
         minW="350px"
         maxW="700px"
         spacing="15px"
-        p={3}
+        p={4}
+        bg={bgColor}
+        borderRadius="xl"
       >
+        {!cartItems && <Spinner />}
         {cartItems.map(item => (
           <Flex
             key={item.id}
@@ -164,10 +169,18 @@ const PagesCheckout = () => {
             </Flex>
           </Flex>
         ))}
-        <Center py={10}>
-          <Button disabled={!user || loading || cartItems.length == 0 } isLoading={loading} type="submit" onClick={redirectToCheckout}>
-            {(cartItems.length == 0 && "No item in shopping cart" || "Proceed to Payment"
-            )}
+        <Flex w="100%">
+          <CartTotal />
+        </Flex>
+        <Center py={2}>
+          <Button
+            disabled={!user || loading || cartItems.length == 0}
+            isLoading={loading}
+            type="submit"
+            onClick={redirectToCheckout}
+          >
+            {(cartItems.length == 0 && 'No item in shopping cart') ||
+              'Proceed to Payment'}
           </Button>
         </Center>
       </VStack>

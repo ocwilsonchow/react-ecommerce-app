@@ -108,7 +108,7 @@ const PagesMyAccount = () => {
 
   return (
     <Flex>
-      <VStack w="100%" alignItems="center">
+      <VStack w="100%" alignItems="center" px={8} >
         <Text py={5} fontWeight="bold" fontSize="xl">
           My Account Settings
         </Text>

@@ -20,6 +20,7 @@ const CartContext = createContext();
 export function CartProvider({ children }) {
   const [cartItems, setCartItems] = useState([]);
   const [favoriteItems, setFavoriteItems] = useState([])
+  const [cartTotal, setCartTotal] = useState()
   const toast = useToast();
   const { user, anonymousLogin } = useAuth();
 
@@ -29,6 +30,22 @@ export function CartProvider({ children }) {
     setCartItems([]);
     console.log('cart items cleaned');
   };
+
+  useEffect(() => {
+    if (cartItems) {
+      calculateCartTotal()
+    }
+  }, [cartItems])
+
+  // Calculate cart total amount
+  const calculateCartTotal = () => {
+    let newArr = []
+    cartItems.map((item) => {
+      newArr.push(Number(item.price)*(item.quantity))
+    })
+    const sum = newArr.reduce((prev, curr) => prev + curr, 0)
+    setCartTotal(sum)
+  }
 
   // Create favorite items
   const createFavoriteItems = async product => {
@@ -220,7 +237,12 @@ export function CartProvider({ children }) {
     increaseCartItemQuantity,
     decreaseCartItemQuantity,
     resetCartOnLogout,
-    createFavoriteItems,favoriteItems, getFavorites,removeFavoriteItem
+    createFavoriteItems,
+    favoriteItems,
+    getFavorites,
+    removeFavoriteItem,
+    cartTotal,
+    calculateCartTotal
   };
 
   return (

@@ -112,7 +112,7 @@ const TopBar = () => {
             icon={<RiLogoutBoxFill />}
           />
         )}
-        <ColorModeSwitcher borderRadius="50%"  />
+        <ColorModeSwitcher borderRadius="50%" />
       </HStack>
     </Flex>
   );

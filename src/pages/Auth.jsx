@@ -86,7 +86,7 @@ const PagesAuth = () => {
         maxW="400px"
       >
         {isSignup && (
-          <FormControl>
+          <FormControl >
             <Text fontWeight="bold" fontSize="3xl">
               Sign up
             </Text>
