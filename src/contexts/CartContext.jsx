@@ -20,7 +20,7 @@ const CartContext = createContext();
 export function CartProvider({ children }) {
   const [cartItems, setCartItems] = useState([]);
   const [favoriteItems, setFavoriteItems] = useState([])
-  const [cartTotal, setCartTotal] = useState()
+  const [cartTotal, setCartTotal] = useState(0)
   const toast = useToast();
   const { user, anonymousLogin } = useAuth();
 
@@ -39,6 +39,7 @@ export function CartProvider({ children }) {
 
   // Calculate cart total amount
   const calculateCartTotal = () => {
+    console.log("calculating")
     let newArr = []
     cartItems.map((item) => {
       newArr.push(Number(item.price)*(item.quantity))

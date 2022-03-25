@@ -6,22 +6,29 @@ import {
   IconButton,
   Box,
   Tag,
+  Drawer,
+  DrawerOverlay,
+  DrawerContent,
+  useDisclosure,
+  Button,
 } from '@chakra-ui/react';
+import { HamburgerIcon } from '@chakra-ui/icons';
 import { FaStore, FaThList, FaCartArrowDown } from 'react-icons/fa';
 import { AiTwotoneSetting } from 'react-icons/ai';
-import { RiLoginBoxLine, RiLogoutBoxFill, RiAdminFill } from 'react-icons/ri';
-import { MdFavorite, MdShoppingCart } from 'react-icons/md';
-
+import { RiLoginBoxLine, RiLogoutBoxFill } from 'react-icons/ri';
 import { Link } from 'react-router-dom';
-
 import { useAuth } from '../contexts/AuthContext';
 import { useCart } from '../contexts/CartContext';
 import { ColorModeSwitcher } from '../ColorModeSwitcher';
+import RightBar from './RightBar';
+import RightDrawer from '../components/RightDrawer';
 
 const TopBar = () => {
   const bgColor = useColorModeValue('#FFFFFF', '#141026');
   const { signout, user } = useAuth();
   const { resetCartOnLogout, cartItems } = useCart();
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const btnRef = React.useRef();
 
   const handleSignOut = () => {
     resetCartOnLogout();
@@ -34,8 +41,10 @@ const TopBar = () => {
       alignItems="center"
       bg={bgColor}
       display={{ base: 'flex', md: 'none' }}
+      position="relative"
+      w="100%"
     >
-      <HStack spacing="5px">
+      <HStack spacing="4px">
         <Link to="/">
           <IconButton
             variant="ghost"
@@ -113,6 +122,27 @@ const TopBar = () => {
           />
         )}
         <ColorModeSwitcher borderRadius="50%" />
+        <>
+          <IconButton
+            icon={<HamburgerIcon />}
+            ref={btnRef}
+            onClick={onOpen}
+            variant="ghost"
+            size="lg"
+            borderRadius="50%"
+          />
+          <Drawer
+            isOpen={isOpen}
+            placement="right"
+            onClose={onClose}
+            finalFocusRef={btnRef}
+          >
+            <DrawerOverlay />
+            <DrawerContent alignItems="center">
+              <RightDrawer />
+            </DrawerContent>
+          </Drawer>
+        </>
       </HStack>
     </Flex>
   );

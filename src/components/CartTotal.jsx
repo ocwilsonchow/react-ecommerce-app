@@ -3,13 +3,7 @@ import { Flex, Spinner, Text } from '@chakra-ui/react';
 import { useCart } from '../contexts/CartContext';
 
 const CartTotal = () => {
-  const { cartTotal, calculateCartTotal } = useCart();
-
-  // console.log(cartTotal)
-
-  useEffect(() => {
-    calculateCartTotal();
-  }, []);
+  const { cartTotal } = useCart();
 
   return (
 
