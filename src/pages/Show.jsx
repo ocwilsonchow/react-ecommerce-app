@@ -22,7 +22,7 @@ const PagesShow = () => {
   const { product, getProduct } = useShop();
   const [loading, setLoading] = useState(true);
   const { id } = useParams();
-  const { createCartItem } = useCart();
+  const { createCartItem, createFavoriteItems } = useCart();
 
   useEffect(() => {
     if (id) {
@@ -92,6 +92,7 @@ const PagesShow = () => {
                   borderRadius="50%"
                   icon={<MdFavorite />}
                   variant="outline"
+                   onClick={() => createFavoriteItems(product)}
                 />
                 <Button
                   size="lg"

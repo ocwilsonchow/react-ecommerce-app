@@ -39,7 +39,6 @@ export function CartProvider({ children }) {
 
   // Calculate cart total amount
   const calculateCartTotal = () => {
-    console.log("calculating")
     let newArr = []
     cartItems.map((item) => {
       newArr.push(Number(item.price)*(item.quantity))
@@ -50,7 +49,6 @@ export function CartProvider({ children }) {
 
   // Create favorite items
   const createFavoriteItems = async product => {
-    console.log(product)
     if (!user) {
       await anonymousLogin()
     }

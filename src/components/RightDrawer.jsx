@@ -66,10 +66,20 @@ const RightDrawer = () => {
           alignItems="center"
           justifyContent="space-between"
         >
-          {!user && <Tag fontSize="xs">Not signed in</Tag>}
-          {user?.isAnonymous && <Tag fontSize="xs">Signed in as: Guest </Tag>}
+          {!user && (
+            <Tag colorScheme="twitter" fontSize="xs">
+              Not signed in
+            </Tag>
+          )}
+          {user?.isAnonymous && (
+            <Tag colorScheme="twitter" fontSize="xs">
+              Signed in as: Guest{' '}
+            </Tag>
+          )}
           {user && !user?.isAnonymous && (
-            <Tag fontSize="xs">Signed in as: {user.displayName} </Tag>
+            <Tag colorScheme="twitter" fontSize="xs">
+              Signed in as: {user.displayName}{' '}
+            </Tag>
           )}
           <Avatar size="md" src={user?.photoURL || ''} />
         </Flex>
@@ -142,24 +152,25 @@ const RightDrawer = () => {
                     src={item.productImageURL}
                     borderRadius="0.5rem"
                   />
-
-                  <Flex flexDir="column" px={2}>
-                    <Tooltip label={item.productName}>
-                      <Text
-                        color="white"
-                        fontWeight="bold"
-                        w="120px"
-                        isTruncated
-                      >
-                        {item.productName}
-                      </Text>
-                    </Tooltip>
-                    <HStack>
-                      <Text color="white" fontWeight="light">
-                        HKD {item.price}
-                      </Text>
-                    </HStack>
-                  </Flex>
+                  <Link to={`/product/${item.productId}`}>
+                    <Flex flexDir="column" px={2}>
+                      <Tooltip label={item.productName}>
+                        <Text
+                          color="white"
+                          fontWeight="bold"
+                          w="120px"
+                          isTruncated
+                        >
+                          {item.productName}
+                        </Text>
+                      </Tooltip>
+                      <HStack>
+                        <Text color="white" fontWeight="light">
+                          HKD {item.price}
+                        </Text>
+                      </HStack>
+                    </Flex>
+                  </Link>
                   <Flex>
                     <IconButton
                       mr={1}
@@ -197,7 +208,6 @@ const RightDrawer = () => {
             )}
             {favoriteItems?.map(item => (
               <Box
-                key={item.id}
                 bg={tertiaryBgColor}
                 p={2}
                 borderRadius="1rem"
@@ -208,6 +218,7 @@ const RightDrawer = () => {
                 _hover={{ bg: secondaryHoverBgColor }}
                 transition="all ease 0.3s"
                 cursor="pointer"
+                key={item.id}
               >
                 <Flex alignItems="center" justifyContent="space-between">
                   <Image
@@ -215,24 +226,25 @@ const RightDrawer = () => {
                     src={item.productImageURL}
                     borderRadius="0.5rem"
                   />
-
-                  <Flex flexDir="column" px={2}>
-                    <Tooltip label={item.productName}>
-                      <Text
-                        color="white"
-                        fontWeight="bold"
-                        w="140px"
-                        isTruncated
-                      >
-                        {item.productName}
-                      </Text>
-                    </Tooltip>
-                    <HStack>
-                      <Text color="white" fontWeight="light">
-                        HKD {item.price}
-                      </Text>
-                    </HStack>
-                  </Flex>
+                  <Link to={`/product/${item.productId}`}>
+                    <Flex flexDir="column" px={2}>
+                      <Tooltip label={item.productName}>
+                        <Text
+                          color="white"
+                          fontWeight="bold"
+                          w="140px"
+                          isTruncated
+                        >
+                          {item.productName}
+                        </Text>
+                      </Tooltip>
+                      <HStack>
+                        <Text color="white" fontWeight="light">
+                          HKD {item.price}
+                        </Text>
+                      </HStack>
+                    </Flex>
+                  </Link>
                   <Flex>
                     <IconButton
                       mt={1}
@@ -266,22 +278,29 @@ const RightDrawer = () => {
               Proceed to Checkout
             </Button>
           </Link>
+
           {!user ||
-            (user.isAnonymous && (
+            (user?.isAnonymous && (
               <Button
                 w="100%"
                 size="lg"
                 my={1}
-                colorScheme="gray"
+                colorScheme="twitter"
                 fontWeight="bold"
+                display={{ md: 'none', lg: 'block' }}
                 onClick={() => navigate('/auth')}
               >
                 Log in
               </Button>
             ))}
           {!user && (
-            <Button onClick={() => anonymousLogin()}>
-              Sign in as Guest
+            <Button
+              mt={2}
+              size="lg"
+              onClick={() => anonymousLogin()}
+              display={{ md: 'none', lg: 'flex' }}
+            >
+              Continue as Guest
             </Button>
           )}
         </Flex>
