@@ -5,6 +5,7 @@ import {
   updateProfile,
   signInWithEmailAndPassword,
   signOut,
+  signInAnonymously
 } from 'firebase/auth';
 import { auth } from '../firebase';
 import { useNavigate } from 'react-router-dom';
@@ -25,11 +26,12 @@ export function AuthProvider({ children }) {
 
   // Update User's Profile
   const updateUserProfile = async (displayName, imageURL) => {
-    console.log(displayName, imageURL )
+    console.log(displayName, imageURL);
     await updateProfile(auth.currentUser, {
       displayName: displayName,
-      photoURL: imageURL || user.photoURL
-    }).then(() => {
+      photoURL: imageURL || user.photoURL,
+    })
+      .then(() => {
         toast({
           title: 'Profile Updated',
           description: "You've successfully updated your profile",
@@ -37,11 +39,11 @@ export function AuthProvider({ children }) {
           duration: 2000,
           isClosable: true,
         });
-
-    }).catch((err) => {
-      console.log(err.message)
-    })
-  }
+      })
+      .catch(err => {
+        console.log(err.message);
+      });
+  };
 
   // Sign Up
   const signup = async (email, password, username) => {
@@ -50,8 +52,8 @@ export function AuthProvider({ children }) {
         // Signed in
         setUser(userCredential.user);
         updateProfile(auth.currentUser, {
-          displayName: username
-        })
+          displayName: username,
+        });
         navigation('/');
         toast({
           title: 'Account created.',
@@ -64,6 +66,26 @@ export function AuthProvider({ children }) {
       .catch(error => {
         const errorMessage = error.message;
         console.log(errorMessage);
+      });
+  };
+
+  console.log(user)
+
+  // Sign In Anonymously
+  const anonymousLogin = async () => {
+    await signInAnonymously(auth)
+      .then((userCredential) => {
+        setUser(userCredential.user);
+        toast({
+          title: 'Signed in as a guest',
+          description: 'Welcome!',
+          status: 'success',
+          duration: 2000,
+          isClosable: true,
+        });
+      })
+      .catch(error => {
+        console.log(error.message);
       });
   };
 
@@ -110,7 +132,8 @@ export function AuthProvider({ children }) {
     signout,
     login,
     user,
-    updateUserProfile
+    updateUserProfile,
+    anonymousLogin,
   };
 
   return (

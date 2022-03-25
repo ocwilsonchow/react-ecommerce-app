@@ -19,13 +19,13 @@ import {
   Checkbox,
   Tooltip,
   Tag,
-  Fade,
 } from '@chakra-ui/react';
 import { useNavigate, Link } from 'react-router-dom';
 import { MinusIcon, AddIcon, DeleteIcon, SearchIcon } from '@chakra-ui/icons';
 import { useAuth } from '../contexts/AuthContext';
 import { useCart } from '../contexts/CartContext';
 import { MdFavorite, MdShoppingCart } from 'react-icons/md';
+import { FaCartArrowDown } from 'react-icons/fa';
 
 const RightBar = () => {
   const bgColor = useColorModeValue('#FFFFFF', '#141026');
@@ -184,15 +184,17 @@ const RightBar = () => {
         <Flex flexDir="column" justifyContent="center" w="90%">
           <Link to="/checkout">
             <Button
+              position="relative"
               size="lg"
               w="100%"
               my={1}
-              colorScheme="twitter"
+              colorScheme="orange"
               fontWeight="bold"
               hidden={cartItems.length == 0}
               display={{ md: 'none', lg: 'block' }}
             >
               Check Out
+
             </Button>
           </Link>
           {!user && (
@@ -208,11 +210,39 @@ const RightBar = () => {
               Log in
             </Button>
           )}
-          <IconButton
-            icon={<MdShoppingCart />}
-            display={{ md: 'flex', lg: 'none' }}
-            variant="ghost"
-          />
+
+          <Link to="/checkout">
+            <Box
+              position="relative"
+              display={{ md: 'flex', lg: 'none' }}
+              alignItems="center"
+              justifyContent="center"
+            >
+              {user && (
+                <Tag
+                  justifyContent="center"
+                  alignItems="center"
+                  colorScheme="twitter"
+                  fontWeight="extrabold"
+                  variant="solid"
+                  borderRadius="full"
+                  position="absolute"
+                  top="0.5rem"
+                  right="15px"
+                  fontSize="xs"
+                >
+                  {cartItems && cartItems.length}
+                </Tag>
+              )}
+              <IconButton
+                variant="ghost"
+                borderRadius="50%"
+                size="lg"
+                my={2}
+                icon={<FaCartArrowDown />}
+              />
+            </Box>
+          </Link>
         </Flex>
       </Flex>
     </Flex>

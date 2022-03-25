@@ -13,6 +13,8 @@ import {
   Tooltip,
   HStack,
   Button,
+  Circle,
+  Container,
 } from '@chakra-ui/react';
 import { MdFavorite, MdShoppingCart } from 'react-icons/md';
 import { Link } from 'react-router-dom';
@@ -45,6 +47,9 @@ const Products = () => {
           disabled={pageNumber == 0}
           onClick={() => decreasePageNumber()}
         />
+        <Box px={2} fontWeight="bold">
+          {pageNumber+1}
+        </Box>
         <IconButton
           variant="outline"
           borderRadius="full"

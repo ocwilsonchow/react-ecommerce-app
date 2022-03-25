@@ -8,12 +8,8 @@ import {
   updateDoc,
   addDoc,
   serverTimestamp,
-  orderBy,
   increment,
-  onSnapshot,
-  setDoc,
   deleteDoc,
-  QuerySnapshot,
 } from 'firebase/firestore';
 import { db } from '../firebase';
 import { useToast } from '@chakra-ui/react';
@@ -24,7 +20,7 @@ const CartContext = createContext();
 export function CartProvider({ children }) {
   const [cartItems, setCartItems] = useState([]);
   const toast = useToast();
-  const { user } = useAuth();
+  const { user, anonymousLogin } = useAuth();
 
   // Reset cart items on log out
   const resetCartOnLogout = () => {
@@ -36,14 +32,8 @@ export function CartProvider({ children }) {
   const createCartItem = async product => {
     console.log(product)
     if (!user) {
-      toast({
-        title: 'Login required',
-        description: 'Please log in',
-        status: 'warning',
-        duration: 2000,
-        isClosable: true,
-      });
-      return console.log('login required');
+      anonymousLogin()
+      return
     }
 
     // Check if this item is already in the cart

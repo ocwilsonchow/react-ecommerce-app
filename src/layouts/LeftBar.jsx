@@ -82,18 +82,20 @@ const LeftBar = () => {
             />
           </Box>
         </Link>
-        <Link to="/my/account">
-          <IconButton
-            variant="ghost"
-            borderRadius="50%"
-            size="lg"
-            my={2}
-            icon={<AiTwotoneSetting />}
-          />
-        </Link>
+        {user && (
+          <Link to="/my/account">
+            <IconButton
+              variant="ghost"
+              borderRadius="50%"
+              size="lg"
+              my={2}
+              icon={<AiTwotoneSetting />}
+            />
+          </Link>
+        )}
 
         {/* Admin Panel */}
-        {user && (
+        {!user?.isAnonymous && user && (
           <Link to="/admin/stockmanagement">
             <IconButton
               variant="ghost"
