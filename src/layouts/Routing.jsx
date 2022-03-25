@@ -19,6 +19,7 @@ import PagesCheckout from '../pages/Checkout'
 import PagesCheckoutSuccess from '../pages/CheckoutSuccess'
 import PagesCheckoutCanceled from '../pages/CheckoutCanceled'
 import PagesMyAccount from '../pages/MyAccount'
+import PagesFavorites from '../pages/Favorites'
 
 function Routing() {
   return (
@@ -35,6 +36,7 @@ function Routing() {
                   <Route path="/categories/:id" element={<PagesShowCategory />} />
                   <Route path="/product/:id" element={<PagesShow />} />
                   <Route path="/checkout" element={<PagesCheckout />} />
+                    <Route path="/favorites" element={<PagesFavorites />} />
                   <Route path="/success" element={<PagesCheckoutSuccess />} />
                   <Route path="/canceled" element={<PagesCheckoutCanceled />} />
                   <Route path="/my/account" element={<PagesMyAccount />} />

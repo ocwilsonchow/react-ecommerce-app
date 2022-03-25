@@ -10,6 +10,7 @@ import {
 import { FaStore, FaThList, FaCartArrowDown } from 'react-icons/fa';
 import { AiTwotoneSetting } from 'react-icons/ai';
 import { RiLoginBoxLine, RiLogoutBoxFill, RiAdminFill } from 'react-icons/ri';
+import { MdFavorite, MdShoppingCart } from 'react-icons/md';
 
 import { Link } from 'react-router-dom';
 
@@ -82,6 +83,16 @@ const LeftBar = () => {
             />
           </Box>
         </Link>
+          <Link to="/favorites">
+          <IconButton
+            variant="ghost"
+            borderRadius="50%"
+            size="lg"
+            my={2}
+            icon={<MdFavorite />}
+          />
+        </Link>
+
         {user && (
           <Link to="/my/account">
             <IconButton

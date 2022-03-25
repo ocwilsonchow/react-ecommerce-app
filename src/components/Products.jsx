@@ -9,16 +9,6 @@ import {
   IconButton,
   Tooltip,
   HStack,
-  Popover,
-  PopoverTrigger,
-  PopoverContent,
-  PopoverHeader,
-  PopoverBody,
-  PopoverFooter,
-  PopoverArrow,
-  PopoverCloseButton,
-  PopoverAnchor,
-  Button, Portal
 } from '@chakra-ui/react';
 import { MdFavorite, MdShoppingCart } from 'react-icons/md';
 import { Link } from 'react-router-dom';
@@ -36,7 +26,7 @@ const Products = () => {
     decreasePageNumber,
     pageNumber,
   } = useShop();
-  const { createCartItem } = useCart();
+  const { createCartItem, createFavoriteItems } = useCart();
 
   const secondaryBgColor = useColorModeValue('#FFFFFF', '#1D213C');
   const secondaryHoverBgColor = useColorModeValue('teal.200', 'teal.700');
@@ -140,6 +130,7 @@ const Products = () => {
                 borderRadius="50%"
                 variant="outline"
                 icon={<MdFavorite />}
+                onClick={() => createFavoriteItems(product)}
               />
               <IconButton
                 mt={1}

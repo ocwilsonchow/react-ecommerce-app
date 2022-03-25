@@ -166,7 +166,7 @@ const PagesCheckout = () => {
         ))}
         <Center py={10}>
           <Button disabled={!user || loading || cartItems.length == 0 } isLoading={loading} type="submit" onClick={redirectToCheckout}>
-            {(cartItems.length == 0 && "No item in shopping cart"
+            {(cartItems.length == 0 && "No item in shopping cart" || "Proceed to Payment"
             )}
           </Button>
         </Center>

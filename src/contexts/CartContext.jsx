@@ -19,29 +19,100 @@ const CartContext = createContext();
 
 export function CartProvider({ children }) {
   const [cartItems, setCartItems] = useState([]);
+  const [favoriteItems, setFavoriteItems] = useState([])
   const toast = useToast();
   const { user, anonymousLogin } = useAuth();
 
   // Reset cart items on log out
   const resetCartOnLogout = () => {
-    setCartItems([])
-    console.log("cart items cleaned")
-  }
+    setCartItems([]);
+    console.log('cart items cleaned');
+  };
 
-  // Create cart items
-  const createCartItem = async product => {
+  console.log(favoriteItems)
+
+  // Create favorite items
+  const createFavoriteItems = async product => {
     console.log(product)
     if (!user) {
       await anonymousLogin()
     }
-
-    // Check if this item is already in the cart
-    const q = query(collection(db, 'cartItems'), where('userId', "==", user.uid), where('productId', "==", product.id))
-    const querySnapshot = await getDocs(q)
-    const queryData = querySnapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }))
+     // Check if this item is already in the favorites
+    const q = query(
+      collection(db, 'favoriteItems'),
+      where('userId', '==', user.uid),
+      where('productId', '==', product.id)
+    );
+    const querySnapshot = await getDocs(q);
+    const queryData = querySnapshot.docs.map(doc => ({
+      ...doc.data(),
+      id: doc.id,
+    }));
 
     if (queryData.length > 0) {
-      return increaseCartItemQuantity(queryData[0].id)
+      return removeFavoriteItem(queryData[0]);
+    }
+
+    if (user) {
+      await addDoc(collection(db, 'favoriteItems'), {
+        userId: user.uid,
+        productName: product.name,
+        productId: product.id,
+        productImageURL: product.image,
+        price: product.price,
+        createdAt: serverTimestamp(),
+      })
+        .then(() => {
+          getFavorites();
+          toast({
+            title: 'Added!',
+            description: 'Product added to Your favorites',
+            status: 'success',
+            duration: 2000,
+            isClosable: true,
+          });
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    }
+  };
+
+  // Remove favorite item
+  const removeFavoriteItem = async (item) => {
+    await deleteDoc(doc(db, 'favoriteItems', item.id)).then(() => {
+        getFavorites();
+        toast({
+          title: 'Item removed',
+          description: 'Item removed from your cart',
+          status: 'info',
+          duration: 2000,
+          isClosable: true,
+        });
+      });
+      return;
+
+  }
+
+  // Create cart items
+  const createCartItem = async product => {
+    if (!user) {
+      await anonymousLogin()}
+
+    // Check if this item is already in the cart
+    const q = query(
+      collection(db, 'cartItems'),
+      where('userId', '==', user.uid),
+      where('productId', '==', product.id)
+    );
+    const querySnapshot = await getDocs(q);
+    const queryData = querySnapshot.docs.map(doc => ({
+      ...doc.data(),
+      id: doc.id,
+    }));
+
+    if (queryData.length > 0) {
+      return increaseCartItemQuantity(queryData[0].id);
     }
     await addDoc(collection(db, 'cartItems'), {
       userId: user.uid,
@@ -82,6 +153,21 @@ export function CartProvider({ children }) {
     }
   };
 
+  // Get favorites
+  const getFavorites = async () => {
+    if (!user) return;
+    if (user) {
+      const q = query(
+        collection(db, 'favoriteItems'),
+        where('userId', '==', user.uid)
+      );
+      const querySnapshot = await getDocs(q);
+      setFavoriteItems(
+        querySnapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }))
+      );
+    }
+  };
+
   // Increase product quantity in cart
   const increaseCartItemQuantity = async id => {
     await updateDoc(doc(db, 'cartItems', id), {
@@ -101,8 +187,7 @@ export function CartProvider({ children }) {
   // Decrease Quantity OR Remove item from the cart
   const decreaseCartItemQuantity = async (id, quantity) => {
     if (quantity < 1) {
-      await deleteDoc(doc(db, 'cartItems', id))
-        .then(() => {
+      await deleteDoc(doc(db, 'cartItems', id)).then(() => {
         getCart();
         toast({
           title: 'Item removed',
@@ -112,7 +197,7 @@ export function CartProvider({ children }) {
           isClosable: true,
         });
       });
-      return
+      return;
     }
 
     await updateDoc(doc(db, 'cartItems', id), {
@@ -135,7 +220,8 @@ export function CartProvider({ children }) {
     createCartItem,
     increaseCartItemQuantity,
     decreaseCartItemQuantity,
-    resetCartOnLogout
+    resetCartOnLogout,
+    createFavoriteItems,favoriteItems, getFavorites,removeFavoriteItem
   };
 
   return (

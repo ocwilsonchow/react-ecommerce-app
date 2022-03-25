@@ -13,10 +13,11 @@ import {
   Tag,
 } from '@chakra-ui/react';
 import { useNavigate, Link } from 'react-router-dom';
-import { MinusIcon, AddIcon, DeleteIcon, SearchIcon } from '@chakra-ui/icons';
+import { MinusIcon, AddIcon, DeleteIcon, CloseIcon } from '@chakra-ui/icons';
 import { useAuth } from '../contexts/AuthContext';
 import { useCart } from '../contexts/CartContext';
 import { FaCartArrowDown } from 'react-icons/fa';
+import { MdFavorite } from 'react-icons/md';
 
 const RightBar = () => {
   const bgColor = useColorModeValue('#FFFFFF', '#141026');
@@ -30,12 +31,16 @@ const RightBar = () => {
     getCart,
     increaseCartItemQuantity,
     decreaseCartItemQuantity,
+    favoriteItems,
+    getFavorites,
+    removeFavoriteItem,
   } = useCart();
   const navigate = useNavigate();
 
   useEffect(() => {
     if (user) {
       getCart();
+      getFavorites();
     }
   }, [user]);
 
@@ -59,9 +64,21 @@ const RightBar = () => {
           alignItems="center"
           justifyContent="space-between"
         >
-          {!user && <Tag fontSize="xs">Not signed in </Tag>}
-          {user?.isAnonymous && <Tag fontSize="xs">Signed in as: Guest </Tag>}
-          {user && !user?.isAnonymous && <Tag fontSize="xs">Signed in as: {user.displayName} </Tag>}
+          {!user && (
+            <Tag fontSize="xs" display={{ md: 'none', lg: 'flex' }}>
+              Not signed in{' '}
+            </Tag>
+          )}
+          {user?.isAnonymous && (
+            <Tag fontSize="xs" display={{ md: 'none', lg: 'flex' }}>
+              Signed in as: Guest{' '}
+            </Tag>
+          )}
+          {user && !user?.isAnonymous && (
+            <Tag fontSize="xs" display={{ md: 'none', lg: 'flex' }}>
+              Signed in as: {user.displayName}{' '}
+            </Tag>
+          )}
           <Avatar size="md" src={user?.photoURL || ''} />
         </Flex>
 
@@ -87,22 +104,32 @@ const RightBar = () => {
         overflow="auto"
       >
         {/* Shopping Cart */}
-        <Flex flexDir="column" my={3}>
-          <Flex w="100%" justifyContent="center">
-            <Text fontWeight="bold" my={2} display={{ md: 'none', lg: 'flex' }}>
-              My Shopping Cart
-            </Text>
-          </Flex>
+        <Flex flexDir="column" my={3} alignItems="center">
           {/* Shopping cart item*/}
           {user && cartItems.length === 0 && (
-            <Text my={1} fontWeight="light" textAlign="center">
-              Cart is empty
-            </Text>
+            <>
+              <Flex w="100%" justifyContent="center">
+                <Text
+                  fontWeight="bold"
+                  my={2}
+                  display={{ md: 'none', lg: 'flex' }}
+                >
+                  My Shopping Cart
+                </Text>
+              </Flex>
+              <Text my={1} fontWeight="light" textAlign="center">
+                Cart is empty
+              </Text>
+            </>
           )}
           {!user && (
-            <Button onClick={() => anonymousLogin()}>Continue as Guest</Button>
+            <Button my={4} onClick={() => anonymousLogin()}>
+              Continue as Guest
+            </Button>
           )}
-          {cartItems.map(item => (
+          <Text fontWeight="bold" w="100%" py={2}>My Cart</Text>
+          <Flex flexDir="column" pb={3}>
+            {cartItems.map(item => (
             <Box
               key={item.id}
               bg={tertiaryBgColor}
@@ -175,6 +202,60 @@ const RightBar = () => {
               </Flex>
             </Box>
           ))}
+          </Flex>
+
+          <Text w="100%" py={2} fontWeight="bold">My Favorites</Text>
+          {favoriteItems?.map(item => (
+            <Box
+              key={item.id}
+              bg={tertiaryBgColor}
+              p={2}
+              borderRadius="1rem"
+              my={1}
+              alignItems="center"
+              justifyContent="space-between"
+              position="relative"
+              _hover={{ bg: secondaryHoverBgColor }}
+              transition="all ease 0.3s"
+              cursor="pointer"
+            >
+              <Flex alignItems="center" justifyContent="space-between">
+                <Image
+                  boxSize="50px"
+                  src={item.productImageURL}
+                  borderRadius="0.5rem"
+                />
+
+                <Flex
+                  flexDir="column"
+                  px={2}
+                  display={{ md: 'none', lg: 'block' }}
+                >
+                  <Tooltip label={item.productName}>
+                    <Text color="white" fontWeight="bold" w="140px" isTruncated>
+                      {item.productName}
+                    </Text>
+                  </Tooltip>
+                  <HStack>
+                    <Text color="white" fontWeight="light">
+                      HKD {item.price}
+                    </Text>
+                  </HStack>
+                </Flex>
+                <Flex display={{ md: 'none', lg: 'block' }}>
+                  <IconButton
+                    mt={1}
+                    mx={1}
+                    size="xs"
+                    borderRadius="50%"
+
+                    icon={<CloseIcon boxSize="0.5rem"/>}
+                    onClick={() => removeFavoriteItem(item)}
+                  />
+                </Flex>
+              </Flex>
+            </Box>
+          ))}
         </Flex>
 
         {/* Checkout button */}
@@ -186,7 +267,7 @@ const RightBar = () => {
               fontSize="md"
               w="100%"
               my={1}
-              colorScheme="orange"
+              colorScheme="twitter"
               fontWeight="bold"
               hidden={cartItems.length === 0}
               display={{ md: 'none', lg: 'block' }}
