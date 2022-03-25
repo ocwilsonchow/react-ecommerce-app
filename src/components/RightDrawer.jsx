@@ -97,16 +97,6 @@ const RightDrawer = () => {
         {/* Shopping Cart */}
         <Flex flexDir="column" w="95%" my={3} alignItems="center">
           {/* Shopping cart item*/}
-          {!user && (
-            <Button my={4} onClick={() => anonymousLogin()} size="xs">
-              Guest
-            </Button>
-          )}
-          {!user && (
-            <Button my={4} onClick={() => anonymousLogin()}>
-              Continue as Guest
-            </Button>
-          )}
           {user && (
             <Text fontWeight="bold" w="100%" p={2}>
               My Cart
@@ -276,20 +266,24 @@ const RightDrawer = () => {
               Proceed to Checkout
             </Button>
           </Link>
+          {!user ||
+            (user.isAnonymous && (
+              <Button
+                w="100%"
+                size="lg"
+                my={1}
+                colorScheme="gray"
+                fontWeight="bold"
+                onClick={() => navigate('/auth')}
+              >
+                Log in
+              </Button>
+            ))}
           {!user && (
-            <Button
-              w="100%"
-              size="lg"
-              my={1}
-              colorScheme="gray"
-              fontWeight="bold"
-              onClick={() => navigate('/auth')}
-            >
-              Log in
+            <Button onClick={() => anonymousLogin()}>
+              Sign in as Guest
             </Button>
           )}
-
-
         </Flex>
       </Flex>
     </Flex>
