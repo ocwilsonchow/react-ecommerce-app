@@ -111,6 +111,7 @@ export function CartProvider({ children }) {
 
   // Create cart items
   const createCartItem = async product => {
+
     if (!user) {
       await anonymousLogin()}
 
@@ -131,9 +132,9 @@ export function CartProvider({ children }) {
     }
     await addDoc(collection(db, 'cartItems'), {
       userId: user.uid,
-      productName: product.name,
+      productName: product.name || product.productName,
       productId: product.id,
-      productImageURL: product.image,
+      productImageURL: product.image || product.productImageURL,
       price: product.price,
       quantity: 1,
       createdAt: serverTimestamp(),

@@ -67,17 +67,17 @@ const RightDrawer = () => {
           justifyContent="space-between"
         >
           {!user && (
-            <Tag colorScheme="twitter" fontSize="xs">
+            <Tag colorScheme="none" fontSize="xs">
               Not signed in
             </Tag>
           )}
           {user?.isAnonymous && (
-            <Tag colorScheme="twitter" fontSize="xs">
-              Signed in as: Guest{' '}
+            <Tag colorScheme="none" fontSize="xs">
+              Signed in as: Guest
             </Tag>
           )}
           {user && !user?.isAnonymous && (
-            <Tag colorScheme="twitter" fontSize="xs">
+            <Tag colorScheme="none" fontSize="xs">
               Signed in as: {user.displayName}{' '}
             </Tag>
           )}
@@ -108,7 +108,7 @@ const RightDrawer = () => {
         <Flex flexDir="column" w="95%" my={3} alignItems="center">
           {/* Shopping cart item*/}
           {user && (
-            <Text fontWeight="bold" w="100%" p={2}>
+            <Text textAlign="center" fontWeight="bold" w="100%" p={2}>
               My Cart
             </Text>
           )}
@@ -196,7 +196,7 @@ const RightDrawer = () => {
           </Flex>
 
           {user && (
-            <Text w="100%" p={2} fontWeight="bold" isTruncated>
+            <Text textAlign="center" w="100%" p={2} mt={2} fontWeight="bold" isTruncated>
               Favorites
             </Text>
           )}

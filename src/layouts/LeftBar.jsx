@@ -11,7 +11,7 @@ import {
 import { FaStore, FaThList, FaCartArrowDown } from 'react-icons/fa';
 import { AiTwotoneSetting } from 'react-icons/ai';
 import { RiLoginBoxLine, RiLogoutBoxFill, RiAdminFill } from 'react-icons/ri';
-import { MdFavorite, MdShoppingCart } from 'react-icons/md';
+import { MdFavorite } from 'react-icons/md';
 
 import { Link } from 'react-router-dom';
 
@@ -22,7 +22,7 @@ import { ColorModeSwitcher } from '../ColorModeSwitcher';
 const LeftBar = () => {
   const bgColor = useColorModeValue('#FFFFFF', '#141026');
   const { signout, user } = useAuth();
-  const { resetCartOnLogout, cartItems } = useCart();
+  const { resetCartOnLogout, cartItems, favoriteItems } = useCart();
 
   const handleSignOut = () => {
     resetCartOnLogout();
@@ -92,13 +92,31 @@ const LeftBar = () => {
         </Tooltip>
         <Tooltip label="My favorites">
           <Link to="/favorites">
-            <IconButton
-              variant="ghost"
-              borderRadius="50%"
-              size="lg"
-              my={2}
-              icon={<MdFavorite />}
-            />
+            <Box position="relative">
+              {user && (
+                <Tag
+                  justifyContent="center"
+                  alignItems="center"
+                  colorScheme="cyan"
+                  fontWeight="extrabold"
+                  variant="solid"
+                  borderRadius="full"
+                  position="absolute"
+                  top="0.5rem"
+                  right="0px"
+                  fontSize="xs"
+                >
+                  {favoriteItems && favoriteItems.length}
+                </Tag>
+              )}
+              <IconButton
+                variant="ghost"
+                borderRadius="50%"
+                size="lg"
+                my={2}
+                icon={<MdFavorite />}
+              />
+            </Box>
           </Link>
         </Tooltip>
 

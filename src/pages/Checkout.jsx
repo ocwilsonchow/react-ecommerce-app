@@ -13,7 +13,7 @@ import {
   Tooltip,
   Tag,
   Square,
-  Spinner
+  Spinner,
 } from '@chakra-ui/react';
 import { useCart } from '../contexts/CartContext';
 import { useAuth } from '../contexts/AuthContext';
@@ -107,6 +107,7 @@ const PagesCheckout = () => {
             _hover={{ bg: secondaryHoverBgColor }}
             transition="all ease 0.3s"
             cursor="pointer"
+            boxShadow="rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;"
           >
             <Tag
               justifyContent="center"

@@ -20,7 +20,6 @@ import { Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { useCart } from '../contexts/CartContext';
 import { ColorModeSwitcher } from '../ColorModeSwitcher';
-import RightBar from './RightBar';
 import RightDrawer from '../components/RightDrawer';
 
 const TopBar = () => {

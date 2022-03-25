@@ -17,11 +17,10 @@ import { MinusIcon, AddIcon, DeleteIcon, CloseIcon } from '@chakra-ui/icons';
 import { useAuth } from '../contexts/AuthContext';
 import { useCart } from '../contexts/CartContext';
 import { FaCartArrowDown } from 'react-icons/fa';
-import { MdFavorite } from 'react-icons/md';
 import CartTotal from '../components/CartTotal';
 
 const RightBar = () => {
-  const bgColor = useColorModeValue('#FFFFFF', '#141026');
+  const bgColor = useColorModeValue('#FFF', '#141026');
   const secondaryBgColor = useColorModeValue('#FBF1F2', '#222D48');
   const secondaryHoverBgColor = useColorModeValue('teal.600', 'teal.700');
 
@@ -69,7 +68,7 @@ const RightBar = () => {
         >
           {!user && (
             <Tag
-              colorScheme="twitter"
+              colorScheme="none"
               fontSize="xs"
               display={{ md: 'none', lg: 'flex' }}
             >
@@ -78,7 +77,7 @@ const RightBar = () => {
           )}
           {user?.isAnonymous && (
             <Tag
-              colorScheme="twitter"
+              colorScheme="none"
               fontSize="xs"
               display={{ md: 'none', lg: 'flex' }}
             >
@@ -87,7 +86,7 @@ const RightBar = () => {
           )}
           {user && !user?.isAnonymous && (
             <Tag
-              colorScheme="twitter"
+              colorScheme="none"
               fontSize="xs"
               display={{ md: 'none', lg: 'flex' }}
             >
@@ -132,28 +131,30 @@ const RightBar = () => {
             </Button>
           )}
           {user && (
-            <Text fontWeight="bold" w="100%" p={2}>
+            <Text textAlign="center" fontWeight="bold" w="100%" p={2}>
               My Cart
             </Text>
           )}
           <Flex flexDir="column" pb={3} w="100%" alignItems="center">
             {user && cartItems.length === 0 && (
-              <Text my={1} px={2} fontWeight="light">
+              <Text my={1} px={2} textAlign="center">
                 Cart is empty
               </Text>
             )}
             {cartItems.map(item => (
               <Box
+                key={item.id}
                 bg={tertiaryBgColor}
                 p={2}
                 borderRadius="1rem"
-                my={1}
+                my={1.5}
                 alignItems="center"
                 justifyContent="space-between"
                 position="relative"
                 _hover={{ bg: secondaryHoverBgColor }}
                 transition="all ease 0.3s"
                 cursor="pointer"
+                boxShadow="rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;"
               >
                 <Tag
                   justifyContent="center"
@@ -175,7 +176,7 @@ const RightBar = () => {
                     src={item.productImageURL}
                     borderRadius="0.5rem"
                   />
-                  <Link to={`/product/${item.productId}`} key={item.id}>
+                  <Link to={`/product/${item.productId}`}>
                     <Flex
                       flexDir="column"
                       px={2}
@@ -224,13 +225,20 @@ const RightBar = () => {
           </Flex>
 
           {user && (
-            <Text w="100%" p={2} fontWeight="bold" isTruncated>
+            <Text
+              textAlign="center"
+              w="100%"
+              p={2}
+              mt={2}
+              fontWeight="bold"
+              isTruncated
+            >
               Favorites
             </Text>
           )}
           <Flex flexDir="column" w="100%" alignItems="center">
             {user && favoriteItems.length === 0 && (
-              <Text my={1} px={2} fontWeight="light">
+              <Text my={1} px={2} textAlign="center">
                 No item in Favorites
               </Text>
             )}
@@ -239,7 +247,7 @@ const RightBar = () => {
                 bg={tertiaryBgColor}
                 p={2}
                 borderRadius="1rem"
-                my={1}
+                my={1.5}
                 alignItems="center"
                 justifyContent="space-between"
                 position="relative"
@@ -247,6 +255,7 @@ const RightBar = () => {
                 transition="all ease 0.3s"
                 cursor="pointer"
                 key={item.id}
+                boxShadow="rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;"
               >
                 <Flex alignItems="center" justifyContent="space-between">
                   <Image
@@ -301,37 +310,50 @@ const RightBar = () => {
             <Button
               position="relative"
               size="lg"
-              fontSize="md"
               w="100%"
               my={1}
               colorScheme="twitter"
               fontWeight="bold"
               hidden={cartItems.length === 0}
               display={{ md: 'none', lg: 'block' }}
+              boxShadow="rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;"
             >
               Proceed to Checkout
             </Button>
           </Link>
-          {!user ||
-            (user?.isAnonymous && (
-              <Button
-                w="100%"
-                size="lg"
-                my={1}
-                colorScheme="twitter"
-                fontWeight="bold"
-                display={{ md: 'none', lg: 'block' }}
-                onClick={() => navigate('/auth')}
-              >
-                Log in
-              </Button>
-            ))}
+          {!user && (
+            <Button
+              w="100%"
+              size="lg"
+              my={1}
+              colorScheme="twitter"
+              fontWeight="bold"
+              display={{ md: 'none', lg: 'block' }}
+              onClick={() => navigate('/auth')}
+            >
+              Log in
+            </Button>
+          )}
+          {user?.isAnonymous && (
+            <Button
+              w="100%"
+              size="lg"
+              my={1}
+              variant="outline"
+              fontWeight="bold"
+              display={{ md: 'none', lg: 'block' }}
+              onClick={() => navigate('/auth')}
+            >
+              Log in
+            </Button>
+          )}
           {!user && (
             <Button
               mt={2}
               size="lg"
               onClick={() => anonymousLogin()}
               display={{ md: 'none', lg: 'flex' }}
+              variant="outline"
             >
               Continue as Guest
             </Button>
