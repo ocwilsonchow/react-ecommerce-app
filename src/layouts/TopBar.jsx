@@ -25,6 +25,7 @@ import RightDrawer from '../components/RightDrawer';
 
 const TopBar = () => {
   const bgColor = useColorModeValue('#FFFFFF', '#141026');
+
   const { signout, user } = useAuth();
   const { resetCartOnLogout, cartItems } = useCart();
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -138,7 +139,7 @@ const TopBar = () => {
             finalFocusRef={btnRef}
           >
             <DrawerOverlay />
-            <DrawerContent alignItems="center">
+            <DrawerContent alignItems="center" bg={bgColor}>
               <RightDrawer />
             </DrawerContent>
           </Drawer>

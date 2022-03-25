@@ -79,7 +79,7 @@ const RightDrawer = () => {
           bg={secondaryBgColor}
           w="90%"
           p={5}
-          h="150px"
+          h="100px"
           borderRadius="1rem"
           m={2}
         ></Flex>
