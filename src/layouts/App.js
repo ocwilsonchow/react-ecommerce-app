@@ -1,17 +1,17 @@
 import React from 'react';
 import { Flex, theme, useColorModeValue } from '@chakra-ui/react';
 import './App.scss';
-import "@stripe/stripe-js"
+import '@stripe/stripe-js';
 
 import LeftBar from '../layouts/LeftBar';
 import RightBar from '../layouts/RightBar';
 import Categories from '../components/Categories';
 
 import { Outlet } from 'react-router-dom';
+import TopBar from './TopBar';
 
 function App() {
-    const bgColor = useColorModeValue('#f5f5f5', '#13031F');
-
+  const bgColor = useColorModeValue('#f5f5f5', '#13031F');
 
   return (
     <Flex w="100vw">
@@ -22,8 +22,9 @@ function App() {
       >
         <LeftBar />
       </Flex>
-      <Flex display="block" h="100vh" overflow="auto" w="100%" bg={bgColor} >
-        <Categories/>
+      <Flex display="block" h="100vh" overflow="auto" w="100%" bg={bgColor}>
+        <TopBar />
+        <Categories />
         <Outlet />
       </Flex>
       <Flex

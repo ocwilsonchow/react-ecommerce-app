@@ -62,7 +62,7 @@ const RightBar = () => {
           py={2}
           mt={4}
           alignItems="center"
-          justifyContent={{md: 'center'  ,lg: "space-between"}}
+          justifyContent={{ md: 'center', lg: 'space-between' }}
         >
           {!user && (
             <Tag fontSize="xs" display={{ md: 'none', lg: 'flex' }}>
@@ -106,9 +106,22 @@ const RightBar = () => {
         {/* Shopping Cart */}
         <Flex flexDir="column" w="95%" my={3} alignItems="center">
           {/* Shopping cart item*/}
-
           {!user && (
-            <Button my={4} onClick={() => anonymousLogin()}>
+            <Button
+              my={4}
+              onClick={() => anonymousLogin()}
+              display={{ md: 'flex', lg: 'none' }}
+              size="xs"
+            >
+              Guest
+            </Button>
+          )}
+          {!user && (
+            <Button
+              my={4}
+              onClick={() => anonymousLogin()}
+              display={{ md: 'none', lg: 'flex' }}
+            >
               Continue as Guest
             </Button>
           )}
@@ -118,9 +131,11 @@ const RightBar = () => {
             </Text>
           )}
           <Flex flexDir="column" pb={3} w="100%" alignItems="center">
-           {user && cartItems.length === 0 && <Text my={1} px={2} fontWeight="light">
-              Cart is empty
-            </Text>}
+            {user && cartItems.length === 0 && (
+              <Text my={1} px={2} fontWeight="light">
+                Cart is empty
+              </Text>
+            )}
             {cartItems.map(item => (
               <Box
                 key={item.id}
@@ -207,59 +222,66 @@ const RightBar = () => {
             </Text>
           )}
           <Flex flexDir="column" w="100%" alignItems="center">
-            {user && favoriteItems.length === 0 && <Text my={1} px={2} fontWeight="light" >
-             No item in Favorites
-            </Text>}
+            {user && favoriteItems.length === 0 && (
+              <Text my={1} px={2} fontWeight="light">
+                No item in Favorites
+              </Text>
+            )}
             {favoriteItems?.map(item => (
-            <Box
-              key={item.id}
-              bg={tertiaryBgColor}
-              p={2}
-              borderRadius="1rem"
-              my={1}
-              alignItems="center"
-              justifyContent="space-between"
-              position="relative"
-              _hover={{ bg: secondaryHoverBgColor }}
-              transition="all ease 0.3s"
-              cursor="pointer"
-            >
-              <Flex alignItems="center" justifyContent="space-between">
-                <Image
-                  boxSize="50px"
-                  src={item.productImageURL}
-                  borderRadius="0.5rem"
-                />
-
-                <Flex
-                  flexDir="column"
-                  px={2}
-                  display={{ md: 'none', lg: 'block' }}
-                >
-                  <Tooltip label={item.productName}>
-                    <Text color="white" fontWeight="bold" w="140px" isTruncated>
-                      {item.productName}
-                    </Text>
-                  </Tooltip>
-                  <HStack>
-                    <Text color="white" fontWeight="light">
-                      HKD {item.price}
-                    </Text>
-                  </HStack>
-                </Flex>
-                <Flex display={{ md: 'none', lg: 'block' }}>
-                  <IconButton
-                    mt={1}
-                    mx={1}
-                    size="xs"
-                    borderRadius="50%"
-                    icon={<CloseIcon boxSize="0.5rem" />}
-                    onClick={() => removeFavoriteItem(item)}
+              <Box
+                key={item.id}
+                bg={tertiaryBgColor}
+                p={2}
+                borderRadius="1rem"
+                my={1}
+                alignItems="center"
+                justifyContent="space-between"
+                position="relative"
+                _hover={{ bg: secondaryHoverBgColor }}
+                transition="all ease 0.3s"
+                cursor="pointer"
+              >
+                <Flex alignItems="center" justifyContent="space-between">
+                  <Image
+                    boxSize="50px"
+                    src={item.productImageURL}
+                    borderRadius="0.5rem"
                   />
+
+                  <Flex
+                    flexDir="column"
+                    px={2}
+                    display={{ md: 'none', lg: 'block' }}
+                  >
+                    <Tooltip label={item.productName}>
+                      <Text
+                        color="white"
+                        fontWeight="bold"
+                        w="140px"
+                        isTruncated
+                      >
+                        {item.productName}
+                      </Text>
+                    </Tooltip>
+                    <HStack>
+                      <Text color="white" fontWeight="light">
+                        HKD {item.price}
+                      </Text>
+                    </HStack>
+                  </Flex>
+                  <Flex display={{ md: 'none', lg: 'block' }}>
+                    <IconButton
+                      mt={1}
+                      mx={1}
+                      size="xs"
+                      borderRadius="50%"
+                      icon={<CloseIcon boxSize="0.5rem" />}
+                      onClick={() => removeFavoriteItem(item)}
+                    />
+                  </Flex>
                 </Flex>
-              </Flex>
-            </Box>
-          ))}
+              </Box>
+            ))}
           </Flex>
         </Flex>
 
