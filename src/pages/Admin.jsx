@@ -23,16 +23,6 @@ const PagesAdmin = () => {
 
   return (
     <Flex w="100%"  overflow="auto" position="relative">
-      <Badge
-        position="absolute"
-        top="2rem"
-        left="2rem"
-        fontWeight="bold"
-        fontSize="sm"
-        colorScheme="pink"
-      >
-        Admin
-      </Badge>
       <CreateProduct />
     </Flex>
   );

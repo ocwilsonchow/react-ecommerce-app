@@ -6,7 +6,6 @@ import {
   Input,
   Textarea,
   Select,
-  useColorModeValue,
   NumberInput,
   NumberInputField,
   NumberInputStepper,
@@ -22,8 +21,11 @@ import {
   useDisclosure,
   Center,
   Spinner,
+  Badge,
+  VStack,
 } from '@chakra-ui/react';
 import { useToast } from '@chakra-ui/react';
+import { useAuth } from '../contexts/AuthContext';
 
 import { useShop } from '../contexts/ShopContext';
 import {
@@ -35,6 +37,8 @@ import {
 import ProductsAdmin from './ProductsAdmin';
 
 const CreateProduct = () => {
+  const { user } = useAuth();
+
   const nameRef = useRef();
   const categoryRef = useRef();
   const descriptionRef = useRef();
@@ -51,7 +55,6 @@ const CreateProduct = () => {
 
   const storageRef = ref(storage, 'images/' + image?.name);
   const uploadTask = uploadBytesResumable(storageRef, image);
-
 
   // Upload image onChange of image's state
   useEffect(() => {
@@ -141,11 +144,16 @@ const CreateProduct = () => {
   return (
     <Flex flexDir="column" w="100%">
       <>
-        <Center p={8}>
-          <Button onClick={onOpen} variant="outline">
+        <VStack p={8}>
+          <Button
+            onClick={onOpen}
+            variant="outline"
+            disabled={user.uid !== 'TEIcvM7CzHXEgwWnaJgTDyoI5cx1'}
+          >
             Create Product
           </Button>
-        </Center>
+          <Badge colorScheme="pink">Admin Only</Badge>
+        </VStack>
 
         <Modal isOpen={isOpen} onClose={onClose}>
           <ModalOverlay />

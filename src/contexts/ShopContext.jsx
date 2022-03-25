@@ -143,7 +143,7 @@ export function ShopProvider({ children }) {
   // Increase stock count
   const increaseProductStock = async id => {
 
-    if (user.uid !== "74SPEqEyR0VaYoeTHcG7Fyq02S92") {
+    if (user.uid !== "TEIcvM7CzHXEgwWnaJgTDyoI5cx1") {
       return toast({
         title: 'Permission Restricted',
         description: 'You do not have the permission',
@@ -169,7 +169,7 @@ export function ShopProvider({ children }) {
 
   // Decrease stock count
   const decreaseProductStock = async id => {
-    if (user.uid !== "74SPEqEyR0VaYoeTHcG7Fyq02S92") {
+    if (user.uid !== "TEIcvM7CzHXEgwWnaJgTDyoI5cx1") {
       return toast({
         title: 'Permission Restricted',
         description: 'You do not have the permission',
@@ -194,7 +194,7 @@ export function ShopProvider({ children }) {
 
   // Delete product
   const deleteProduct = async productId => {
-    if (user.uid !== "74SPEqEyR0VaYoeTHcG7Fyq02S92") {
+    if (user.uid !== "TEIcvM7CzHXEgwWnaJgTDyoI5cx1") {
       return toast({
         title: 'Permission Restricted',
         description: 'You do not have the permission',
