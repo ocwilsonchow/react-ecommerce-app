@@ -25,6 +25,7 @@ export function CartProvider({ children }) {
 
   // Reset cart items on log out
   const resetCartOnLogout = () => {
+    setFavoriteItems([])
     setCartItems([]);
     console.log('cart items cleaned');
   };

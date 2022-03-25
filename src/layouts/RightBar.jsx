@@ -62,7 +62,7 @@ const RightBar = () => {
           py={2}
           mt={4}
           alignItems="center"
-          justifyContent="space-between"
+          justifyContent={{md: 'center'  ,lg: "space-between"}}
         >
           {!user && (
             <Tag fontSize="xs" display={{ md: 'none', lg: 'flex' }}>
@@ -104,108 +104,113 @@ const RightBar = () => {
         overflow="auto"
       >
         {/* Shopping Cart */}
-        <Flex flexDir="column" my={3} alignItems="center">
+        <Flex flexDir="column" w="95%" my={3} alignItems="center">
           {/* Shopping cart item*/}
-          {user && cartItems.length === 0 && (
-            <>
-              <Flex w="100%" justifyContent="center">
-                <Text
-                  fontWeight="bold"
-                  my={2}
-                  display={{ md: 'none', lg: 'flex' }}
-                >
-                  My Shopping Cart
-                </Text>
-              </Flex>
-              <Text my={1} fontWeight="light" textAlign="center">
-                Cart is empty
-              </Text>
-            </>
-          )}
+
           {!user && (
             <Button my={4} onClick={() => anonymousLogin()}>
               Continue as Guest
             </Button>
           )}
-          <Text fontWeight="bold" w="100%" py={2}>My Cart</Text>
-          <Flex flexDir="column" pb={3}>
+          {user && (
+            <Text fontWeight="bold" w="100%" p={2}>
+              My Cart
+            </Text>
+          )}
+          <Flex flexDir="column" pb={3} w="100%" alignItems="center">
+           {user && cartItems.length === 0 && <Text my={1} px={2} fontWeight="light">
+              Cart is empty
+            </Text>}
             {cartItems.map(item => (
-            <Box
-              key={item.id}
-              bg={tertiaryBgColor}
-              p={2}
-              borderRadius="1rem"
-              my={1}
-              alignItems="center"
-              justifyContent="space-between"
-              position="relative"
-              _hover={{ bg: secondaryHoverBgColor }}
-              transition="all ease 0.3s"
-              cursor="pointer"
-            >
-              <Tag
-                justifyContent="center"
+              <Box
+                key={item.id}
+                bg={tertiaryBgColor}
+                p={2}
+                borderRadius="1rem"
+                my={1}
                 alignItems="center"
-                colorScheme={(item.quantity !== 0 && 'twitter') || 'red'}
-                fontWeight="extrabold"
-                variant="solid"
-                borderRadius="full"
-                position="absolute"
-                top="0px"
-                left="-5px"
+                justifyContent="space-between"
+                position="relative"
+                _hover={{ bg: secondaryHoverBgColor }}
+                transition="all ease 0.3s"
+                cursor="pointer"
               >
-                {item.quantity}
-              </Tag>
-
-              <Flex alignItems="center" justifyContent="space-between">
-                <Image
-                  boxSize="50px"
-                  src={item.productImageURL}
-                  borderRadius="0.5rem"
-                />
-
-                <Flex
-                  flexDir="column"
-                  px={2}
-                  display={{ md: 'none', lg: 'block' }}
+                <Tag
+                  justifyContent="center"
+                  alignItems="center"
+                  colorScheme={(item.quantity !== 0 && 'twitter') || 'red'}
+                  fontWeight="extrabold"
+                  variant="solid"
+                  borderRadius="full"
+                  position="absolute"
+                  top="0px"
+                  left="-5px"
                 >
-                  <Tooltip label={item.productName}>
-                    <Text color="white" fontWeight="bold" w="120px" isTruncated>
-                      {item.productName}
-                    </Text>
-                  </Tooltip>
-                  <HStack>
-                    <Text color="white" fontWeight="light">
-                      HKD {item.price}
-                    </Text>
-                  </HStack>
-                </Flex>
-                <Flex display={{ md: 'none', lg: 'block' }}>
-                  <IconButton
-                    mr={1}
-                    borderRadius="50%"
-                    size="xs"
-                    icon={
-                      (item.quantity > 0 && <MinusIcon />) || <DeleteIcon />
-                    }
-                    onClick={() =>
-                      decreaseCartItemQuantity(item.id, item.quantity)
-                    }
+                  {item.quantity}
+                </Tag>
+
+                <Flex alignItems="center" justifyContent="space-between">
+                  <Image
+                    boxSize="50px"
+                    src={item.productImageURL}
+                    borderRadius="0.5rem"
                   />
-                  <IconButton
-                    borderRadius="50%"
-                    size="xs"
-                    icon={<AddIcon />}
-                    onClick={() => increaseCartItemQuantity(item.id)}
-                  />
+
+                  <Flex
+                    flexDir="column"
+                    px={2}
+                    display={{ md: 'none', lg: 'block' }}
+                  >
+                    <Tooltip label={item.productName}>
+                      <Text
+                        color="white"
+                        fontWeight="bold"
+                        w="120px"
+                        isTruncated
+                      >
+                        {item.productName}
+                      </Text>
+                    </Tooltip>
+                    <HStack>
+                      <Text color="white" fontWeight="light">
+                        HKD {item.price}
+                      </Text>
+                    </HStack>
+                  </Flex>
+                  <Flex display={{ md: 'none', lg: 'block' }}>
+                    <IconButton
+                      mr={1}
+                      borderRadius="50%"
+                      size="xs"
+                      icon={
+                        (item.quantity > 0 && <MinusIcon />) || <DeleteIcon />
+                      }
+                      onClick={() =>
+                        decreaseCartItemQuantity(item.id, item.quantity)
+                      }
+                    />
+                    <IconButton
+                      borderRadius="50%"
+                      size="xs"
+                      icon={<AddIcon />}
+                      onClick={() => increaseCartItemQuantity(item.id)}
+                    />
+                  </Flex>
                 </Flex>
-              </Flex>
-            </Box>
-          ))}
+              </Box>
+            ))}
           </Flex>
 
-          <Text w="100%" py={2} fontWeight="bold">My Favorites</Text>
-          {favoriteItems?.map(item => (
+          {user && (
+            <Text w="100%" p={2} fontWeight="bold" isTruncated>
+              Favorites
+            </Text>
+          )}
+          <Flex flexDir="column" w="100%" alignItems="center">
+            {user && favoriteItems.length === 0 && <Text my={1} px={2} fontWeight="light" >
+             No item in Favorites
+            </Text>}
+            {favoriteItems?.map(item => (
             <Box
               key={item.id}
               bg={tertiaryBgColor}
@@ -248,14 +253,14 @@ const RightBar = () => {
                     mx={1}
                     size="xs"
                     borderRadius="50%"
-
-                    icon={<CloseIcon boxSize="0.5rem"/>}
+                    icon={<CloseIcon boxSize="0.5rem" />}
                     onClick={() => removeFavoriteItem(item)}
                   />
                 </Flex>
               </Flex>
             </Box>
           ))}
+          </Flex>
         </Flex>
 
         {/* Checkout button */}
