@@ -148,7 +148,7 @@ const CreateProduct = () => {
           <Button
             onClick={onOpen}
             variant="outline"
-            disabled={user.uid !== 'TEIcvM7CzHXEgwWnaJgTDyoI5cx1'}
+            disabled={user?.uid !== 'TEIcvM7CzHXEgwWnaJgTDyoI5cx1'}
           >
             Create Product
           </Button>
