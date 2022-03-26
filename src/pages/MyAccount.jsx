@@ -9,7 +9,7 @@ import {
   Input,
   Button,
   Avatar,
-  Center,
+  useColorModeValue
 } from '@chakra-ui/react';
 import {
   getStorage,
@@ -28,7 +28,9 @@ const PagesMyAccount = () => {
   const storage = getStorage();
   const storageRef = ref(storage, 'images/' + image?.name);
   const uploadTask = uploadBytesResumable(storageRef, image);
-  const [displayName, setDisplayName] = useState(user?.displayName)
+  const [displayName, setDisplayName] = useState(user?.displayName);
+  const bgColor = useColorModeValue('#FFF', '#141026');
+
 
   // Upload image onChange of image's state
   useEffect(() => {
@@ -89,33 +91,42 @@ const PagesMyAccount = () => {
   const handleChange = async e => {
     setLoading(true);
     if (e.target.files[0]) {
-    setImage(e.target.files[0])
+      setImage(e.target.files[0]);
     }
     setLoading(false);
   };
 
-  const handleNameChange = (name) => {
-    setDisplayName(name)
-  }
+  const handleNameChange = name => {
+    setDisplayName(name);
+  };
 
-  const handleUpdateUserProfile = async (e) => {
-    e.preventDefault()
+  const handleUpdateUserProfile = async e => {
+    e.preventDefault();
     await updateUserProfile(displayName, imageURL).then(() => {
-     setDisplayName()
-    })
-  }
-
+      setDisplayName();
+    });
+  };
 
   return (
     <Flex>
-      <VStack w="100%" alignItems="center" px={8} >
+      <VStack w="100%" alignItems="center" px={8} pb={6}>
         <Text py={5} fontWeight="bold" fontSize="xl">
           My Account Settings
         </Text>
-        <FormControl display="flex" flexDir="column" maxW="500px">
-          <VStack p={5}>
-              <Avatar size="xl" src={user?.photoURL}/>
+        <FormControl
+          display="flex"
+          flexDir="column"
+          maxW="400px"
+          bg={bgColor}
+          p={6}
+          borderRadius="2xl"
+        >
+          <VStack pb={6}>
+            <Avatar size="xl" src={user?.photoURL} />
           </VStack>
+          <FormLabel>
+            Avatar
+          </FormLabel>
           <Input
             p={1}
             type="file"
@@ -129,14 +140,22 @@ const PagesMyAccount = () => {
           <FormLabel>Username</FormLabel>
           <Input
             mb={4}
-            placeholder={user?.displayName || 'You have not set up your username'}
+            placeholder={
+              user?.displayName || 'You have not set up your username'
+            }
             type="text"
-
-            onChange={(e) => handleNameChange(e.target.value)}
+            onChange={e => handleNameChange(e.target.value)}
           />
-        </FormControl>
 
-        <Button type="submit" isLoading={loading} disabled={loading} onClick={(e) => handleUpdateUserProfile(e)}>Update My Profile</Button>
+          <Button
+            type="submit"
+            isLoading={loading}
+            disabled={loading}
+            onClick={e => handleUpdateUserProfile(e)}
+          >
+            Update My Profile
+          </Button>
+        </FormControl>
       </VStack>
     </Flex>
   );

@@ -9,6 +9,7 @@ import {
   Tooltip,
   HStack,
   VStack,
+  Button
 } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 import { CloseIcon } from '@chakra-ui/icons';
@@ -46,10 +47,15 @@ const PagesFavorites = () => {
         spacing="15px"
         borderRadius="xl"
       >
-        {user && favoriteItems.length === 0 && (
-          <Text my={1} px={2} textAlign="center">
-            No item in Favorites
-          </Text>
+        {favoriteItems.length === 0 && (
+          <>
+            <Text my={1} px={2} textAlign="center">
+              No item in Favorites
+            </Text>
+            <Link to="/">
+              <Button>Go shopping now</Button>
+            </Link>
+          </>
         )}
         {favoriteItems?.map(item => (
           <Box

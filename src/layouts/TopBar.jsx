@@ -72,7 +72,7 @@ const TopBar = () => {
                 variant="solid"
                 borderRadius="full"
                 position="absolute"
-                top="0.5rem"
+                top="0.4rem"
                 right="0px"
                 fontSize="xs"
               >

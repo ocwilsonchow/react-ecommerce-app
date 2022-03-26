@@ -175,10 +175,27 @@ const RightBar = () => {
             </Button>
           )}
 
-          <Flex flexDir="column" pb={3} w="100%" alignItems="center" bg={secondaryBgColor} borderRadius="xl">
-            <Text textAlign="center" fontWeight="bold" w="100%" p={2} mt={2}>
+          <Flex
+            flexDir="column"
+            pb={3}
+            w="100%"
+            alignItems="center"
+            bg={secondaryBgColor}
+            borderRadius="xl"
+          >
+           <Link to="/checkout">
+              <Text
+              textAlign="center"
+              fontWeight="bold"
+              w="100%"
+              p={2}
+              mt={2}
+              transition="all ease 0.5s"
+              _hover={{ color: 'teal.500' }}
+            >
               My Cart
             </Text>
+           </Link>
             {cartItems.length === 0 && (
               <Text my={1} px={2} textAlign="center">
                 Cart is empty
@@ -267,17 +284,29 @@ const RightBar = () => {
             ))}
           </Flex>
 
-          <Flex flexDir="column" w="100%" alignItems="center" bg={secondaryBgColor} borderRadius="xl" mt={3} pb={3}>
-            <Text
-              textAlign="center"
-              w="100%"
-              p={2}
-              mt={2}
-              fontWeight="bold"
-              isTruncated
-            >
-              Favorites
-            </Text>
+          <Flex
+            flexDir="column"
+            w="100%"
+            alignItems="center"
+            bg={secondaryBgColor}
+            borderRadius="xl"
+            mt={3}
+            pb={3}
+          >
+            <Link to="/favorites">
+              <Text
+                textAlign="center"
+                w="100%"
+                p={2}
+                mt={2}
+                fontWeight="bold"
+                isTruncated
+                transition="all ease 0.5s"
+                _hover={{ color: 'teal.500' }}
+              >
+                Favorites
+              </Text>
+            </Link>
             {favoriteItems.length === 0 && (
               <Text mt={1} mb={4} px={2} textAlign="center">
                 No item in Favorites
@@ -353,7 +382,7 @@ const RightBar = () => {
               size="lg"
               w="100%"
               my={1}
-              colorScheme="twitter"
+              colorScheme="linkedin"
               fontWeight="bold"
               hidden={cartItems.length === 0}
               display={{ md: 'none', lg: 'block' }}

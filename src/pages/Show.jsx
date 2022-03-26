@@ -46,20 +46,19 @@ const PagesShow = () => {
             w="100%"
             flexDir={{ base: 'column', sm: 'column', md: 'row' }}
             justifyContent="center"
-            alignItems={{ sm: 'center', md: 'flex-start' }}
+            alignItems={{base:'center', sm: 'center', md: 'flex-start' }}
           >
             {(loading && <Spinner size="xl" />) || (
               <Image
-                boxSize={['100%', '50%', 'xs', '350px']}
+                boxSize={['100%', '100%', '300px', '350px']}
                 src={product?.image}
                 objectFit="cover"
                 borderRadius="1rem"
                 mb={5}
-                mr={5}
-                ml={4}
+                mx={4}
               />
             )}
-            <Flex flexDir="column" maxW="600px" justifyContent="space-between">
+            <Flex flexDir="column" maxW="500px" justifyContent="space-between">
               <Flex flexDir="column">
                 <Text fontWeight="bold" fontSize="3xl" mx={4}>
                   {product?.name}

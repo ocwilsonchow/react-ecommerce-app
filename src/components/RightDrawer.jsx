@@ -116,9 +116,18 @@ const RightDrawer = () => {
             borderRadius="xl"
             pt={2}
           >
-            <Text textAlign="center" fontWeight="bold" w="100%" p={2}>
-              My Cart
-            </Text>
+            <Link to="/checkout">
+              <Text
+                textAlign="center"
+                fontWeight="bold"
+                w="100%"
+                p={2}
+                transition="all ease 0.5s"
+                _hover={{ color: 'teal.500' }}
+              >
+                My Cart
+              </Text>
+            </Link>
 
             {cartItems.length === 0 && (
               <Text my={1} px={2} fontWeight="light">
@@ -131,7 +140,7 @@ const RightDrawer = () => {
                 bg={tertiaryBgColor}
                 p={2}
                 borderRadius="1rem"
-                my={1}
+                my={1.5}
                 alignItems="center"
                 justifyContent="space-between"
                 position="relative"
@@ -212,15 +221,19 @@ const RightDrawer = () => {
             pb={3}
             mt={3}
           >
-            <Text
-              textAlign="center"
-              w="100%"
-              p={2}
-              fontWeight="bold"
-              isTruncated
-            >
-              Favorites
-            </Text>
+            <Link to="/favorites">
+              <Text
+                textAlign="center"
+                w="100%"
+                p={2}
+                fontWeight="bold"
+                isTruncated
+                transition="all ease 0.5s"
+                _hover={{ color: 'teal.500' }}
+              >
+                Favorites
+              </Text>
+            </Link>
             {favoriteItems.length === 0 && (
               <Text my={1} px={2} fontWeight="light">
                 No item in Favorites
@@ -231,7 +244,7 @@ const RightDrawer = () => {
                 bg={tertiaryBgColor}
                 p={2}
                 borderRadius="1rem"
-                my={1}
+                my={1.5}
                 alignItems="center"
                 justifyContent="space-between"
                 position="relative"
@@ -291,7 +304,7 @@ const RightDrawer = () => {
               fontSize="md"
               w="100%"
               my={1}
-              colorScheme="twitter"
+              colorScheme="linkedin"
               fontWeight="bold"
               hidden={cartItems.length === 0}
             >
