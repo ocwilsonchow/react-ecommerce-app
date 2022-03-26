@@ -267,7 +267,7 @@ const RightBar = () => {
             ))}
           </Flex>
 
-          <Flex flexDir="column" w="100%" alignItems="center" bg={secondaryBgColor} borderRadius="xl" mt={3}>
+          <Flex flexDir="column" w="100%" alignItems="center" bg={secondaryBgColor} borderRadius="xl" mt={3} pb={3}>
             <Text
               textAlign="center"
               w="100%"

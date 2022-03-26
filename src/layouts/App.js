@@ -29,7 +29,8 @@ function App() {
       </Flex>
       <Flex
         h="100vh"
-        minW={['80px', '80px', '90px', '280px']}
+        px={2}
+        minW={['80px', '80px', '90px', '300px']}
         display={{ base: 'none', sm: 'none', md: 'grid' }}
         overflow="auto"
       >
