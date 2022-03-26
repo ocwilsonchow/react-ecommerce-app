@@ -12,6 +12,8 @@ import TopBar from './TopBar';
 
 function App() {
   const bgColor = useColorModeValue('#f5f5f5', '#13031F');
+    const barBgColor = useColorModeValue('#FFF', '#141026');
+
 
   return (
     <Flex w="100vw">
@@ -33,6 +35,7 @@ function App() {
         minW={['80px', '80px', '90px', '300px']}
         display={{ base: 'none', sm: 'none', md: 'grid' }}
         overflow="auto"
+        bg={barBgColor}
       >
         <RightBar />
       </Flex>
