@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flex, VStack, useColorModeValue, Image } from '@chakra-ui/react';
+import { Flex } from '@chakra-ui/react';
 import Products from '../components/Products';
 
 const PagesHome = () => {

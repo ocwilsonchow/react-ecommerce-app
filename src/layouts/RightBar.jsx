@@ -23,7 +23,7 @@ import CartTotal from '../components/CartTotal';
 
 const RightBar = () => {
   const bgColor = useColorModeValue('#FFF', '#141026');
-  const secondaryBgColor = useColorModeValue('#FBF1F2', '#222D48');
+  const secondaryBgColor = useColorModeValue('#f5f5f5', '#13031F');
   const secondaryHoverBgColor = useColorModeValue('teal.600', 'teal.700');
 
   const tertiaryBgColor = useColorModeValue('#32343B', '#222D48');
@@ -175,11 +175,10 @@ const RightBar = () => {
             </Button>
           )}
 
-            <Text textAlign="center" fontWeight="bold" w="100%" p={2}>
+          <Flex flexDir="column" pb={3} w="100%" alignItems="center" bg={secondaryBgColor} borderRadius="xl">
+            <Text textAlign="center" fontWeight="bold" w="100%" p={2} mt={2}>
               My Cart
             </Text>
-
-          <Flex flexDir="column" pb={3} w="100%" alignItems="center">
             {cartItems.length === 0 && (
               <Text my={1} px={2} textAlign="center">
                 Cart is empty
@@ -268,7 +267,7 @@ const RightBar = () => {
             ))}
           </Flex>
 
-
+          <Flex flexDir="column" w="100%" alignItems="center" bg={secondaryBgColor} borderRadius="xl" mt={3}>
             <Text
               textAlign="center"
               w="100%"
@@ -279,10 +278,8 @@ const RightBar = () => {
             >
               Favorites
             </Text>
-
-          <Flex flexDir="column" w="100%" alignItems="center">
             {favoriteItems.length === 0 && (
-              <Text my={1} px={2} textAlign="center">
+              <Text mt={1} mb={4} px={2} textAlign="center">
                 No item in Favorites
               </Text>
             )}
