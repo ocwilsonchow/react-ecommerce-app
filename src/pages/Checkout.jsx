@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { loadStripe } from '@stripe/stripe-js';
+import { useNavigate } from 'react-router-dom';
 import {
   Center,
   Image,
@@ -31,6 +32,8 @@ const PagesCheckout = () => {
   const [loading, setLoading] = useState(false);
   const bgColor = useColorModeValue('#FFFFFF', '#141026');
   let stripePromise;
+    const navigate = useNavigate();
+
 
   // Get Stripe
   const getStripe = () => {
@@ -90,6 +93,7 @@ const PagesCheckout = () => {
         maxW="700px"
         spacing="15px"
         p={4}
+        mb={8}
         bg={bgColor}
         borderRadius="xl"
       >
@@ -173,17 +177,22 @@ const PagesCheckout = () => {
         <Flex w="100%">
           <CartTotal />
         </Flex>
-        <Center py={2}>
+        <Flex flexDir="column">
+          <Button mb={3} variant="outline" onClick={() => navigate('/')}>
+            Continue shopping
+          </Button>
+
           <Button
             disabled={!user || loading || cartItems.length == 0}
             isLoading={loading}
             type="submit"
             onClick={redirectToCheckout}
+            mb={2}
           >
             {(cartItems.length == 0 && 'No item in shopping cart') ||
               'Proceed to Payment'}
           </Button>
-        </Center>
+        </Flex>
       </VStack>
     </Flex>
   );
