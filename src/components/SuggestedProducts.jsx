@@ -19,7 +19,7 @@ import { useCart } from '../contexts/CartContext';
 const SuggestedProducts = productCategory => {
   const { getSimilarProducts, similarProducts } = useShop();
   const secondaryBgColor = useColorModeValue('#FFFFFF', '#1D213C');
-  const { createCartItem } = useCart();
+  const { createCartItem, createFavoriteItems } = useCart();
   const secondaryHoverBgColor = useColorModeValue('teal.200', 'teal.700');
 
   useEffect(() => {
@@ -95,6 +95,7 @@ const SuggestedProducts = productCategory => {
                 borderRadius="50%"
                 variant="outline"
                 icon={<MdFavorite />}
+                 onClick={() => createFavoriteItems(product)}
               />
               <IconButton
                 mt={1}

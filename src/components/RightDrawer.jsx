@@ -19,7 +19,7 @@ import { useCart } from '../contexts/CartContext';
 import { FaCartArrowDown } from 'react-icons/fa';
 import CartTotal from './CartTotal';
 
-const RightDrawer = () => {
+const RightDrawer = (onClose) => {
   const bgColor = useColorModeValue('#FFFFFF', '#141026');
   const secondaryBgColor = useColorModeValue('#FBF1F2', '#222D48');
   const secondaryHoverBgColor = useColorModeValue('teal.600', 'teal.700');
@@ -85,14 +85,14 @@ const RightDrawer = () => {
         </Flex>
 
         {/* Gadget Box */}
-        <Flex
+        {/* <Flex
           bg={secondaryBgColor}
           w="90%"
           p={5}
           h="100px"
           borderRadius="1rem"
           m={2}
-        ></Flex>
+        ></Flex> */}
       </Flex>
 
       <Flex
@@ -107,13 +107,13 @@ const RightDrawer = () => {
         {/* Shopping Cart */}
         <Flex flexDir="column" w="95%" my={3} alignItems="center">
           {/* Shopping cart item*/}
-          {user && (
+
             <Text textAlign="center" fontWeight="bold" w="100%" p={2}>
               My Cart
             </Text>
-          )}
+
           <Flex flexDir="column" pb={3} w="100%" alignItems="center">
-            {user && cartItems.length === 0 && (
+            {cartItems.length === 0 && (
               <Text my={1} px={2} fontWeight="light">
                 Cart is empty
               </Text>
@@ -195,13 +195,13 @@ const RightDrawer = () => {
             ))}
           </Flex>
 
-          {user && (
+
             <Text textAlign="center" w="100%" p={2} mt={2} fontWeight="bold" isTruncated>
               Favorites
             </Text>
-          )}
+
           <Flex flexDir="column" w="100%" alignItems="center">
-            {user && favoriteItems.length === 0 && (
+            {favoriteItems.length === 0 && (
               <Text my={1} px={2} fontWeight="light">
                 No item in Favorites
               </Text>
@@ -279,8 +279,7 @@ const RightDrawer = () => {
             </Button>
           </Link>
 
-          {!user ||
-            (user?.isAnonymous && (
+            {!user && (
               <Button
                 w="100%"
                 size="lg"
@@ -288,11 +287,24 @@ const RightDrawer = () => {
                 colorScheme="twitter"
                 fontWeight="bold"
                 display={{ md: 'none', lg: 'block' }}
-                onClick={() => navigate('/auth')}
+                onClick={() => {navigate('/auth')}}
               >
                 Log in
               </Button>
-            ))}
+            )}
+          {user?.isAnonymous && (
+              <Button
+                w="100%"
+                size="lg"
+                my={1}
+                colorScheme="twitter"
+                fontWeight="bold"
+                display={{ md: 'none', lg: 'block' }}
+                onClick={() => {navigate('/auth')}}
+              >
+                Log in
+              </Button>
+            )}
           {!user && (
             <Button
               mt={2}

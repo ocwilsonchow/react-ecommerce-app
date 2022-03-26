@@ -11,12 +11,14 @@ import {
   IconButton,
   Tooltip,
   Tag,
+  scaleFadeConfig,
 } from '@chakra-ui/react';
 import { useNavigate, Link } from 'react-router-dom';
 import { MinusIcon, AddIcon, DeleteIcon, CloseIcon } from '@chakra-ui/icons';
 import { useAuth } from '../contexts/AuthContext';
 import { useCart } from '../contexts/CartContext';
-import { FaCartArrowDown } from 'react-icons/fa';
+import { FaCartArrowDown, FaCcVisa } from 'react-icons/fa';
+
 import CartTotal from '../components/CartTotal';
 
 const RightBar = () => {
@@ -97,15 +99,57 @@ const RightBar = () => {
         </Flex>
 
         {/* Gadget Box */}
-        <Flex
-          bg={secondaryBgColor}
+        {/* <Flex
           w="90%"
-          p={5}
           h="150px"
           borderRadius="1rem"
           m={2}
           display={{ md: 'none', lg: 'block' }}
-        ></Flex>
+          boxShadow="lg"
+          bg={secondaryBgColor}
+          transition="all ease 0.5s"
+          _hover={{ boxShadow: "2xl", transform: "scale(1.04)", cursor: "pointer" }}
+        >
+          <Box
+            w="100%"
+            h="100%"
+            backdropFilter="blur(10px)"
+            borderRadius="1rem"
+            position="relative"
+          >
+            <Text
+              position="absolute"
+              bottom="75%"
+              left="10%"
+              fontWeight="light"
+              fontSize="xs"
+            >
+              Balance
+            </Text>
+            <Text
+              position="absolute"
+              bottom="55%"
+              left="10%"
+              fontWeight="bold"
+              fontSize="lg"
+
+            >
+              $ 45,000
+            </Text>
+            <Text
+              position="absolute"
+              top="72%"
+              left="10%"
+              fontWeight="light"
+              fontSize="xs"
+            >
+              **** **** 4242
+            </Text>
+            <Box position="absolute" bottom="12%" right="8%">
+              <FaCcVisa size="30px" />
+            </Box>
+          </Box>
+        </Flex> */}
       </Flex>
 
       <Flex
@@ -130,13 +174,13 @@ const RightBar = () => {
               Guest
             </Button>
           )}
-          {user && (
+
             <Text textAlign="center" fontWeight="bold" w="100%" p={2}>
               My Cart
             </Text>
-          )}
+
           <Flex flexDir="column" pb={3} w="100%" alignItems="center">
-            {user && cartItems.length === 0 && (
+            {cartItems.length === 0 && (
               <Text my={1} px={2} textAlign="center">
                 Cart is empty
               </Text>
@@ -224,7 +268,7 @@ const RightBar = () => {
             ))}
           </Flex>
 
-          {user && (
+
             <Text
               textAlign="center"
               w="100%"
@@ -235,9 +279,9 @@ const RightBar = () => {
             >
               Favorites
             </Text>
-          )}
+
           <Flex flexDir="column" w="100%" alignItems="center">
-            {user && favoriteItems.length === 0 && (
+            {favoriteItems.length === 0 && (
               <Text my={1} px={2} textAlign="center">
                 No item in Favorites
               </Text>

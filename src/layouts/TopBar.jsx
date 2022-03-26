@@ -139,7 +139,7 @@ const TopBar = () => {
           >
             <DrawerOverlay />
             <DrawerContent alignItems="center" bg={bgColor}>
-              <RightDrawer />
+              <RightDrawer/>
             </DrawerContent>
           </Drawer>
         </>

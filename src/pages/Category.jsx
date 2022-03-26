@@ -25,7 +25,7 @@ const PagesShowCategory = () => {
   const [loading, setLoading] = useState(true);
   const { id } = useParams();
   const secondaryBgColor = useColorModeValue('#FFFFFF', '#1D213C');
-  const { createCartItem } = useCart();
+  const { createCartItem, createFavoriteItems } = useCart();
   const secondaryHoverBgColor = useColorModeValue('teal.200', 'teal.700');
 
   useEffect(() => {
@@ -105,6 +105,7 @@ const PagesShowCategory = () => {
                 borderRadius="50%"
                 variant="outline"
                 icon={<MdFavorite />}
+                onClick={() => createFavoriteItems(product)}
               />
               <IconButton
                 mt={1}
