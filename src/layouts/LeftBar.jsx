@@ -9,7 +9,7 @@ import {
   Tooltip,
 } from '@chakra-ui/react';
 import { InfoIcon } from '@chakra-ui/icons';
-import { FaStore, FaThList, FaCartArrowDown } from 'react-icons/fa';
+import { FaStore, FaThList, FaCartArrowDown, FaHistory } from 'react-icons/fa';
 import { AiTwotoneSetting } from 'react-icons/ai';
 import { RiLoginBoxLine, RiLogoutBoxFill, RiAdminFill } from 'react-icons/ri';
 import { MdFavorite } from 'react-icons/md';
@@ -126,6 +126,20 @@ const LeftBar = () => {
                 _hover={{ bg: 'blue.200', borderRadius: '0.4rem' }}
               />
             </Box>
+          </Link>
+        </Tooltip>
+
+        <Tooltip label="Order history">
+          <Link to="/my/order">
+            <IconButton
+              variant="ghost"
+              borderRadius="50%"
+              size="lg"
+              my={2}
+              icon={<FaHistory />}
+              transition="all ease 0.2s"
+              _hover={{ bg: 'blue.200', borderRadius: '0.4rem' }}
+            />
           </Link>
         </Tooltip>
 

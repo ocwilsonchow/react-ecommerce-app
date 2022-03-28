@@ -18,16 +18,11 @@ export function AuthProvider({ children }) {
   const navigation = useNavigate();
   const toast = useToast();
 
-  useEffect(() => {
-    getUser()
-  }, []);
+  auth.onAuthStateChanged(user => {
+    setUser(user);
+  });
 
-  const getUser = () => {
-    auth.onAuthStateChanged(user => {
-      setUser(user);
-    });
-    console.log("Getting user")
-  }
+  console.log(user)
 
   // Update User's Profile
   const updateUserProfile = async (displayName, imageURL) => {
@@ -169,7 +164,7 @@ export function AuthProvider({ children }) {
     signup,
     signout,
     login,
-    getUser,
+
     user,
     updateUserProfile,
     anonymousLogin,

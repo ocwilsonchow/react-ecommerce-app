@@ -22,6 +22,7 @@ import PagesMyAccount from '../pages/MyAccount';
 import PagesFavorites from '../pages/Favorites';
 import PagesQuery from '../pages/Query';
 import PagesAbout from '../pages/About';
+import PagesOrder from '../pages/Order';
 
 function Routing() {
   return (
@@ -47,6 +48,7 @@ function Routing() {
                   <Route path="/success" element={<PagesCheckoutSuccess />} />
                   <Route path="/canceled" element={<PagesCheckoutCanceled />} />
                   <Route path="/my/account" element={<PagesMyAccount />} />
+                   <Route path="/my/order" element={<PagesOrder />} />
                   <Route
                     path="/admin/stockmanagement"
                     element={<PagesAdmin />}

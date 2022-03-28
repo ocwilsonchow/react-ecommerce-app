@@ -7,16 +7,14 @@ import {
   HStack,
 } from '@chakra-ui/react';
 import { useCart } from '../contexts/CartContext';
-import { useAuth } from '../contexts/AuthContext';
 
-const TransactionHistory = () => {
+const PagesOrder = () => {
   const { transactionHistory, getTransactionHistory } = useCart();
   const bgColor = useColorModeValue('#FFF', '#141026');
   const secondaryBgColor = useColorModeValue('#f5f5f5', '#13031F');
 
   useEffect(() => {
     getTransactionHistory();
-
   }, []);
 
   return (
@@ -44,25 +42,27 @@ const TransactionHistory = () => {
           >
             <Flex justifyContent="space-between" w="100%">
               <Text fontWeight="bold" color="green.300">
-                {item.status}
+                {item?.status}
               </Text>
-              <Text>{item.createdAt.toDate().toLocaleTimeString('en-US')}</Text>
+              <Text>
+                {item?.createdAt.toDate().toLocaleTimeString('en-US')}
+              </Text>
             </Flex>
             <Flex w="100%">
-              <Text isTruncated>{item.payer.email_address}</Text>
+              <Text isTruncated>{item?.payer.email_address}</Text>
             </Flex>
             <Flex w="100%">
               <Text>
-                {item.payer.name.given_name} {item.payer.name.surname}
+                {item?.payer.name.given_name} {item?.payer.name.surname}
               </Text>
             </Flex>
             <Flex w="100%">
-              <Text>{item.purchase_units[0].description} </Text>
+              <Text>{item?.purchase_units[0].description} </Text>
             </Flex>
             <Flex w="100%">
               <Text fontWeight="bold" fontSize="xl">
-                {item.purchase_units[0].amount.currency_code}{' '}
-                {item.purchase_units[0].amount.value}
+                {item?.purchase_units[0].amount.currency_code}{' '}
+                {item?.purchase_units[0].amount.value}
               </Text>
             </Flex>
           </VStack>
@@ -72,4 +72,4 @@ const TransactionHistory = () => {
   );
 };
 
-export default TransactionHistory;
+export default PagesOrder;

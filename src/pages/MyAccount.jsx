@@ -18,7 +18,6 @@ import {
   getDownloadURL,
 } from 'firebase/storage';
 import { useToast } from '@chakra-ui/react';
-import TransactionHistory from '../components/TransactionHistory';
 
 const PagesMyAccount = () => {
   const { user, updateUserProfile } = useAuth();
@@ -154,9 +153,7 @@ const PagesMyAccount = () => {
             Update My Profile
           </Button>
         </FormControl>
-        <VStack w="100%">
-          <TransactionHistory />
-        </VStack>
+
       </VStack>
     </Flex>
   );

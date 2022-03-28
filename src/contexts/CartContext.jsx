@@ -19,12 +19,12 @@ import { useAuth } from '../contexts/AuthContext';
 const CartContext = createContext();
 
 export function CartProvider({ children }) {
-  const { user, anonymousLogin } = useAuth();
+  const { user, anonymousLogin, getUser } = useAuth();
   const [cartItems, setCartItems] = useState([]);
   const [favoriteItems, setFavoriteItems] = useState([]);
   const [cartTotal, setCartTotal] = useState(0);
   const toast = useToast();
-  const [transactionHistory, setTransactionHistory] = useState();
+  const [transactionHistory, setTransactionHistory] = useState([]);
 
   // Reset cart items on log out
   const resetCartOnLogout = () => {
@@ -37,6 +37,23 @@ export function CartProvider({ children }) {
       calculateCartTotal();
     }
   }, [cartItems]);
+
+  // Get User's transaction history
+  const getTransactionHistory = async () => {
+    if (user) {
+      const q = query(
+        collection(db, 'completedTransactions'),
+        where('customerId', '==', user.uid),
+        orderBy('createdAt')
+      );
+      const querySnapshot = await getDocs(q);
+      const queryData = querySnapshot.docs.map(doc => ({
+        ...doc.data(),
+        id: doc.id,
+      }));
+      setTransactionHistory(queryData);
+    }
+  };
 
   // Calculate cart total amount
   const calculateCartTotal = () => {
@@ -61,7 +78,7 @@ export function CartProvider({ children }) {
       update_time: order.update_time,
       intent: order.intent,
     }).then(() => {
-      getTransactionHistory();
+     getTransactionHistory()
       toast({
         title: 'Thank you!',
         description: 'Payment has been successful.',
@@ -70,21 +87,6 @@ export function CartProvider({ children }) {
         isClosable: true,
       });
     });
-  };
-
-  // Get User's transaction history
-  const getTransactionHistory = async () => {
-    const q = query(
-      collection(db, 'completedTransactions'),
-      where('customerId', '==', user.uid),
-      orderBy('createdAt')
-    );
-    const querySnapshot = await getDocs(q);
-    const queryData = querySnapshot.docs.map(doc => ({
-      ...doc.data(),
-      id: doc.id,
-    }));
-    setTransactionHistory(queryData);
   };
 
   // Create favorite items

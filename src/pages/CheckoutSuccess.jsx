@@ -1,18 +1,22 @@
 import React, { useEffect } from 'react';
-import { Center, Flex, Text, VStack } from '@chakra-ui/layout';
-import TransactionHistory from '../components/TransactionHistory';
+import { Button, Center, Flex, Text, VStack } from '@chakra-ui/react';
+import { useNavigate } from "react-router-dom"
 
 const PagesCheckoutSuccess = () => {
+  const navigate = useNavigate()
+
   return (
     <Flex w="100%">
-      <VStack w="100%">
-        <Text py={10} fontWeight="bold" fontSize="2xl">
-          Checkout Succeeded
+      <VStack w="100%" py={10}>
+        <Text fontWeight="bold" fontSize="4xl" textAlign="center">
+          Checkout Succeeded!
         </Text>
-        <Text py={2} fontWeight="light" fontSize="lg">
+        <Text py={2} fontWeight="light" fontSize="lg" textAlign="center">
           Thank you for your purchase!
         </Text>
-        <TransactionHistory />
+        <Center w="100%" py={10}>
+          <Button onClick={() => navigate('/')}>Go to Home Page</Button>
+        </Center>
       </VStack>
     </Flex>
   );
