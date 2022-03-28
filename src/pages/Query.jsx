@@ -9,6 +9,7 @@ import {
   IconButton,
   Tooltip,
   HStack,
+  Center,
 } from '@chakra-ui/react';
 import { MdFavorite, MdShoppingCart } from 'react-icons/md';
 import { Link } from 'react-router-dom';
@@ -22,8 +23,6 @@ const PagesQuery = () => {
     getQueryProducts,
     queryProducts,
     updateQueryDisplayProducts,
-    displayProducts,
-    queryDisplayProducts,
     increasePageNumber,
     decreasePageNumber,
     pageNumber,
@@ -68,6 +67,10 @@ const PagesQuery = () => {
           onClick={() => increasePageNumber()}
         />
       </HStack>
+      <Center py={2}>
+        <Text fontWeight="bold">There are {queryProducts.length} matched results: </Text>
+        {queryProducts.length === 0 &&  <Text fontWeight="bold">There are no matched results</Text>}
+      </Center>
       <Flex
         flexWrap="wrap"
         justifyContent="center"
