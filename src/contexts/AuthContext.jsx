@@ -19,9 +19,7 @@ export function AuthProvider({ children }) {
   const toast = useToast();
 
   useEffect(() => {
-     auth.onAuthStateChanged(user => {
-      setUser(user);
-    });
+    getUser()
   }, []);
 
   const getUser = () => {

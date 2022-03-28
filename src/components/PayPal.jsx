@@ -6,16 +6,16 @@ import { useNavigate } from 'react-router-dom';
 const PayPal = () => {
   const paypal = useRef();
   const bgColor = useColorModeValue('#FFFFFF', '#141026');
-  const { cartTotal, cartItems, handleCompletedTransaction } = useCart();
+  const { cartTotal, cartItems, handleCompletedTransaction, getTransactionHistory } = useCart();
   const navigate = useNavigate();
-  let newArray = []
+  let newArray = [];
 
-  const summaryDescription = cartItems.map((item) => {
+  const summaryDescription = cartItems.map(item => {
     if (item.quantity > 0) {
-      newArray.push(item.productName + " x" + item.quantity)
+      newArray.push(item.productName + ' x' + item.quantity);
     }
-  })
-  const jointArray = newArray.join(', ')
+  });
+  const jointArray = newArray.join(', ');
 
   useEffect(() => {
     window.paypal
@@ -36,8 +36,9 @@ const PayPal = () => {
         },
         onApprove: async (data, actions) => {
           const order = await actions.order.capture();
-          handleCompletedTransaction(order)
-          navigate('/success')
+          handleCompletedTransaction(order);
+          getTransactionHistory();
+          navigate('/success');
         },
         onError: err => {
           console.log(err);

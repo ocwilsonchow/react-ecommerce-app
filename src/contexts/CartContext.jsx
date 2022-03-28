@@ -19,11 +19,11 @@ import { useAuth } from '../contexts/AuthContext';
 const CartContext = createContext();
 
 export function CartProvider({ children }) {
+  const { user, anonymousLogin } = useAuth();
   const [cartItems, setCartItems] = useState([]);
   const [favoriteItems, setFavoriteItems] = useState([]);
   const [cartTotal, setCartTotal] = useState(0);
   const toast = useToast();
-  const { user, anonymousLogin, getUser } = useAuth();
   const [transactionHistory, setTransactionHistory] = useState();
 
   // Reset cart items on log out
@@ -37,10 +37,6 @@ export function CartProvider({ children }) {
       calculateCartTotal();
     }
   }, [cartItems]);
-
-  useEffect(() => {
-    getUser();
-  }, []);
 
   // Calculate cart total amount
   const calculateCartTotal = () => {

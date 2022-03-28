@@ -14,29 +14,32 @@ import PagesAuth from '../pages/Auth';
 import PagesCategories from '../pages/Categories';
 import PagesAdmin from '../pages/Admin';
 import PagesShow from '../pages/Show';
-import PagesShowCategory from '../pages/Category'
-import PagesCheckout from '../pages/Checkout'
-import PagesCheckoutSuccess from '../pages/CheckoutSuccess'
-import PagesCheckoutCanceled from '../pages/CheckoutCanceled'
-import PagesMyAccount from '../pages/MyAccount'
-import PagesFavorites from '../pages/Favorites'
-import PagesQuery from '../pages/Query'
-import PagesAbout from '../pages/About'
+import PagesShowCategory from '../pages/Category';
+import PagesCheckout from '../pages/Checkout';
+import PagesCheckoutSuccess from '../pages/CheckoutSuccess';
+import PagesCheckoutCanceled from '../pages/CheckoutCanceled';
+import PagesMyAccount from '../pages/MyAccount';
+import PagesFavorites from '../pages/Favorites';
+import PagesQuery from '../pages/Query';
+import PagesAbout from '../pages/About';
 
 function Routing() {
   return (
     <BrowserRouter>
       <ChakraProvider theme={theme}>
         <AuthProvider>
-          <ShopProvider>
-            <CartProvider>
+          <CartProvider>
+            <ShopProvider>
               <Routes>
                 <Route path="/" element={<App />}>
                   <Route index element={<PagesHome />} />
                   <Route path="/auth" element={<PagesAuth />} />
                   <Route path="/about" element={<PagesAbout />} />
                   <Route path="/categories" element={<PagesCategories />} />
-                  <Route path="/categories/:id" element={<PagesShowCategory />} />
+                  <Route
+                    path="/categories/:id"
+                    element={<PagesShowCategory />}
+                  />
                   <Route path="/product/:id" element={<PagesShow />} />
                   <Route path="/products/query" element={<PagesQuery />} />
                   <Route path="/checkout" element={<PagesCheckout />} />
@@ -44,13 +47,16 @@ function Routing() {
                   <Route path="/success" element={<PagesCheckoutSuccess />} />
                   <Route path="/canceled" element={<PagesCheckoutCanceled />} />
                   <Route path="/my/account" element={<PagesMyAccount />} />
-                  <Route path="/admin/stockmanagement" element={<PagesAdmin />}/>
+                  <Route
+                    path="/admin/stockmanagement"
+                    element={<PagesAdmin />}
+                  />
 
                   <Route path="*" element={<PagesNotFound />} />
                 </Route>
               </Routes>
-            </CartProvider>
-          </ShopProvider>
+            </ShopProvider>
+          </CartProvider>
         </AuthProvider>
       </ChakraProvider>
     </BrowserRouter>
