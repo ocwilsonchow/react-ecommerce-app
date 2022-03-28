@@ -19,10 +19,17 @@ export function AuthProvider({ children }) {
   const toast = useToast();
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged(user => {
+     auth.onAuthStateChanged(user => {
       setUser(user);
     });
   }, []);
+
+  const getUser = () => {
+    auth.onAuthStateChanged(user => {
+      setUser(user);
+    });
+    console.log("Getting user")
+  }
 
   // Update User's Profile
   const updateUserProfile = async (displayName, imageURL) => {
@@ -164,6 +171,7 @@ export function AuthProvider({ children }) {
     signup,
     signout,
     login,
+    getUser,
     user,
     updateUserProfile,
     anonymousLogin,

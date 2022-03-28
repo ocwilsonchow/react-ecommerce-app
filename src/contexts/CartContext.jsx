@@ -23,7 +23,7 @@ export function CartProvider({ children }) {
   const [favoriteItems, setFavoriteItems] = useState([]);
   const [cartTotal, setCartTotal] = useState(0);
   const toast = useToast();
-  const { user, anonymousLogin } = useAuth();
+  const { user, anonymousLogin, getUser } = useAuth();
   const [transactionHistory, setTransactionHistory] = useState();
 
   // Reset cart items on log out
@@ -37,6 +37,12 @@ export function CartProvider({ children }) {
       calculateCartTotal();
     }
   }, [cartItems]);
+
+  useEffect(() => {
+    if (!user) {
+      getUser();
+    }
+  }, []);
 
   // Calculate cart total amount
   const calculateCartTotal = () => {
@@ -74,10 +80,9 @@ export function CartProvider({ children }) {
 
   // Get User's transaction history
   const getTransactionHistory = async () => {
-    if (user) {
       const q = query(
         collection(db, 'completedTransactions'),
-        where('customerId', '==', user?.uid),
+        where('customerId', '==', user.uid),
         orderBy('createdAt')
       );
       const querySnapshot = await getDocs(q);
@@ -86,8 +91,9 @@ export function CartProvider({ children }) {
         id: doc.id,
       }));
       setTransactionHistory(queryData);
-    }
-  };
+    };
+
+  ;
 
   // Create favorite items
   const createFavoriteItems = async product => {
@@ -97,7 +103,7 @@ export function CartProvider({ children }) {
     // Check if this item is already in the favorites
     const q = query(
       collection(db, 'favoriteItems'),
-      where('userId', '==', user.uid),
+      where('userId', '==', user?.uid),
       where('productId', '==', product.id)
     );
     const querySnapshot = await getDocs(q);

@@ -9,7 +9,7 @@ import {
   Input,
   Button,
   Avatar,
-  useColorModeValue
+  useColorModeValue,
 } from '@chakra-ui/react';
 import {
   getStorage,
@@ -18,6 +18,7 @@ import {
   getDownloadURL,
 } from 'firebase/storage';
 import { useToast } from '@chakra-ui/react';
+import TransactionHistory from '../components/TransactionHistory';
 
 const PagesMyAccount = () => {
   const { user, updateUserProfile } = useAuth();
@@ -30,7 +31,6 @@ const PagesMyAccount = () => {
   const uploadTask = uploadBytesResumable(storageRef, image);
   const [displayName, setDisplayName] = useState(user?.displayName);
   const bgColor = useColorModeValue('#FFF', '#141026');
-
 
   // Upload image onChange of image's state
   useEffect(() => {
@@ -124,9 +124,7 @@ const PagesMyAccount = () => {
           <VStack pb={6}>
             <Avatar size="xl" src={user?.photoURL} />
           </VStack>
-          <FormLabel>
-            Avatar
-          </FormLabel>
+          <FormLabel>Avatar</FormLabel>
           <Input
             p={1}
             type="file"
@@ -156,6 +154,9 @@ const PagesMyAccount = () => {
             Update My Profile
           </Button>
         </FormControl>
+        <VStack w="100%">
+          <TransactionHistory />
+        </VStack>
       </VStack>
     </Flex>
   );

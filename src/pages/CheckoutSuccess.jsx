@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Center, Flex, Text, VStack } from '@chakra-ui/layout';
 import TransactionHistory from '../components/TransactionHistory';
+import { useCart } from '../contexts/CartContext';
 
 const PagesCheckoutSuccess = () => {
+
   return (
     <Flex w="100%">
-      <VStack
-       w="100%">
+      <VStack w="100%">
         <Text py={10} fontWeight="bold" fontSize="2xl">
           Checkout Succeeded
         </Text>
