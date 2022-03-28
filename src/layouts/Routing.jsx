@@ -21,6 +21,7 @@ import PagesCheckoutCanceled from '../pages/CheckoutCanceled'
 import PagesMyAccount from '../pages/MyAccount'
 import PagesFavorites from '../pages/Favorites'
 import PagesQuery from '../pages/Query'
+import PagesAbout from '../pages/About'
 
 function Routing() {
   return (
@@ -33,6 +34,7 @@ function Routing() {
                 <Route path="/" element={<App />}>
                   <Route index element={<PagesHome />} />
                   <Route path="/auth" element={<PagesAuth />} />
+                  <Route path="/about" element={<PagesAbout />} />
                   <Route path="/categories" element={<PagesCategories />} />
                   <Route path="/categories/:id" element={<PagesShowCategory />} />
                   <Route path="/product/:id" element={<PagesShow />} />

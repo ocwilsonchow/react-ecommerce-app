@@ -5,7 +5,7 @@ import {
   updateProfile,
   signInWithEmailAndPassword,
   signOut,
-  signInAnonymously
+  signInAnonymously,
 } from 'firebase/auth';
 import { auth } from '../firebase';
 import { useNavigate } from 'react-router-dom';
@@ -37,11 +37,20 @@ export function AuthProvider({ children }) {
           status: 'success',
           duration: 2000,
           isClosable: true,
+          position: 'top',
         });
         navigation('/');
       })
-      .catch(err => {
-        console.log(err.message);
+      .catch(error => {
+        const errorMessage = error.message;
+        toast({
+          title: 'Error',
+          description: errorMessage,
+          status: 'warning',
+          duration: 4000,
+          isClosable: true,
+          position: 'top',
+        });
       });
   };
 
@@ -61,19 +70,26 @@ export function AuthProvider({ children }) {
           status: 'success',
           duration: 2000,
           isClosable: true,
+          position: 'top',
         });
       })
       .catch(error => {
         const errorMessage = error.message;
-        console.log(errorMessage);
+        toast({
+          title: 'Error',
+          description: errorMessage,
+          status: 'warning',
+          duration: 4000,
+          isClosable: true,
+          position: 'top',
+        });
       });
   };
-
 
   // Sign In Anonymously
   const anonymousLogin = async () => {
     await signInAnonymously(auth)
-      .then((userCredential) => {
+      .then(userCredential => {
         setUser(userCredential.user);
         toast({
           title: 'Welcome!',
@@ -81,10 +97,19 @@ export function AuthProvider({ children }) {
           status: 'success',
           duration: 2000,
           isClosable: true,
+          position: 'top',
         });
       })
       .catch(error => {
-        console.log(error.message);
+        const errorMessage = error.message;
+        toast({
+          title: 'Error',
+          description: errorMessage,
+          position: 'top',
+          status: 'warning',
+          duration: 4000,
+          isClosable: true,
+        });
       });
   };
 
@@ -100,13 +125,21 @@ export function AuthProvider({ children }) {
           title: 'Logged in.',
           description: "You've successfully logged in",
           status: 'success',
+          position: 'top',
           duration: 2000,
           isClosable: true,
         });
       })
       .catch(error => {
         const errorMessage = error.message;
-        console.log(errorMessage);
+        toast({
+          title: 'Error',
+          description: errorMessage,
+          status: 'warning',
+          duration: 4000,
+          position: 'top',
+          isClosable: true,
+        });
       });
   };
 
@@ -119,6 +152,7 @@ export function AuthProvider({ children }) {
         title: 'Logged out.',
         description: "You've successfully logged out",
         status: 'success',
+        position: 'top',
         duration: 2000,
         isClosable: true,
       });

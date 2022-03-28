@@ -78,12 +78,15 @@ export function ShopProvider({ children }) {
     );
   };
 
+  //Firestore.collection(collectionName).orderBy(field).where(field, ">=", keyword.toUpperCase()).where(field, "<=", keyword.toUpperCase() + "\uf8ff").get()
+
   // Get products based on queries
-  const getQueryProducts = async value => {
+  const getQueryProducts = async queryText => {
     const q = query(
       collection(db, 'products'),
-      where('name', '>=', value),
-      where('name', '<=', value + '\uf8ff')
+      orderBy("name"),
+      where('name', '>=', queryText),
+      where('name', '<=', queryText + '\uf8ff')
     );
     const documentSnapshots = await getDocs(q);
     if (documentSnapshots.docs.length > 0) {

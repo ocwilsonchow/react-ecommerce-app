@@ -65,13 +65,13 @@ const PagesAuth = () => {
     setIsSignup(prevIsSignup => !prevIsSignup);
   };
 
-  if (user)
+  if (user & user?.isAnonymous)
     return (
       <VStack w="100%">
         <Center w="100%" py={10} fontWeight="bold" fontSize="xl">
           You have successfully logged in
         </Center>
-        <Button   onClick={() => navigate('/')}>Go to Home Page</Button>
+        <Button onClick={() => navigate('/')}>Go to Home Page</Button>
       </VStack>
     );
 
@@ -86,7 +86,7 @@ const PagesAuth = () => {
         maxW="400px"
       >
         {isSignup && (
-          <FormControl >
+          <FormControl>
             <Text fontWeight="bold" fontSize="3xl">
               Sign up
             </Text>

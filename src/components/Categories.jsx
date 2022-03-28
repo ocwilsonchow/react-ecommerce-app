@@ -13,6 +13,7 @@ import {
   InputRightElement,
   Input,
   FormControl,
+  Kbd,
 } from '@chakra-ui/react';
 import { FaGithub } from 'react-icons/fa';
 import { useShop } from '../contexts/ShopContext';
@@ -22,7 +23,7 @@ import { SearchIcon } from '@chakra-ui/icons';
 const Categories = () => {
   const { categories, getCategories, getQueryProducts } = useShop();
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [searchInput, setSearchInput] = useState("")
+  const [searchInput, setSearchInput] = useState('');
 
   useEffect(() => {
     if (!categories) {
@@ -32,14 +33,14 @@ const Categories = () => {
 
   const handleSearch = e => {
     if (e.key === 'Enter') {
-
-      getQueryProducts(searchInput)
+      onClose()
+      getQueryProducts(searchInput);
     }
   };
 
   const handleOnChange = e => {
-     setSearchInput(e.target.value)
-  }
+    setSearchInput(e.target.value);
+  };
 
   return (
     <Flex
@@ -75,11 +76,21 @@ const Categories = () => {
         <Modal isOpen={isOpen} onClose={onClose}>
           <ModalOverlay />
           <ModalContent p={2} mx={2} mt={10}>
-            <FormControl type="submit" onSubmit={e => handleSearch(e)}>
+            <FormControl>
               <InputGroup>
-                <Input bg="none" variant="none" mr={3} placeholder="Search" onChange={e => handleOnChange(e)} onKeyDown={e => handleSearch(e)}/>
+                <InputLeftElement>
+                  <SearchIcon />
+                </InputLeftElement>
+                <Input
+                  bg="none"
+                  variant="none"
+                  mr={3}
+                  placeholder="Search"
+                  onChange={e => handleOnChange(e)}
+                  onKeyDown={e => handleSearch(e)}
+                />
                 <InputRightElement>
-                  <IconButton icon={<SearchIcon />} variant="ghost" />
+                  <Kbd mr={6}>Enter</Kbd>
                 </InputRightElement>
               </InputGroup>
             </FormControl>

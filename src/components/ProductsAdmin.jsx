@@ -12,7 +12,8 @@ import {
   HStack,
   Tooltip,
 } from '@chakra-ui/react';
-import { AddIcon, MinusIcon, DeleteIcon } from '@chakra-ui/icons';
+import { AddIcon, MinusIcon, DeleteIcon, EditIcon } from '@chakra-ui/icons';
+import { useNavigate, Link } from 'react-router-dom';
 
 import { useShop } from '../contexts/ShopContext';
 
@@ -26,14 +27,15 @@ const ProductsAdmin = () => {
   } = useShop();
   const secondaryBgColor = useColorModeValue('#FFFFFF', '#1D213C');
   const secondaryHoverBgColor = useColorModeValue('teal.200', 'teal.700');
+  const navigate = useNavigate();
 
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (!products) {
-      getProducts()
+      getProducts();
     }
-  }, [])
+  }, []);
 
   return (
     <Flex flexWrap="wrap" justifyContent="center">
@@ -99,6 +101,7 @@ const ProductsAdmin = () => {
                 deleteProduct(product.id);
               }}
             />
+
           </HStack>
         </Box>
       ))}

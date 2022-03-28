@@ -9,7 +9,7 @@ export const ColorModeSwitcher = props => {
 
   return (
     <IconButton
-      size="md"
+      size="lg"
       fontSize="lg"
       aria-label={`Switch to ${text} mode`}
       variant="ghost"
@@ -18,6 +18,8 @@ export const ColorModeSwitcher = props => {
       onClick={toggleColorMode}
       icon={<SwitchIcon />}
       {...props}
+      transition="all ease 0.2s"
+              _hover={{ bg: 'blue.200', borderRadius: '0.4rem' }}
     />
   );
 };

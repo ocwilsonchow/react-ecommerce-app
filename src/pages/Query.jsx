@@ -38,9 +38,6 @@ const PagesQuery = () => {
     }
   }, []);
 
-  useEffect(() => {
-    updateQueryDisplayProducts();
-  }, [pageNumber]);
 
   const handleCreateCartItem = product => {
     createCartItem(product);
@@ -48,25 +45,6 @@ const PagesQuery = () => {
 
   return (
     <>
-      <HStack justifyContent="center" w="100%" p={2}>
-        <IconButton
-          variant="outline"
-          borderRadius="full"
-          icon={<ChevronLeftIcon />}
-          disabled={pageNumber === 0}
-          onClick={() => decreasePageNumber()}
-        />
-        <Box px={2} fontWeight="bold">
-          {pageNumber + 1}
-        </Box>
-        <IconButton
-          variant="outline"
-          borderRadius="full"
-          icon={<ChevronRightIcon />}
-          disabled={pageNumber === 3}
-          onClick={() => increasePageNumber()}
-        />
-      </HStack>
       <Center py={2}>
         <Text fontWeight="bold">There are {queryProducts.length} matched results: </Text>
         {queryProducts.length === 0 &&  <Text fontWeight="bold">There are no matched results</Text>}

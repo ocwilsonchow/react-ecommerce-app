@@ -336,15 +336,14 @@ const RightBar = () => {
           <CartTotal />
           <Link to="/checkout">
             <Button
+              colorScheme="linkedin"
               position="relative"
               size="lg"
               w="100%"
               my={1}
-              colorScheme="linkedin"
               fontWeight="bold"
               hidden={cartItems.length === 0}
               display={{ md: 'none', lg: 'block' }}
-              boxShadow="rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;"
             >
               Proceed to Checkout
             </Button>
