@@ -39,9 +39,7 @@ export function CartProvider({ children }) {
   }, [cartItems]);
 
   useEffect(() => {
-    if (!user) {
-      getUser();
-    }
+    getUser();
   }, []);
 
   // Calculate cart total amount
@@ -80,20 +78,18 @@ export function CartProvider({ children }) {
 
   // Get User's transaction history
   const getTransactionHistory = async () => {
-      const q = query(
-        collection(db, 'completedTransactions'),
-        where('customerId', '==', user.uid),
-        orderBy('createdAt')
-      );
-      const querySnapshot = await getDocs(q);
-      const queryData = querySnapshot.docs.map(doc => ({
-        ...doc.data(),
-        id: doc.id,
-      }));
-      setTransactionHistory(queryData);
-    };
-
-  ;
+    const q = query(
+      collection(db, 'completedTransactions'),
+      where('customerId', '==', user.uid),
+      orderBy('createdAt')
+    );
+    const querySnapshot = await getDocs(q);
+    const queryData = querySnapshot.docs.map(doc => ({
+      ...doc.data(),
+      id: doc.id,
+    }));
+    setTransactionHistory(queryData);
+  };
 
   // Create favorite items
   const createFavoriteItems = async product => {
