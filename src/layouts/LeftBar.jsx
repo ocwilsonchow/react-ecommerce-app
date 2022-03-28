@@ -47,6 +47,8 @@ const LeftBar = () => {
               size="lg"
               my={2}
               icon={<FaStore />}
+               transition="all ease 0.2s"
+                _hover={{bg: "blue.300", borderRadius: "0.4rem"}}
             />
           </Link>
         </Tooltip>
@@ -58,6 +60,8 @@ const LeftBar = () => {
               size="lg"
               my={2}
               icon={<FaThList />}
+               transition="all ease 0.2s"
+                _hover={{bg: "blue.200", borderRadius: "0.4rem"}}
             />
           </Link>
         </Tooltip>
@@ -86,6 +90,8 @@ const LeftBar = () => {
                 size="lg"
                 my={2}
                 icon={<FaCartArrowDown />}
+                 transition="all ease 0.2s"
+                _hover={{bg: "blue.200", borderRadius: "0.4rem"}}
               />
             </Box>
           </Link>
@@ -115,6 +121,8 @@ const LeftBar = () => {
                 size="lg"
                 my={2}
                 icon={<MdFavorite />}
+                 transition="all ease 0.2s"
+                _hover={{bg: "blue.200", borderRadius: "0.4rem"}}
               />
             </Box>
           </Link>
@@ -129,6 +137,8 @@ const LeftBar = () => {
                 size="lg"
                 my={2}
                 icon={<AiTwotoneSetting />}
+                 transition="all ease 0.2s"
+                _hover={{bg: "blue.200", borderRadius: "0.4rem"}}
               />
             </Link>
           </Tooltip>
@@ -144,6 +154,8 @@ const LeftBar = () => {
                 size="lg"
                 my={2}
                 icon={<RiAdminFill />}
+                 transition="all ease 0.2s"
+                _hover={{bg: "blue.200", borderRadius: "0.4rem"}}
               />
             </Link>
           </Tooltip>
@@ -159,6 +171,8 @@ const LeftBar = () => {
                 size="lg"
                 my={2}
                 icon={<RiLoginBoxLine />}
+                transition="all ease 0.2s"
+                _hover={{bg: "blue.200", borderRadius: "0.4rem"}}
               />
             </Link>
           </Tooltip>
@@ -174,6 +188,8 @@ const LeftBar = () => {
               size="lg"
               borderRadius="50%"
               icon={<RiLogoutBoxFill />}
+               transition="all ease 0.2s"
+                _hover={{bg: "blue.200", borderRadius: "0.4rem"}}
             />
           </Tooltip>
         )}

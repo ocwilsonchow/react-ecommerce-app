@@ -26,7 +26,6 @@ export function AuthProvider({ children }) {
 
   // Update User's Profile
   const updateUserProfile = async (displayName, imageURL) => {
-    console.log(displayName, imageURL);
     await updateProfile(auth.currentUser, {
       displayName: displayName,
       photoURL: imageURL || user.photoURL,
@@ -39,6 +38,7 @@ export function AuthProvider({ children }) {
           duration: 2000,
           isClosable: true,
         });
+        navigation('/');
       })
       .catch(err => {
         console.log(err.message);

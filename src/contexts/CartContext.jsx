@@ -28,7 +28,6 @@ export function CartProvider({ children }) {
   const resetCartOnLogout = () => {
     setFavoriteItems([])
     setCartItems([]);
-    console.log('cart items cleaned');
   };
 
   useEffect(() => {

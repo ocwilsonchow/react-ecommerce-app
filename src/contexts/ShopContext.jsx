@@ -16,16 +16,18 @@ import {
 import { db } from '../firebase';
 import { useToast } from '@chakra-ui/react';
 import { useAuth } from '../contexts/AuthContext';
-
+import { useNavigate } from 'react-router-dom';
 
 const ShopContext = createContext();
 
 export function ShopProvider({ children }) {
+  const navigate = useNavigate();
   const toast = useToast();
   const [categories, setCategories] = useState();
   const [similarProducts, setSimilarProducts] = useState();
   const [products, setProducts] = useState();
-    const { user } = useAuth();
+  const [queryProducts, setQueryProducts] = useState()
+  const { user } = useAuth();
 
   const [product, setProduct] = useState();
   const [categoryProducts, setCategoryProducts] = useState();
@@ -33,10 +35,10 @@ export function ShopProvider({ children }) {
 
   const productsPerPage = 18;
   const productsVisited = pageNumber * productsPerPage;
-  const numberOfPages = Math.ceil(products?.length/productsPerPage)
-
+  const numberOfPages = Math.ceil(products?.length / productsPerPage);
 
   const [displayProducts, setDisplayProducts] = useState();
+  const [queryDisplayProducts, setQueryDisplayProducts] = useState()
 
   useEffect(() => {
     if (products) {
@@ -47,6 +49,12 @@ export function ShopProvider({ children }) {
   // Set the array of products to be displayed
   const updateDisplayProducts = () => {
     setDisplayProducts(
+      products?.slice(productsVisited, productsVisited + productsPerPage)
+    );
+  };
+
+  const updateQueryDisplayProducts = () => {
+    setQueryDisplayProducts(
       products?.slice(productsVisited, productsVisited + productsPerPage)
     );
   };
@@ -68,6 +76,30 @@ export function ShopProvider({ children }) {
     setProducts(
       documentSnapshots.docs.map(doc => ({ ...doc.data(), id: doc.id }))
     );
+  };
+
+  // Get products based on queries
+  const getQueryProducts = async value => {
+    const q = query(
+      collection(db, 'products'),
+      where('name', '>=', value),
+      where('name', '<=', value + '\uf8ff')
+    );
+    const documentSnapshots = await getDocs(q);
+    if (documentSnapshots.docs.length > 0) {
+      setQueryProducts(
+        documentSnapshots.docs.map(doc => ({ ...doc.data(), id: doc.id }))
+      );
+      navigate("/products/query")
+    } else {
+       toast({
+          title: 'No result',
+          description: 'No matched search result.',
+          status: 'warning',
+          duration: 2000,
+          isClosable: true,
+        });
+    }
   };
 
   // Get categories
@@ -236,6 +268,10 @@ export function ShopProvider({ children }) {
     decreasePageNumber,
     pageNumber,
     updateDisplayProducts,
+    updateQueryDisplayProducts,
+    getQueryProducts,
+    queryProducts,
+    queryDisplayProducts
   };
 
   return (

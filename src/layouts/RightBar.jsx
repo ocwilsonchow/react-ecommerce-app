@@ -11,7 +11,6 @@ import {
   IconButton,
   Tooltip,
   Tag,
-  scaleFadeConfig,
 } from '@chakra-ui/react';
 import { useNavigate, Link } from 'react-router-dom';
 import { MinusIcon, AddIcon, DeleteIcon, CloseIcon } from '@chakra-ui/icons';
@@ -100,56 +99,14 @@ const RightBar = () => {
 
         {/* Gadget Box */}
         {/* <Flex
-          w="90%"
+          w="95%"
           h="150px"
           borderRadius="1rem"
-          m={2}
+          mx={2}
           display={{ md: 'none', lg: 'block' }}
-          boxShadow="lg"
-          bg={secondaryBgColor}
           transition="all ease 0.5s"
-          _hover={{ boxShadow: "2xl", transform: "scale(1.04)", cursor: "pointer" }}
-        >
-          <Box
-            w="100%"
-            h="100%"
-            backdropFilter="blur(10px)"
-            borderRadius="1rem"
-            position="relative"
-          >
-            <Text
-              position="absolute"
-              bottom="75%"
-              left="10%"
-              fontWeight="light"
-              fontSize="xs"
-            >
-              Balance
-            </Text>
-            <Text
-              position="absolute"
-              bottom="55%"
-              left="10%"
-              fontWeight="bold"
-              fontSize="lg"
-
-            >
-              $ 45,000
-            </Text>
-            <Text
-              position="absolute"
-              top="72%"
-              left="10%"
-              fontWeight="light"
-              fontSize="xs"
-            >
-              **** **** 4242
-            </Text>
-            <Box position="absolute" bottom="12%" right="8%">
-              <FaCcVisa size="30px" />
-            </Box>
-          </Box>
-        </Flex> */}
+          bg={secondaryBgColor}
+        ></Flex> */}
       </Flex>
 
       <Flex
@@ -170,8 +127,9 @@ const RightBar = () => {
               onClick={() => anonymousLogin()}
               display={{ md: 'flex', lg: 'none' }}
               size="xs"
+              variant="outline"
             >
-              Guest
+              Continue as Guest
             </Button>
           )}
 
@@ -183,19 +141,19 @@ const RightBar = () => {
             bg={secondaryBgColor}
             borderRadius="xl"
           >
-           <Link to="/checkout">
+            <Link to="/checkout">
               <Text
-              textAlign="center"
-              fontWeight="bold"
-              w="100%"
-              p={2}
-              mt={2}
-              transition="all ease 0.5s"
-              _hover={{ color: 'teal.500' }}
-            >
-              My Cart
-            </Text>
-           </Link>
+                textAlign="center"
+                fontWeight="bold"
+                w="100%"
+                p={2}
+                mt={2}
+                transition="all ease 0.5s"
+                _hover={{ color: 'teal.500' }}
+              >
+                My Cart
+              </Text>
+            </Link>
             {cartItems.length === 0 && (
               <Text my={1} px={2} textAlign="center">
                 Cart is empty
