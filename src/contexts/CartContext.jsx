@@ -15,6 +15,7 @@ import {
 import { db } from '../firebase';
 import { useToast } from '@chakra-ui/react';
 import { useAuth } from '../contexts/AuthContext';
+import { auth } from '../firebase';
 
 const CartContext = createContext();
 
@@ -40,19 +41,17 @@ export function CartProvider({ children }) {
 
   // Get User's transaction history
   const getTransactionHistory = async () => {
-    if (user) {
-      const q = query(
-        collection(db, 'completedTransactions'),
-        where('customerId', '==', user.uid),
-        orderBy('createdAt')
-      );
-      const querySnapshot = await getDocs(q);
-      const queryData = querySnapshot.docs.map(doc => ({
-        ...doc.data(),
-        id: doc.id,
-      }));
-      setTransactionHistory(queryData);
-    }
+    const q = query(
+      collection(db, 'completedTransactions'),
+      where('customerId', '==', user.uid),
+      orderBy('createdAt', 'desc')
+    );
+    const querySnapshot = await getDocs(q);
+    const queryData = querySnapshot.docs.map(doc => ({
+      ...doc.data(),
+      id: doc.id,
+    }));
+    setTransactionHistory(queryData);
   };
 
   // Calculate cart total amount
@@ -78,7 +77,7 @@ export function CartProvider({ children }) {
       update_time: order.update_time,
       intent: order.intent,
     }).then(() => {
-     getTransactionHistory()
+      getTransactionHistory();
       toast({
         title: 'Thank you!',
         description: 'Payment has been successful.',

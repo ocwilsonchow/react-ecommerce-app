@@ -22,8 +22,6 @@ export function AuthProvider({ children }) {
     setUser(user);
   });
 
-  console.log(user)
-
   // Update User's Profile
   const updateUserProfile = async (displayName, imageURL) => {
     await updateProfile(auth.currentUser, {
