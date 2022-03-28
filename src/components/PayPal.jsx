@@ -1,9 +1,29 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { Flex, useColorModeValue } from '@chakra-ui/react';
+import { useCart } from '../contexts/CartContext';
+import { useNavigate } from 'react-router-dom';
+
 
 const PayPal = () => {
   const paypal = useRef();
   const bgColor = useColorModeValue('#FFFFFF', '#141026');
+  const { cartTotal, cartItems } = useCart();
+    const navigate = useNavigate();
+
+
+  console.log(cartTotal, cartItems);
+
+  let newArray = []
+
+  const summaryDescription = cartItems.map((item) => {
+    if (item.quantity > 0) {
+      newArray.push(item.productName + " x" + item.quantity)
+    }
+  })
+
+  const jointArray = newArray.join(', ')
+
+  console.log(jointArray)
 
   useEffect(() => {
     window.paypal
@@ -13,10 +33,10 @@ const PayPal = () => {
             intent: 'CAPTURE',
             purchase_units: [
               {
-                description: 'Artistry Collection',
+                description: jointArray,
                 amount: {
-                  value: 400.0,
-                  current_code: 'HKD',
+                  currency_code: 'HKD',
+                  value: cartTotal,
                 },
               },
             ],
@@ -25,6 +45,7 @@ const PayPal = () => {
         onApprove: async (data, actions) => {
           const order = await actions.order.capture();
           console.log(order);
+          navigate('/success')
         },
         onError: err => {
           console.log(err);
@@ -35,7 +56,7 @@ const PayPal = () => {
 
   return (
     <Flex
-  m={2}
+      m={2}
       minW="380px"
       maxW="700px"
       spacing="15px"
@@ -43,7 +64,6 @@ const PayPal = () => {
       mb={8}
       bg={bgColor}
       borderRadius="xl"
-
     >
       <Flex ref={paypal} w="100%"></Flex>
     </Flex>

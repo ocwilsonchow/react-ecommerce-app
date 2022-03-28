@@ -36,6 +36,10 @@ const PagesCheckout = () => {
   const navigate = useNavigate();
   const [checkout, setCheckout] = useState(false);
 
+  const switchMode = () => {
+    setCheckout(prev => !prev)
+  }
+
   // Get Stripe
   const getStripe = () => {
     if (!stripePromise) {
@@ -194,22 +198,24 @@ const PagesCheckout = () => {
               type="submit"
               onClick={redirectToCheckout}
               mb={3}
+              variant="outline"
             >
               {(cartItems.length == 0 && 'No item in shopping cart') ||
                 'Pay with Stripe'}
             </Button>
 
-            {!checkout && (
+
               <Button
                 disabled={!user || loading || cartItems.length == 0}
                 isLoading={loading}
                 type="submit"
                 mb={3}
-                onClick={() => setCheckout(true)}
+                onClick={() => switchMode(true)}
+                colorScheme="linkedin"
               >
                 Pay with PayPal
               </Button>
-            )}
+
           </Flex>
         </VStack>
         {checkout && <PayPal />}
