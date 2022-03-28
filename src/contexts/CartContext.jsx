@@ -10,6 +10,7 @@ import {
   serverTimestamp,
   increment,
   deleteDoc,
+  orderBy,
 } from 'firebase/firestore';
 import { db } from '../firebase';
 import { useToast } from '@chakra-ui/react';
@@ -47,14 +48,12 @@ export function CartProvider({ children }) {
     setCartTotal(sum);
   };
 
-  console.log(transactionHistory)
-
   // Print Completed Transaction
   const handleCompletedTransaction = async order => {
     await addDoc(collection(db, 'completedTransactions'), {
       id: order.id,
       customerId: user.uid,
-      createdAt: order.create_time,
+      createdAt: serverTimestamp(),
       intent: order.intent,
       payer: order.payer,
       purchase_units: order.purchase_units,
@@ -75,16 +74,19 @@ export function CartProvider({ children }) {
 
   // Get User's transaction history
   const getTransactionHistory = async () => {
-    const q = query(
-      collection(db, 'completedTransactions'),
-      where('customerId', '==', user?.uid)
-    );
-    const querySnapshot = await getDocs(q);
-    const queryData = querySnapshot.docs.map(doc => ({
-      ...doc.data(),
-      id: doc.id,
-    }));
-    setTransactionHistory(queryData);
+    if (user) {
+      const q = query(
+        collection(db, 'completedTransactions'),
+        where('customerId', '==', user?.uid),
+        orderBy('createdAt')
+      );
+      const querySnapshot = await getDocs(q);
+      const queryData = querySnapshot.docs.map(doc => ({
+        ...doc.data(),
+        id: doc.id,
+      }));
+      setTransactionHistory(queryData);
+    }
   };
 
   // Create favorite items
@@ -284,6 +286,7 @@ export function CartProvider({ children }) {
     calculateCartTotal,
     handleCompletedTransaction,
     transactionHistory,
+    getTransactionHistory,
   };
 
   return (

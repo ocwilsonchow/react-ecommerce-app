@@ -1,5 +1,6 @@
 import React from 'react';
 import { Center, Flex, Text, VStack } from '@chakra-ui/layout';
+import TransactionHistory from '../components/TransactionHistory';
 
 const PagesCheckoutSuccess = () => {
   return (
@@ -12,6 +13,7 @@ const PagesCheckoutSuccess = () => {
         <Text py={2} fontWeight="light" fontSize="lg">
           Thank you for your purchase!
         </Text>
+        <TransactionHistory />
       </VStack>
     </Flex>
   );
