@@ -3,16 +3,11 @@ import { Flex, useColorModeValue } from '@chakra-ui/react';
 import { useCart } from '../contexts/CartContext';
 import { useNavigate } from 'react-router-dom';
 
-
 const PayPal = () => {
   const paypal = useRef();
   const bgColor = useColorModeValue('#FFFFFF', '#141026');
-  const { cartTotal, cartItems } = useCart();
-    const navigate = useNavigate();
-
-
-  console.log(cartTotal, cartItems);
-
+  const { cartTotal, cartItems, handleCompletedTransaction } = useCart();
+  const navigate = useNavigate();
   let newArray = []
 
   const summaryDescription = cartItems.map((item) => {
@@ -20,10 +15,7 @@ const PayPal = () => {
       newArray.push(item.productName + " x" + item.quantity)
     }
   })
-
   const jointArray = newArray.join(', ')
-
-  console.log(jointArray)
 
   useEffect(() => {
     window.paypal
@@ -44,7 +36,7 @@ const PayPal = () => {
         },
         onApprove: async (data, actions) => {
           const order = await actions.order.capture();
-          console.log(order);
+          handleCompletedTransaction(order)
           navigate('/success')
         },
         onError: err => {

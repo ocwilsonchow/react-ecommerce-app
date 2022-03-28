@@ -19,39 +19,80 @@ const CartContext = createContext();
 
 export function CartProvider({ children }) {
   const [cartItems, setCartItems] = useState([]);
-  const [favoriteItems, setFavoriteItems] = useState([])
-  const [cartTotal, setCartTotal] = useState(0)
+  const [favoriteItems, setFavoriteItems] = useState([]);
+  const [cartTotal, setCartTotal] = useState(0);
   const toast = useToast();
   const { user, anonymousLogin } = useAuth();
+  const [transactionHistory, setTransactionHistory] = useState();
 
   // Reset cart items on log out
   const resetCartOnLogout = () => {
-    setFavoriteItems([])
+    setFavoriteItems([]);
     setCartItems([]);
   };
 
   useEffect(() => {
     if (cartItems) {
-      calculateCartTotal()
+      calculateCartTotal();
     }
-  }, [cartItems])
+  }, [cartItems]);
 
   // Calculate cart total amount
   const calculateCartTotal = () => {
-    let newArr = []
-    cartItems.map((item) => {
-      newArr.push(Number(item.price)*(item.quantity))
-    })
-    const sum = newArr.reduce((prev, curr) => prev + curr, 0)
-    setCartTotal(sum)
-  }
+    let newArr = [];
+    cartItems.map(item => {
+      newArr.push(Number(item.price) * item.quantity);
+    });
+    const sum = newArr.reduce((prev, curr) => prev + curr, 0);
+    setCartTotal(sum);
+  };
+
+  console.log(transactionHistory)
+
+  // Print Completed Transaction
+  const handleCompletedTransaction = async order => {
+    await addDoc(collection(db, 'completedTransactions'), {
+      id: order.id,
+      customerId: user.uid,
+      createdAt: order.create_time,
+      intent: order.intent,
+      payer: order.payer,
+      purchase_units: order.purchase_units,
+      status: order.status,
+      update_time: order.update_time,
+      intent: order.intent,
+    }).then(() => {
+      getTransactionHistory();
+      toast({
+        title: 'Thank you!',
+        description: 'Payment has been successful.',
+        status: 'success',
+        duration: 6000,
+        isClosable: true,
+      });
+    });
+  };
+
+  // Get User's transaction history
+  const getTransactionHistory = async () => {
+    const q = query(
+      collection(db, 'completedTransactions'),
+      where('customerId', '==', user?.uid)
+    );
+    const querySnapshot = await getDocs(q);
+    const queryData = querySnapshot.docs.map(doc => ({
+      ...doc.data(),
+      id: doc.id,
+    }));
+    setTransactionHistory(queryData);
+  };
 
   // Create favorite items
   const createFavoriteItems = async product => {
     if (!user) {
-      await anonymousLogin()
+      await anonymousLogin();
     }
-     // Check if this item is already in the favorites
+    // Check if this item is already in the favorites
     const q = query(
       collection(db, 'favoriteItems'),
       where('userId', '==', user.uid),
@@ -93,26 +134,25 @@ export function CartProvider({ children }) {
   };
 
   // Remove favorite item
-  const removeFavoriteItem = async (item) => {
+  const removeFavoriteItem = async item => {
     await deleteDoc(doc(db, 'favoriteItems', item.id)).then(() => {
-        getFavorites();
-        toast({
-          title: 'Item removed',
-          description: 'Item removed from your cart',
-          status: 'info',
-          duration: 2000,
-          isClosable: true,
-        });
+      getFavorites();
+      toast({
+        title: 'Item removed',
+        description: 'Item removed from your cart',
+        status: 'info',
+        duration: 2000,
+        isClosable: true,
       });
-      return;
-
-  }
+    });
+    return;
+  };
 
   // Create cart items
   const createCartItem = async product => {
-
     if (!user) {
-      await anonymousLogin()}
+      await anonymousLogin();
+    }
 
     // Check if this item is already in the cart
     const q = query(
@@ -241,7 +281,9 @@ export function CartProvider({ children }) {
     getFavorites,
     removeFavoriteItem,
     cartTotal,
-    calculateCartTotal
+    calculateCartTotal,
+    handleCompletedTransaction,
+    transactionHistory,
   };
 
   return (
