@@ -19,7 +19,7 @@ import { useAuth } from '../contexts/AuthContext';
 const CartContext = createContext();
 
 export function CartProvider({ children }) {
-  const { user, anonymousLogin, getUser } = useAuth();
+  const { user, anonymousLogin } = useAuth();
   const [cartItems, setCartItems] = useState([]);
   const [favoriteItems, setFavoriteItems] = useState([]);
   const [cartTotal, setCartTotal] = useState(0);
@@ -30,7 +30,7 @@ export function CartProvider({ children }) {
   const resetCartOnLogout = () => {
     setFavoriteItems([]);
     setCartItems([]);
-    setTransactionHistory([])
+    setTransactionHistory([]);
   };
 
   useEffect(() => {
@@ -105,10 +105,12 @@ export function CartProvider({ children }) {
       id: doc.id,
     }));
 
+    // If the item is already in Favorites, remove
     if (queryData.length > 0) {
       return removeFavoriteItem(queryData[0]);
     }
 
+    // If the item is not in Favorites yet, add to firestore
     if (user) {
       await addDoc(collection(db, 'favoriteItems'), {
         userId: user.uid,
@@ -134,7 +136,7 @@ export function CartProvider({ children }) {
     }
   };
 
-  // Remove favorite item
+  // Remove favorite item from firestore
   const removeFavoriteItem = async item => {
     await deleteDoc(doc(db, 'favoriteItems', item.id)).then(() => {
       getFavorites();
@@ -151,6 +153,7 @@ export function CartProvider({ children }) {
 
   // Create cart items
   const createCartItem = async product => {
+    // Adding a cart item requires a user ID, force anonymous login
     if (!user) {
       await anonymousLogin();
     }
@@ -167,6 +170,7 @@ export function CartProvider({ children }) {
       id: doc.id,
     }));
 
+    // If the product is already in the cart, then increase quantity instead of creating a new entry
     if (queryData.length > 0) {
       return increaseCartItemQuantity(queryData[0].id);
     }

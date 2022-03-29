@@ -83,7 +83,6 @@ const PagesFavorites = () => {
                 <Flex
                   flexDir="column"
                   px={2}
-                  display={{ md: 'none', lg: 'block' }}
                 >
                   <Tooltip label={item.productName}>
                     <Text color="white" fontWeight="bold" w="180px" isTruncated>
@@ -97,7 +96,7 @@ const PagesFavorites = () => {
                   </HStack>
                 </Flex>
               </Link>
-              <Flex display={{ md: 'none', lg: 'block' }}>
+              <Flex>
                 <IconButton
                   mt={1}
                   mx={1}

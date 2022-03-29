@@ -164,7 +164,6 @@ export function AuthProvider({ children }) {
     signup,
     signout,
     login,
-
     user,
     updateUserProfile,
     anonymousLogin,

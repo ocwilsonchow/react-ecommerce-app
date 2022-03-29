@@ -1,14 +1,12 @@
 import React from 'react';
-import { Center, Flex, theme, useColorModeValue } from '@chakra-ui/react';
+import { Flex, useColorModeValue } from '@chakra-ui/react';
 import './App.scss';
 import '@stripe/stripe-js';
 
 import LeftBar from '../layouts/LeftBar';
 import RightBar from '../layouts/RightBar';
 import Categories from '../components/Categories';
-
 import { Outlet } from 'react-router-dom';
-import { useAuth } from '../contexts/AuthContext'
 import TopBar from './TopBar';
 
 function App() {
