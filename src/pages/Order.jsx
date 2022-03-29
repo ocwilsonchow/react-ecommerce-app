@@ -26,9 +26,11 @@ const PagesOrder = () => {
 
   return (
     <VStack w="100%">
-      <Text fontWeight="bold" fontSize="xl" mt={6} p={3}>
+      <Center w="100%">
+        <Text fontWeight="bold" fontSize="2xl" my={5}>
         Transaction History
-      </Text>
+        </Text>
+      </Center>
 
       <VStack
         w="100%"

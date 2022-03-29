@@ -30,6 +30,7 @@ export function CartProvider({ children }) {
   const resetCartOnLogout = () => {
     setFavoriteItems([]);
     setCartItems([]);
+    setTransactionHistory([])
   };
 
   useEffect(() => {

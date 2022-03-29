@@ -37,8 +37,8 @@ const PagesCheckout = () => {
   const [checkout, setCheckout] = useState(false);
 
   const switchMode = () => {
-    setCheckout(prev => !prev)
-  }
+    setCheckout(prev => !prev);
+  };
 
   // Get Stripe
   const getStripe = () => {
@@ -93,7 +93,7 @@ const PagesCheckout = () => {
       </Center>
       <Flex spacing={10} justifyContent="center" w="100%" flexWrap="wrap">
         <VStack
-        m={2}
+
           alignItems="center"
           minW="380px"
           maxW="700px"
@@ -188,7 +188,12 @@ const PagesCheckout = () => {
             <CartTotal />
           </Flex>
           <Flex flexDir="column">
-            <Button mb={3} variant="outline" onClick={() => navigate('/')} size="lg">
+            <Button
+              mb={3}
+              variant="outline"
+              onClick={() => navigate('/')}
+              size="lg"
+            >
               Continue shopping
             </Button>
 
@@ -205,19 +210,17 @@ const PagesCheckout = () => {
                 'Pay with Stripe'}
             </Button>
 
-
-              <Button
-                disabled={!user || loading || cartItems.length == 0}
-                isLoading={loading}
-                type="submit"
-                mb={3}
-                onClick={() => switchMode(true)}
-                colorScheme="yellow"
-                size="lg"
-              >
-                Pay with PayPal
-              </Button>
-
+            <Button
+              disabled={!user || loading || cartItems.length == 0}
+              isLoading={loading}
+              type="submit"
+              mb={3}
+              onClick={() => switchMode(true)}
+              colorScheme="yellow"
+              size="lg"
+            >
+              Pay with PayPal
+            </Button>
           </Flex>
         </VStack>
         {checkout && <PayPal />}

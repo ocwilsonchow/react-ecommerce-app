@@ -9,7 +9,7 @@ import {
   Tooltip,
   HStack,
   VStack,
-  Button
+  Button,
 } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 import { CloseIcon } from '@chakra-ui/icons';
@@ -37,15 +37,15 @@ const PagesFavorites = () => {
         </Text>
       </VStack>
       <VStack
-         m={2}
-          alignItems="center"
-          minW="380px"
-          maxW="700px"
-          spacing="15px"
-          p={4}
-          mb={8}
-          bg={bgColor}
-          borderRadius="xl"
+        m={2}
+        alignItems="center"
+        minW="380px"
+        maxW="700px"
+        spacing="15px"
+        p={4}
+        mb={8}
+        bg={bgColor}
+        borderRadius="xl"
       >
         {favoriteItems.length === 0 && (
           <>
