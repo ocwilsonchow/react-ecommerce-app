@@ -28,7 +28,6 @@ export function ShopProvider({ children }) {
   const [products, setProducts] = useState();
   const [queryProducts, setQueryProducts] = useState()
   const { user } = useAuth();
-
   const [product, setProduct] = useState();
   const [categoryProducts, setCategoryProducts] = useState();
   const [pageNumber, setPageNumber] = useState(0);

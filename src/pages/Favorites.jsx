@@ -13,13 +13,11 @@ import {
 } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 import { CloseIcon } from '@chakra-ui/icons';
-
 import { useCart } from '../contexts/CartContext';
-import { useAuth } from '../contexts/AuthContext';
 import { MdShoppingCart } from 'react-icons/md';
 
 const PagesFavorites = () => {
-  const { favoriteItems, removeFavoriteItem, products, createCartItem } =
+  const { favoriteItems, removeFavoriteItem, createCartItem } =
     useCart();
   const bgColor = useColorModeValue('#FFFFFF', '#141026');
   const secondaryHoverBgColor = useColorModeValue('teal.600', 'teal.700');
@@ -37,9 +35,9 @@ const PagesFavorites = () => {
         </Text>
       </VStack>
       <VStack
-        m={2}
+        mx={2}
         alignItems="center"
-        minW="380px"
+        minW="350px"
         maxW="700px"
         spacing="15px"
         p={4}
@@ -82,10 +80,12 @@ const PagesFavorites = () => {
               <Link to={`/product/${item.productId}`}>
                 <Flex
                   flexDir="column"
-                  px={2}
+                  px={1}
+                  w="100%"
+
                 >
                   <Tooltip label={item.productName}>
-                    <Text color="white" fontWeight="bold" w="180px" isTruncated>
+                    <Text color="white" fontWeight="bold" display="flex" flexWrap="wrap">
                       {item.productName}
                     </Text>
                   </Tooltip>

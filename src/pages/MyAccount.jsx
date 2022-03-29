@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import {
   Flex,
@@ -18,6 +18,7 @@ import {
   getDownloadURL,
 } from 'firebase/storage';
 import { useToast } from '@chakra-ui/react';
+import { useNavigate } from 'react-router';
 
 const PagesMyAccount = () => {
   const { user, updateUserProfile } = useAuth();
@@ -30,6 +31,7 @@ const PagesMyAccount = () => {
   const uploadTask = uploadBytesResumable(storageRef, image);
   const [displayName, setDisplayName] = useState(user?.displayName);
   const bgColor = useColorModeValue('#FFF', '#141026');
+  const navigate = useNavigate();
 
   // Upload image onChange of image's state
   useEffect(() => {
@@ -153,7 +155,11 @@ const PagesMyAccount = () => {
             Update My Profile
           </Button>
         </FormControl>
-
+        <Flex w="100%" justifyContent="center" pt={4}>
+          <Button variant="link" onClick={() => navigate('/my/order')}>
+            See my order history
+          </Button>
+        </Flex>
       </VStack>
     </Flex>
   );

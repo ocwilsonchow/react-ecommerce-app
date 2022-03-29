@@ -25,7 +25,7 @@ const PagesOrder = () => {
   }, [user]);
 
   return (
-    <VStack w="100%">
+    <VStack w="100%" px={2}>
       <Center w="100%">
         <Text fontWeight="bold" fontSize="2xl" my={5}>
         Transaction History

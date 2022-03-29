@@ -18,7 +18,7 @@ import {
 } from '@chakra-ui/react';
 import { useCart } from '../contexts/CartContext';
 import { useAuth } from '../contexts/AuthContext';
-import { MinusIcon, AddIcon, DeleteIcon, SearchIcon } from '@chakra-ui/icons';
+import { MinusIcon, AddIcon, DeleteIcon } from '@chakra-ui/icons';
 import { useToast } from '@chakra-ui/react';
 import CartTotal from '../components/CartTotal';
 import PayPal from '../components/PayPal';
@@ -93,9 +93,9 @@ const PagesCheckout = () => {
       </Center>
       <Flex spacing={10} justifyContent="center" w="100%" flexWrap="wrap">
         <VStack
-
+          mx={2}
           alignItems="center"
-          minW="380px"
+          minW="350px"
           maxW="700px"
           spacing="15px"
           p={4}
@@ -198,7 +198,7 @@ const PagesCheckout = () => {
             </Button>
 
             <Button
-              disabled={!user || loading || cartItems.length == 0}
+              disabled={!user || loading || cartItems.length === 0}
               isLoading={loading}
               type="submit"
               onClick={redirectToCheckout}
@@ -206,12 +206,12 @@ const PagesCheckout = () => {
               variant="outline"
               size="lg"
             >
-              {(cartItems.length == 0 && 'No item in shopping cart') ||
+              {(cartItems.length === 0 && 'No item in shopping cart') ||
                 'Pay with Stripe'}
             </Button>
 
             <Button
-              disabled={!user || loading || cartItems.length == 0}
+              disabled={!user || loading || cartItems.length === 0}
               isLoading={loading}
               type="submit"
               mb={3}
