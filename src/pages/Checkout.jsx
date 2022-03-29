@@ -91,7 +91,7 @@ const PagesCheckout = () => {
           Cart
         </Text>
       </Center>
-      <Flex spacing={10} justifyContent="center" w="100%" flexWrap="wrap">
+      <Flex justifyContent="center" w="100%" flexWrap="wrap">
         <VStack
           mx={2}
           alignItems="center"
