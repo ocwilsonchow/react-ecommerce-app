@@ -49,8 +49,8 @@ const PayPal = () => {
 
   return (
     <Flex
-      m={2}
-      minW="380px"
+      mx={2}
+      minW="350px"
       maxW="700px"
       spacing="15px"
       p={4}
