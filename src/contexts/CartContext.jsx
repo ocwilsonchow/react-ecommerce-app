@@ -15,7 +15,6 @@ import {
 import { db } from '../firebase';
 import { useToast } from '@chakra-ui/react';
 import { useAuth } from '../contexts/AuthContext';
-import { auth } from '../firebase';
 
 const CartContext = createContext();
 

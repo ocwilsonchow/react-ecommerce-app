@@ -108,7 +108,7 @@ const PagesCheckout = () => {
             <Flex
               key={item.id}
               bg={tertiaryBgColor}
-              p={2}
+              p={3}
               w="100%"
               borderRadius="1rem"
               alignItems="center"
@@ -165,7 +165,7 @@ const PagesCheckout = () => {
                     <IconButton
                       mr={1}
                       borderRadius="50%"
-                      size="xs"
+                      size="sm"
                       icon={
                         (item.quantity > 0 && <MinusIcon />) || <DeleteIcon />
                       }
@@ -175,7 +175,7 @@ const PagesCheckout = () => {
                     />
                     <IconButton
                       borderRadius="50%"
-                      size="xs"
+                      size="sm"
                       icon={<AddIcon />}
                       onClick={() => increaseCartItemQuantity(item.id)}
                     />
@@ -188,7 +188,7 @@ const PagesCheckout = () => {
             <CartTotal />
           </Flex>
           <Flex flexDir="column">
-            <Button mb={3} variant="outline" onClick={() => navigate('/')}>
+            <Button mb={3} variant="outline" onClick={() => navigate('/')} size="lg">
               Continue shopping
             </Button>
 
@@ -199,6 +199,7 @@ const PagesCheckout = () => {
               onClick={redirectToCheckout}
               mb={3}
               variant="outline"
+              size="lg"
             >
               {(cartItems.length == 0 && 'No item in shopping cart') ||
                 'Pay with Stripe'}
@@ -211,7 +212,8 @@ const PagesCheckout = () => {
                 type="submit"
                 mb={3}
                 onClick={() => switchMode(true)}
-                colorScheme="linkedin"
+                colorScheme="yellow"
+                size="lg"
               >
                 Pay with PayPal
               </Button>

@@ -96,7 +96,7 @@ const Products = () => {
                 borderRadius="0.5rem"
               />
             </Link>
-            <Tooltip label={product.id}>
+            <Tooltip label={product.id} size="xs">
               <Flex justifyContent="space-between">
                 <Badge mt={3} fontSize="xs">
                   {product.category}
@@ -124,7 +124,8 @@ const Products = () => {
             </Flex>
 
             <Flex justifyContent="flex-end">
-              <IconButton
+             <Tooltip label="Add to favorites" bg='pink.300'>
+                <IconButton
                 mt={1}
                 mx={1}
                 size="md"
@@ -133,7 +134,9 @@ const Products = () => {
                 icon={<MdFavorite />}
                 onClick={() => createFavoriteItems(product)}
               />
-              <IconButton
+             </Tooltip>
+              <Tooltip label="Add to cart"  bg='blue.300'>
+                <IconButton
                 mt={1}
                 mx={1}
                 size="md"
@@ -143,6 +146,7 @@ const Products = () => {
                 variant="outline"
                 onClick={() => handleCreateCartItem(product)}
               />
+              </Tooltip>
             </Flex>
           </Flex>
         ))}

@@ -5,20 +5,24 @@ import {
   VStack,
   useColorModeValue,
   Button,
-  Center
+  Center,
 } from '@chakra-ui/react';
 import { useCart } from '../contexts/CartContext';
-import { Navigate, useNavigate } from 'react-router';
+import { useNavigate } from 'react-router';
+import { useAuth } from '../contexts/AuthContext';
 
 const PagesOrder = () => {
   const { transactionHistory, getTransactionHistory } = useCart();
+  const { user } = useAuth();
   const bgColor = useColorModeValue('#FFF', '#141026');
   const secondaryBgColor = useColorModeValue('#f5f5f5', '#13031F');
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   useEffect(() => {
-    getTransactionHistory();
-  }, []);
+    if (user) {
+      getTransactionHistory();
+    }
+  }, [user]);
 
   return (
     <VStack w="100%">
@@ -34,12 +38,16 @@ const PagesOrder = () => {
         p={3}
         spacing={3}
       >
-        {transactionHistory.length === 0 && <VStack p={2}>
-          <Text>No transaction history</Text>
-          <Center py={4}>
-            <Button colorScheme="linkedin" onClick={() => navigate("/")}>Go Shopping!</Button>
-          </Center>
-        </VStack>}
+        {transactionHistory.length === 0 && (
+          <VStack p={2}>
+            <Text>No transaction history</Text>
+            <Center py={4}>
+              <Button colorScheme="linkedin" onClick={() => navigate('/')}>
+                Go Shopping!
+              </Button>
+            </Center>
+          </VStack>
+        )}
         {transactionHistory?.map(item => (
           <VStack
             p={3}

@@ -37,10 +37,7 @@ function Routing() {
                   <Route path="/auth" element={<PagesAuth />} />
                   <Route path="/about" element={<PagesAbout />} />
                   <Route path="/categories" element={<PagesCategories />} />
-                  <Route
-                    path="/categories/:id"
-                    element={<PagesShowCategory />}
-                  />
+                  <Route path="/categories/:id" element={<PagesShowCategory />}/>
                   <Route path="/product/:id" element={<PagesShow />} />
                   <Route path="/products/query" element={<PagesQuery />} />
                   <Route path="/checkout" element={<PagesCheckout />} />
@@ -48,12 +45,8 @@ function Routing() {
                   <Route path="/success" element={<PagesCheckoutSuccess />} />
                   <Route path="/canceled" element={<PagesCheckoutCanceled />} />
                   <Route path="/my/account" element={<PagesMyAccount />} />
-                   <Route path="/my/order" element={<PagesOrder />} />
-                  <Route
-                    path="/admin/stockmanagement"
-                    element={<PagesAdmin />}
-                  />
-
+                  <Route path="/my/order" element={<PagesOrder />} />
+                  <Route path="/admin/stockmanagement" element={<PagesAdmin />}/>
                   <Route path="*" element={<PagesNotFound />} />
                 </Route>
               </Routes>

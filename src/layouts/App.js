@@ -8,6 +8,7 @@ import RightBar from '../layouts/RightBar';
 import Categories from '../components/Categories';
 
 import { Outlet } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext'
 import TopBar from './TopBar';
 
 function App() {

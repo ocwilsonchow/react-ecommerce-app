@@ -18,9 +18,11 @@ export function AuthProvider({ children }) {
   const navigation = useNavigate();
   const toast = useToast();
 
-  auth.onAuthStateChanged(user => {
-    setUser(user);
-  });
+  useEffect(() => {
+    auth.onAuthStateChanged(user => {
+      setUser(user);
+    });
+  }, []);
 
   // Update User's Profile
   const updateUserProfile = async (displayName, imageURL) => {

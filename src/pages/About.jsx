@@ -1,7 +1,8 @@
 import { Image } from '@chakra-ui/image';
-import { Center, VStack, Text, Flex, HStack } from '@chakra-ui/layout';
+import { Center, VStack, Text, Flex, AspectRatio } from '@chakra-ui/layout';
 import React from 'react';
 import { SiFirebase, SiReact } from 'react-icons/si';
+import { FaCcPaypal, FaCcStripe } from 'react-icons/fa';
 
 const PagesAbout = () => {
   const techStacks = [
@@ -31,6 +32,14 @@ const PagesAbout = () => {
         </svg>
       ),
     },
+    {
+      title: 'PayPal',
+      icon: <FaCcPaypal size="50px" />,
+    },
+    {
+      title: 'Stripe',
+      icon: <FaCcStripe size="50px" />,
+    },
   ];
 
   return (
@@ -43,7 +52,7 @@ const PagesAbout = () => {
           A modern e-commerce web application, built with React, Firebase and
           Chakra UI.
         </Text>
-        <Flex justifyContent="space-between" pt={6}>
+        <Flex justifyContent="center" pt={6} flexWrap="wrap">
           {techStacks?.map((item, i) => (
             <VStack key={i} p={6}>
               {item.icon}
@@ -52,9 +61,7 @@ const PagesAbout = () => {
           ))}
         </Flex>
       </VStack>
-      <Center w="100%" py={8}>
-        <VStack maxW="400px"></VStack>
-      </Center>
+
     </VStack>
   );
 };

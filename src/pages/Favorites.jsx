@@ -21,9 +21,7 @@ import { MdShoppingCart } from 'react-icons/md';
 const PagesFavorites = () => {
   const { favoriteItems, removeFavoriteItem, products, createCartItem } =
     useCart();
-  const { user } = useAuth();
   const bgColor = useColorModeValue('#FFFFFF', '#141026');
-
   const secondaryHoverBgColor = useColorModeValue('teal.600', 'teal.700');
   const tertiaryBgColor = useColorModeValue('#32343B', '#222D48');
 
@@ -39,13 +37,15 @@ const PagesFavorites = () => {
         </Text>
       </VStack>
       <VStack
-        alignItems="center"
-        bg={bgColor}
-        minW="350px"
-        maxW="700px"
-        p={4}
-        spacing="15px"
-        borderRadius="xl"
+         m={2}
+          alignItems="center"
+          minW="380px"
+          maxW="700px"
+          spacing="15px"
+          p={4}
+          mb={8}
+          bg={bgColor}
+          borderRadius="xl"
       >
         {favoriteItems.length === 0 && (
           <>
