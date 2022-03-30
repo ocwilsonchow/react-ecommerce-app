@@ -19,6 +19,7 @@ import { useCart } from '../contexts/CartContext';
 import { FaCartArrowDown, FaCcVisa } from 'react-icons/fa';
 
 import CartTotal from '../components/CartTotal';
+import SearchBar from '../components/SearchBar';
 
 const RightBar = () => {
   const bgColor = useColorModeValue('#FFF', '#141026');
@@ -96,17 +97,6 @@ const RightBar = () => {
           )}
           <Avatar size="md" src={user?.photoURL || ''} />
         </Flex>
-
-        {/* Gadget Box */}
-        {/* <Flex
-          w="95%"
-          h="150px"
-          borderRadius="1rem"
-          mx={2}
-          display={{ md: 'none', lg: 'block' }}
-          transition="all ease 0.5s"
-          bg={secondaryBgColor}
-        ></Flex> */}
       </Flex>
 
       <Flex

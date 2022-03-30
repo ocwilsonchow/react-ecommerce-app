@@ -12,7 +12,8 @@ export function Hit({ hit }) {
         cursor="pointer"
         px={4}
         py={3}
-        _hover={{ fontWeight: 'bold' }}
+        fontWeight="bold"
+        _hover={{ color: 'blue.500' }}
         borderRadius="xl"
         onClick={() => {
           navigate(`/product/${ID}`);
@@ -21,10 +22,16 @@ export function Hit({ hit }) {
         alignItems="center"
       >
         <Flex alignItems="center">
-          <Image boxSize="50px" borderRadius="xl" mr={4} src={hit.image} />
+          <Image
+            boxSize="50px"
+            objectFit="cover"
+            borderRadius="xl"
+            mr={4}
+            src={hit.image}
+          />
           <Text>{hit.name}</Text>
         </Flex>
-        <Badge>{hit.category}</Badge>
+        <Badge colorScheme="twitter">{hit.category}</Badge>
       </Flex>
     </Flex>
   );

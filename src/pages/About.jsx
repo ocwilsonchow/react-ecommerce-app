@@ -2,7 +2,7 @@ import { Image } from '@chakra-ui/image';
 import { Center, VStack, Text, Flex, AspectRatio } from '@chakra-ui/layout';
 import React from 'react';
 import { SiFirebase, SiReact } from 'react-icons/si';
-import { FaCcPaypal, FaCcStripe } from 'react-icons/fa';
+import { FaCcPaypal, FaCcStripe, FaAlgolia } from 'react-icons/fa';
 
 const PagesAbout = () => {
   const techStacks = [
@@ -40,6 +40,10 @@ const PagesAbout = () => {
       title: 'Stripe',
       icon: <FaCcStripe size="50px" />,
     },
+     {
+      title: 'Algolia',
+      icon: <FaAlgolia size="50px" />,
+    },
   ];
 
   return (
@@ -54,10 +58,10 @@ const PagesAbout = () => {
         </Text>
         <Flex justifyContent="center" pt={6} flexWrap="wrap">
           {techStacks?.map((item, i) => (
-            <VStack key={i} p={6}>
+            <Flex flexDir="column" alignItems='center' key={i} p={6}>
               {item.icon}
-              <Text>{item.title}</Text>
-            </VStack>
+              <Text py={2}>{item.title}</Text>
+            </Flex>
           ))}
         </Flex>
       </VStack>

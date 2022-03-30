@@ -22,7 +22,7 @@ function App() {
       >
         <LeftBar />
       </Flex>
-      <Flex display="block" h="100vh" overflow="auto" w="100%" bg={bgColor}>
+      <Flex display="block" h="100vh" overflow="auto" w="100%" bg={bgColor} >
         <TopBar />
         <Categories />
         <Outlet />

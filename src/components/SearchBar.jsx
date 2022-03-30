@@ -18,9 +18,7 @@ import { CustomSearchBox } from './CustomSearchBox';
 import { useNavigate } from 'react-router-dom'
 
 const SearchBar = () => {
-  const { getQueryProducts } = useShop();
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [searchInput, setSearchInput] = useState('');
   const modalBgColor = useColorModeValue("rgba(255,255,255,0.7)", "rgba(20,16,38,0.6)")
   const navigate = useNavigate()
 
@@ -28,8 +26,6 @@ const SearchBar = () => {
     'AYPI2XQYIB',
     '3a996cfd4d79f2d86401bd24267cdebc'
   );
-
-
 
   return (
     <>
@@ -44,7 +40,7 @@ const SearchBar = () => {
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
-        <ModalContent p={2} mx={2} mt={10} bg={modalBgColor} backdropFilter="blur(10px)">
+        <ModalContent p={2} mx={2} mt={10} bg={modalBgColor} backdropFilter="blur(8px)">
           <InstantSearch searchClient={searchClient} indexName={'productName'}>
             <InputGroup>
               <CustomSearchBox />
