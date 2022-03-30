@@ -6,38 +6,31 @@ import {
   ModalContent,
   useDisclosure,
   InputGroup,
-  InputLeftElement,
-  InputRightElement,
-  Input,
-  FormControl,
-  Kbd,
+  useColorModeValue,
+  textDecoration
 } from '@chakra-ui/react';
 import { useShop } from '../contexts/ShopContext';
 import { SearchIcon } from '@chakra-ui/icons';
 import algoliasearch from 'algoliasearch/lite';
-import { InstantSearch, SearchBox, Hits } from 'react-instantsearch-dom'
-import { Hit } from '../components/Hit'
+import { InstantSearch, SearchBox, Hits } from 'react-instantsearch-dom';
+import { Hit } from '../components/Hit';
+import { CustomSearchBox } from './CustomSearchBox';
+import { useNavigate } from 'react-router-dom'
 
 const SearchBar = () => {
   const { getQueryProducts } = useShop();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [searchInput, setSearchInput] = useState('');
+  const modalBgColor = useColorModeValue("rgba(255,255,255,0.7)", "rgba(20,16,38,0.6)")
+  const navigate = useNavigate()
 
   const searchClient = algoliasearch(
     'AYPI2XQYIB',
     '3a996cfd4d79f2d86401bd24267cdebc'
   );
 
-  const handleSearch = e => {
-    if (e.key === 'Enter') {
-      onClose();
-      getQueryProducts(searchInput);
-    }
-  };
 
-  const handleOnChange = e => {
-    setSearchInput(e.target.value);
-  };
+
   return (
     <>
       <IconButton
@@ -48,31 +41,17 @@ const SearchBar = () => {
         borderRadius="full"
         onClick={onOpen}
       />
-      <InstantSearch searchClient={searchClient} indexName={"productName"}>
-          <SearchBox />
-          <Hits hitComponent={Hit}/>
-      </InstantSearch>
+
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
-        <ModalContent p={2} mx={2} mt={10}>
-          <FormControl>
+        <ModalContent p={2} mx={2} mt={10} bg={modalBgColor} backdropFilter="blur(10px)">
+          <InstantSearch searchClient={searchClient} indexName={'productName'}>
             <InputGroup>
-              <InputLeftElement>
-                <SearchIcon />
-              </InputLeftElement>
-              <Input
-                bg="none"
-                variant="none"
-                mr={3}
-                placeholder="Search"
-                onChange={e => handleOnChange(e)}
-                onKeyDown={e => handleSearch(e)}
-              />
-              <InputRightElement>
-                <Kbd mr={6}>Enter</Kbd>
-              </InputRightElement>
+              <CustomSearchBox />
             </InputGroup>
-          </FormControl>
+
+            <Hits hitComponent={Hit } textDecoration="none" onClick={onClose} />
+          </InstantSearch>
         </ModalContent>
       </Modal>
     </>
