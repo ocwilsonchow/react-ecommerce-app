@@ -1,24 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import {
-  Text,
-  Button,
-  Flex,
-  IconButton,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  useDisclosure,
-  InputGroup,
-  InputLeftElement,
-  InputRightElement,
-  Input,
-  FormControl,
-  Kbd,
-} from '@chakra-ui/react';
+import { Text, Button, Flex, useDisclosure, IconButton } from '@chakra-ui/react';
 import { FaGithub } from 'react-icons/fa';
 import { useShop } from '../contexts/ShopContext';
 import { Link } from 'react-router-dom';
 import { SearchIcon } from '@chakra-ui/icons';
+import SearchBar from './SearchBar';
 
 const Categories = () => {
   const { categories, getCategories, getQueryProducts } = useShop();
@@ -31,17 +17,6 @@ const Categories = () => {
     }
   }, []);
 
-  const handleSearch = e => {
-    if (e.key === 'Enter') {
-      onClose()
-      getQueryProducts(searchInput);
-    }
-  };
-
-  const handleOnChange = e => {
-    setSearchInput(e.target.value);
-  };
-
   return (
     <Flex
       px={6}
@@ -51,53 +26,19 @@ const Categories = () => {
       justifyContent="center"
       alignItems="center"
     >
-      <>
+      <SearchBar />
+      <a
+        target="_blank"
+        href="https://github.com/ocwilsonchow/react-ecommerce-app"
+      >
         <IconButton
-          icon={<SearchIcon />}
+          icon={<FaGithub />}
           size="sm"
           variant="outline"
-          mr={2}
+          mr={1}
           borderRadius="full"
-          onClick={onOpen}
         />
-        <a
-          target="_blank"
-          href="https://github.com/ocwilsonchow/react-ecommerce-app"
-        >
-          <IconButton
-            icon={<FaGithub />}
-            size="sm"
-            variant="outline"
-            mr={1}
-            borderRadius="full"
-          />
-        </a>
-
-        <Modal isOpen={isOpen} onClose={onClose}>
-          <ModalOverlay />
-          <ModalContent p={2} mx={2} mt={10}>
-            <FormControl>
-              <InputGroup>
-                <InputLeftElement>
-                  <SearchIcon />
-                </InputLeftElement>
-                <Input
-                  bg="none"
-                  variant="none"
-                  mr={3}
-                  placeholder="Search"
-                  onChange={e => handleOnChange(e)}
-                  onKeyDown={e => handleSearch(e)}
-                />
-                <InputRightElement>
-                  <Kbd mr={6}>Enter</Kbd>
-                </InputRightElement>
-              </InputGroup>
-            </FormControl>
-          </ModalContent>
-        </Modal>
-      </>
-
+      </a>
       {categories?.map((category, i) => (
         <Link key={i} to={`/categories/${category.name}`}>
           <Button

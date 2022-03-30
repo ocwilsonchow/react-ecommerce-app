@@ -12,6 +12,8 @@ import {
   deleteDoc,
   increment,
   getDoc,
+  startAt,
+  endAt
 } from 'firebase/firestore';
 import { db } from '../firebase';
 import { useToast } from '@chakra-ui/react';
@@ -83,9 +85,9 @@ export function ShopProvider({ children }) {
   const getQueryProducts = async queryText => {
     const q = query(
       collection(db, 'products'),
-      orderBy("name"),
-      where('name', '>=', queryText),
-      where('name', '<=', queryText + '\uf8ff')
+      orderBy('name'),
+      startAt(queryText),
+      endAt(queryText + '\uf8ff')
     );
     const documentSnapshots = await getDocs(q);
     if (documentSnapshots.docs.length > 0) {
