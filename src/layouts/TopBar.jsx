@@ -44,7 +44,7 @@ const TopBar = () => {
       position="relative"
       w="100%"
     >
-      <HStack spacing="4px">
+      <HStack spacing="6px">
         <Link to="/">
           <IconButton
             variant="ghost"
@@ -53,14 +53,7 @@ const TopBar = () => {
             icon={<FaStore />}
           />
         </Link>
-        <Link to="/categories">
-          <IconButton
-            variant="ghost"
-            borderRadius="50%"
-            size="lg"
-            icon={<FaThList />}
-          />
-        </Link>
+
         <Link to="/checkout">
           <Box position="relative">
             {user && (

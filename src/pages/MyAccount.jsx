@@ -10,6 +10,7 @@ import {
   Button,
   Avatar,
   useColorModeValue,
+  Center,
 } from '@chakra-ui/react';
 import {
   getStorage,
@@ -110,18 +111,19 @@ const PagesMyAccount = () => {
 
   return (
     <Flex>
-      <VStack w="100%" alignItems="center" px={8} pb={6}>
-        <Text py={5} fontWeight="bold" fontSize="xl">
-          My Account Settings
-        </Text>
+      <VStack w="100%" alignItems="center" px={2} pb={6}>
         <FormControl
           display="flex"
           flexDir="column"
           maxW="400px"
-          bg={bgColor}
-          p={6}
+          p={10}
           borderRadius="2xl"
         >
+          <Center pb={8}>
+            <Text fontWeight="bold" fontSize="2xl">
+              My Account Settings
+            </Text>
+          </Center>
           <VStack pb={6}>
             <Avatar size="xl" src={user?.photoURL} />
           </VStack>
@@ -130,6 +132,7 @@ const PagesMyAccount = () => {
             p={1}
             type="file"
             variant="outline"
+             bg={bgColor}
             name="image"
             id="image"
             mb={4}
@@ -138,10 +141,11 @@ const PagesMyAccount = () => {
 
           <FormLabel>Username</FormLabel>
           <Input
-            mb={4}
+            mb={8}
             placeholder={
               user?.displayName || 'You have not set up your username'
             }
+             bg={bgColor}
             type="text"
             onChange={e => handleNameChange(e.target.value)}
           />
@@ -151,15 +155,16 @@ const PagesMyAccount = () => {
             isLoading={loading}
             disabled={loading}
             onClick={e => handleUpdateUserProfile(e)}
+            colorScheme="linkedin"
           >
             Update My Profile
           </Button>
+          <Flex w="100%" justifyContent="center" pt={4}>
+            <Button variant="link" onClick={() => navigate('/my/order')}>
+              See my order history
+            </Button>
+          </Flex>
         </FormControl>
-        <Flex w="100%" justifyContent="center" pt={4}>
-          <Button variant="link" onClick={() => navigate('/my/order')}>
-            See my order history
-          </Button>
-        </Flex>
       </VStack>
     </Flex>
   );

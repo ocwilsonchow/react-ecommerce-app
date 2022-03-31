@@ -6,7 +6,12 @@ import { useNavigate } from 'react-router-dom';
 const PayPal = () => {
   const paypal = useRef();
   const bgColor = useColorModeValue('#FFFFFF', '#141026');
-  const { cartTotal, cartItems, handleCompletedTransaction, getTransactionHistory } = useCart();
+  const {
+    cartTotal,
+    cartItems,
+    handleCompletedTransaction,
+    getTransactionHistory,
+  } = useCart();
   const navigate = useNavigate();
   let newArray = [];
 
@@ -48,16 +53,7 @@ const PayPal = () => {
   }, []);
 
   return (
-    <Flex
-      mx={2}
-      minW="350px"
-      maxW="700px"
-      spacing="15px"
-      p={4}
-      mb={8}
-      bg={bgColor}
-      borderRadius="xl"
-    >
+    <Flex w="100%">
       <Flex ref={paypal} w="100%"></Flex>
     </Flex>
   );

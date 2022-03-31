@@ -14,7 +14,14 @@ import {
   Tooltip,
   Tag,
   Square,
-  Spinner,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  useDisclosure,
 } from '@chakra-ui/react';
 import { useCart } from '../contexts/CartContext';
 import { useAuth } from '../contexts/AuthContext';
@@ -24,21 +31,22 @@ import CartTotal from '../components/CartTotal';
 import PayPal from '../components/PayPal';
 
 const PagesCheckout = () => {
-  const secondaryHoverBgColor = useColorModeValue('teal.600', 'teal.700');
+  const { user } = useAuth();
   const { cartItems, increaseCartItemQuantity, decreaseCartItemQuantity } =
     useCart();
-  const { user } = useAuth();
+  const secondaryHoverBgColor = useColorModeValue('teal.600', 'teal.700');
   const tertiaryBgColor = useColorModeValue('#32343B', '#222D48');
+  const modalBgColor = useColorModeValue(
+    'rgba(255,255,255,0.7)',
+    'rgba(255,255,255,0.7)'
+  );
+
   const toast = useToast();
   const [loading, setLoading] = useState(false);
   const bgColor = useColorModeValue('#FFFFFF', '#141026');
   let stripePromise;
   const navigate = useNavigate();
-  const [checkout, setCheckout] = useState(false);
-
-  const switchMode = () => {
-    setCheckout(prev => !prev);
-  };
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   // Get Stripe
   const getStripe = () => {
@@ -86,11 +94,6 @@ const PagesCheckout = () => {
 
   return (
     <VStack w="100%" flexDir="column" alignItems="center">
-      <Center w="100%">
-        <Text fontWeight="bold" fontSize="2xl" my={5}>
-          Cart
-        </Text>
-      </Center>
       <Flex justifyContent="center" w="100%" flexWrap="wrap">
         <VStack
           mx={2}
@@ -100,15 +103,19 @@ const PagesCheckout = () => {
           spacing="15px"
           p={4}
           mb={8}
-          bg={bgColor}
           borderRadius="xl"
+
         >
-          {!cartItems && <Spinner />}
+          <Center p={4}>
+            <Text fontWeight="bold" fontSize="2xl">
+              My Cart
+            </Text>
+          </Center>
           {cartItems.map(item => (
             <Flex
               key={item.id}
               bg={tertiaryBgColor}
-              p={3}
+              p={2}
               w="100%"
               borderRadius="1rem"
               alignItems="center"
@@ -149,9 +156,9 @@ const PagesCheckout = () => {
                   justifyContent="space-between"
                   alignItems="center"
                 >
-                  <Flex flexDir="column" px={2}>
+                  <Flex flexDir="column" px={1}>
                     <Tooltip label={item.productName}>
-                      <Text color="white" fontWeight="bold">
+                      <Text color="white" fontWeight="bold" w="150px">
                         {item.productName}
                       </Text>
                     </Tooltip>
@@ -163,7 +170,7 @@ const PagesCheckout = () => {
                   </Flex>
                   <Flex p={2}>
                     <IconButton
-                      mr={1}
+                      mr={2}
                       borderRadius="50%"
                       size="sm"
                       icon={
@@ -184,7 +191,7 @@ const PagesCheckout = () => {
               </Flex>
             </Flex>
           ))}
-          <Flex w="100%">
+          <Flex w="100%" pt={4}>
             <CartTotal />
           </Flex>
           <Flex flexDir="column">
@@ -215,7 +222,7 @@ const PagesCheckout = () => {
               isLoading={loading}
               type="submit"
               mb={3}
-              onClick={() => switchMode(true)}
+              onClick={onOpen}
               colorScheme="yellow"
               size="lg"
             >
@@ -223,7 +230,22 @@ const PagesCheckout = () => {
             </Button>
           </Flex>
         </VStack>
-        {checkout && <PayPal />}
+
+        <>
+          <Modal isOpen={isOpen} onClose={onClose}>
+            <ModalOverlay />
+            <ModalContent bg={modalBgColor} backdropFilter="blur(8px)">
+              <ModalBody justifyContent="center" py={4}>
+                <PayPal />
+                <Center>
+                  <Button colorScheme="blue" onClick={onClose}>
+                    Cancel
+                  </Button>
+                </Center>
+              </ModalBody>
+            </ModalContent>
+          </Modal>
+        </>
       </Flex>
     </VStack>
   );

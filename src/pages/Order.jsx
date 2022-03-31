@@ -25,21 +25,20 @@ const PagesOrder = () => {
   }, [user]);
 
   return (
-    <VStack w="100%" px={2}>
-      <Center w="100%">
-        <Text fontWeight="bold" fontSize="2xl" my={5}>
-        Transaction History
-        </Text>
-      </Center>
-
+    <VStack w="100%" p={2}>
       <VStack
         w="100%"
-        bg={bgColor}
-        maxW="400px"
+        maxW="450px"
         borderRadius="xl"
-        p={3}
+        p={4}
         spacing={3}
+        pb={8}
       >
+        <Center w="100%" pb={4}>
+          <Text fontWeight="bold" fontSize="2xl">
+            Transaction History
+          </Text>
+        </Center>
         {transactionHistory.length === 0 && (
           <VStack p={2}>
             <Text>No transaction history</Text>
@@ -52,11 +51,11 @@ const PagesOrder = () => {
         )}
         {transactionHistory?.map(item => (
           <VStack
-            p={3}
+            p={4}
             key={item.id}
             w="100%"
             borderRadius="lg"
-            bg={secondaryBgColor}
+            bg={bgColor}
           >
             <Flex justifyContent="space-between" w="100%">
               <Text fontWeight="bold" color="green.300">
