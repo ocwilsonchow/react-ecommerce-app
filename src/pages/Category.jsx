@@ -51,7 +51,7 @@ const PagesShowCategory = () => {
             my={2}
             bg={secondaryBgColor}
             cursor="pointer"
-            _hover={{ bg: secondaryHoverBgColor }}
+            _hover={{ bg: secondaryHoverBgColor, transform: "scale(1.05)" }}
             transition="all ease 0.5s"
             borderRadius="1rem"
             boxShadow="rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;"

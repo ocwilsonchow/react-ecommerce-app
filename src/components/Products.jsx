@@ -81,7 +81,7 @@ const Products = () => {
             m={2}
             key={product.id}
             bg={secondaryBgColor}
-            _hover={{ bg: secondaryHoverBgColor }}
+            _hover={{ bg: secondaryHoverBgColor, transform: "scale(1.05)" }}
             cursor="pointer"
             transition="all ease 0.3s"
             borderRadius="1rem"
