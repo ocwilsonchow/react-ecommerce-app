@@ -6,7 +6,7 @@ import { useShop } from '../contexts/ShopContext';
 export function Hit({ hit }) {
   const ID = hit.objectID;
   const navigate = useNavigate();
-  const { modalIsOpen, handleModalDisclosure } = useShop();
+  const { handleModalDisclosure } = useShop();
 
   return (
     <Flex flexDir="column" overflow="auto" w="100%">

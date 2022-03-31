@@ -1,3 +1,3 @@
-React E-Commerce Website built with firebase, Chakra UI and Stripe.
+React E-Commerce Website built with Firebase Authentication, Firebase Storage, Firestore, Chakra UI, Algolia, Stripe and PayPal.
 
-Live link: https://react-ecommerce-app-git-main-ocwilsonchow.vercel.app
+https://react-ecommerce-app-git-main-ocwilsonchow.vercel.app
