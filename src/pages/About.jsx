@@ -39,7 +39,7 @@ const PagesAbout = () => {
       title: 'Stripe',
       icon: <FaCcStripe size="50px" />,
     },
-     {
+    {
       title: 'Algolia',
       icon: <FaAlgolia size="50px" />,
     },
@@ -47,24 +47,28 @@ const PagesAbout = () => {
 
   return (
     <VStack w="100%">
-      <VStack py={20} px={4}>
-        <Text fontSize="5xl" fontWeight="bold" textAlign="center">
+      <VStack py={20} px={10}>
+        <Text fontSize={["md","md" ,"xl" ,"xl"  ]} fontWeight="bold" textAlign="center">
           About This Project
         </Text>
-        <Text fontSize="lg" textAlign="center">
-          A modern e-commerce web application, built with React, Firebase and
+        <Text
+          fontSize={['3xl', '4xl', '4xl', '5xl']}
+          fontWeight="bold"
+          textAlign="center"
+          px={10}
+        >
+          A Modern E-Commerce Web Application, Built with React, Firebase and
           Chakra UI.
         </Text>
         <Flex justifyContent="center" pt={6} flexWrap="wrap">
           {techStacks?.map((item, i) => (
-            <Flex flexDir="column" alignItems='center' key={i} p={6}>
+            <Flex flexDir="column" alignItems="center" key={i} p={6}>
               {item.icon}
               <Text py={2}>{item.title}</Text>
             </Flex>
           ))}
         </Flex>
       </VStack>
-
     </VStack>
   );
 };
