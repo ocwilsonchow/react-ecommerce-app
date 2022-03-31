@@ -138,7 +138,7 @@ const PagesAuth = () => {
 
             <HStack>
               <Text>Have an account already?</Text>
-              <Button size="sm" variant="ghost" onClick={switchMode}>
+              <Button size="sm" variant="link" onClick={switchMode}>
                 Log in
               </Button>
             </HStack>
@@ -182,7 +182,7 @@ const PagesAuth = () => {
 
             <HStack>
               <Text>Have not created an account?</Text>
-              <Button size="sm" variant="ghost" onClick={switchMode}>
+              <Button size="sm" variant="link" onClick={switchMode}>
                 Sign up
               </Button>
             </HStack>

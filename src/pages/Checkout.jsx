@@ -158,7 +158,7 @@ const PagesCheckout = () => {
                 >
                   <Flex flexDir="column" px={1}>
                     <Tooltip label={item.productName}>
-                      <Text color="white" fontWeight="bold" w="150px">
+                      <Text color="white" fontWeight="bold" maxW="127px" isTruncated>
                         {item.productName}
                       </Text>
                     </Tooltip>
@@ -194,7 +194,7 @@ const PagesCheckout = () => {
           <Flex w="100%" pt={4}>
             <CartTotal />
           </Flex>
-          <Flex flexDir="column">
+          <Flex flexDir="column" w="100%">
             <Button
               mb={3}
               variant="outline"
@@ -238,7 +238,7 @@ const PagesCheckout = () => {
               <ModalBody justifyContent="center" py={4}>
                 <PayPal />
                 <Center>
-                  <Button colorScheme="blue" onClick={onClose}>
+                  <Button colorScheme="gray" onClick={onClose}>
                     Cancel
                   </Button>
                 </Center>

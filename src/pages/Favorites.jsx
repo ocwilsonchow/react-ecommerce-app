@@ -94,7 +94,7 @@ const PagesFavorites = () => {
                             fontWeight="bold"
                             display="flex"
                             flexWrap="wrap"
-                            w="150px"
+                            w="127px"
                           >
                             {item.productName}
                           </Text>
