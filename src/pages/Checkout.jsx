@@ -158,7 +158,7 @@ const PagesCheckout = () => {
                 >
                   <Flex flexDir="column" px={1}>
                     <Tooltip label={item.productName}>
-                      <Text color="white" fontWeight="bold" maxW="127px" isTruncated>
+                      <Text color="white" fontWeight="bold" maxW="130px" isTruncated>
                         {item.productName}
                       </Text>
                     </Tooltip>
@@ -168,11 +168,11 @@ const PagesCheckout = () => {
                       </Text>
                     </HStack>
                   </Flex>
-                  <Flex p={2}>
+                  <Flex>
                     <IconButton
                       mr={2}
                       borderRadius="50%"
-                      size="sm"
+                      size="xs"
                       icon={
                         (item.quantity > 0 && <MinusIcon />) || <DeleteIcon />
                       }
@@ -182,7 +182,7 @@ const PagesCheckout = () => {
                     />
                     <IconButton
                       borderRadius="50%"
-                      size="sm"
+                      size="xs"
                       icon={<AddIcon />}
                       onClick={() => increaseCartItemQuantity(item.id)}
                     />

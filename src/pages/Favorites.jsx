@@ -29,7 +29,7 @@ const PagesFavorites = () => {
   };
 
   return (
-    <Flex w="100%" flexDir="column" alignItems="center" >
+    <Flex w="100%" flexDir="column" alignItems="center">
       <Flex w="100%" justifyContent="center">
         <VStack
           mx={2}
@@ -40,23 +40,12 @@ const PagesFavorites = () => {
           p={4}
           mb={8}
           borderRadius="xl"
-
         >
           <Center p={4}>
             <Text fontWeight="bold" fontSize="2xl">
               My Favorites
             </Text>
           </Center>
-          {favoriteItems.length === 0 && (
-            <>
-              <Text my={1} px={2} textAlign="center">
-                No item in Favorites
-              </Text>
-              <Link to="/">
-                <Button>Go shopping now</Button>
-              </Link>
-            </>
-          )}
           {favoriteItems?.map(item => (
             <Flex
               bg={tertiaryBgColor}
@@ -94,7 +83,7 @@ const PagesFavorites = () => {
                             fontWeight="bold"
                             display="flex"
                             flexWrap="wrap"
-                            w="127px"
+                            maxW="150px"
                           >
                             {item.productName}
                           </Text>
@@ -109,17 +98,14 @@ const PagesFavorites = () => {
                   </Link>
                   <Flex>
                     <IconButton
-                      mt={1}
-                      mx={1}
-                      size="sm"
+                      mr={2}
+                      size="xs"
                       borderRadius="50%"
                       icon={<CloseIcon boxSize="0.5rem" />}
                       onClick={() => removeFavoriteItem(item)}
                     />
                     <IconButton
-                      mt={1}
-                      mx={1}
-                      size="sm"
+                      size="xs"
                       borderRadius="50%"
                       disabled={item.stock === 0}
                       icon={<MdShoppingCart />}
@@ -130,9 +116,23 @@ const PagesFavorites = () => {
               </Flex>
             </Flex>
           ))}
-          <Center p={4}>
-            <Button variant="outline" size="lg" onClick={() => navigate("/")}>Go Shopping</Button>
-          </Center>
+          <Flex flexDir="column" w="100%" p={2}>
+            {favoriteItems.length === 0 && (
+              <Text my={8} px={2} textAlign="center">
+                No item in Favorites
+              </Text>
+            )}
+            {favoriteItems.length === 0 && (
+              <Button
+                variant="outline"
+                mb={4}
+                size="lg"
+                onClick={() => navigate('/')}
+              >
+                Go shopping now
+              </Button>
+            )}
+          </Flex>
         </VStack>
       </Flex>
     </Flex>
