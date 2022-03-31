@@ -78,7 +78,7 @@ export function ShopProvider({ children }) {
 
   // Get products
   const getProducts = async () => {
-    const q = query(collection(db, 'products'), orderBy('category', 'desc'));
+    const q = query(collection(db, 'products'), orderBy('category', 'asc'));
     const documentSnapshots = await getDocs(q);
     setProducts(
       documentSnapshots.docs.map(doc => ({ ...doc.data(), id: doc.id }))
