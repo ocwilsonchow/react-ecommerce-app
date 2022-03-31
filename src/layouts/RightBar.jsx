@@ -162,7 +162,7 @@ const RightBar = () => {
                 _hover={{ bg: secondaryHoverBgColor }}
                 transition="all ease 0.3s"
                 cursor="pointer"
-                boxShadow="rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;"
+
               >
                 <Tag
                   justifyContent="center"
@@ -273,7 +273,6 @@ const RightBar = () => {
                 transition="all ease 0.3s"
                 cursor="pointer"
                 key={item.id}
-                boxShadow="rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;"
               >
                 <Flex alignItems="center" justifyContent="space-between">
                   <Image
