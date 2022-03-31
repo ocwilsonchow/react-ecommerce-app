@@ -122,16 +122,15 @@ const PagesFavorites = () => {
                 No item in Favorites
               </Text>
             )}
-            {favoriteItems.length === 0 && (
-              <Button
-                variant="outline"
-                mb={4}
-                size="lg"
-                onClick={() => navigate('/')}
-              >
-                Go shopping now
-              </Button>
-            )}
+
+            <Button
+              variant="outline"
+              mb={4}
+              size="lg"
+              onClick={() => navigate('/')}
+            >
+              Go shopping now
+            </Button>
           </Flex>
         </VStack>
       </Flex>
