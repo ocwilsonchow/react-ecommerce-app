@@ -13,7 +13,7 @@ import {
   increment,
   getDoc,
   startAt,
-  endAt
+  endAt,
 } from 'firebase/firestore';
 import { db } from '../firebase';
 import { useToast } from '@chakra-ui/react';
@@ -28,24 +28,30 @@ export function ShopProvider({ children }) {
   const [categories, setCategories] = useState();
   const [similarProducts, setSimilarProducts] = useState();
   const [products, setProducts] = useState();
-  const [queryProducts, setQueryProducts] = useState()
+  const [queryProducts, setQueryProducts] = useState();
   const { user } = useAuth();
   const [product, setProduct] = useState();
   const [categoryProducts, setCategoryProducts] = useState();
   const [pageNumber, setPageNumber] = useState(0);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const productsPerPage = 18;
   const productsVisited = pageNumber * productsPerPage;
   const numberOfPages = Math.ceil(products?.length / productsPerPage);
 
   const [displayProducts, setDisplayProducts] = useState();
-  const [queryDisplayProducts, setQueryDisplayProducts] = useState()
+  const [queryDisplayProducts, setQueryDisplayProducts] = useState();
 
   useEffect(() => {
     if (products) {
       updateDisplayProducts();
     }
   }, [products]);
+
+  // Control Searchbar Modal
+  const handleModalDisclosure = () => {
+    setModalIsOpen(prevIsOpen => !prevIsOpen);
+  };
 
   // Set the array of products to be displayed
   const updateDisplayProducts = () => {
@@ -94,15 +100,15 @@ export function ShopProvider({ children }) {
       setQueryProducts(
         documentSnapshots.docs.map(doc => ({ ...doc.data(), id: doc.id }))
       );
-      navigate("/products/query")
+      navigate('/products/query');
     } else {
-       toast({
-          title: 'No result',
-          description: 'No matched search result.',
-          status: 'warning',
-          duration: 2000,
-          isClosable: true,
-        });
+      toast({
+        title: 'No result',
+        description: 'No matched search result.',
+        status: 'warning',
+        duration: 2000,
+        isClosable: true,
+      });
     }
   };
 
@@ -275,7 +281,9 @@ export function ShopProvider({ children }) {
     updateQueryDisplayProducts,
     getQueryProducts,
     queryProducts,
-    queryDisplayProducts
+    queryDisplayProducts,
+    handleModalDisclosure,
+    modalIsOpen
   };
 
   return (

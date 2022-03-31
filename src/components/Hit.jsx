@@ -1,10 +1,12 @@
-import { Badge, Flex, Image, Text } from '@chakra-ui/react';
+import { Badge, Flex, Image, Text, useDisclosure } from '@chakra-ui/react';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useShop } from '../contexts/ShopContext';
 
 export function Hit({ hit }) {
   const ID = hit.objectID;
   const navigate = useNavigate();
+  const { modalIsOpen, handleModalDisclosure } = useShop();
 
   return (
     <Flex flexDir="column" overflow="auto" w="100%">
@@ -17,6 +19,7 @@ export function Hit({ hit }) {
         borderRadius="xl"
         onClick={() => {
           navigate(`/product/${ID}`);
+          handleModalDisclosure()
         }}
         justifyContent="space-between"
         alignItems="center"
