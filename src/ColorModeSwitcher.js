@@ -19,7 +19,7 @@ export const ColorModeSwitcher = props => {
       icon={<SwitchIcon />}
       {...props}
       transition="all ease 0.2s"
-              _hover={{ bg: 'blue.200', borderRadius: '0.4rem' }}
+      _hover={{ bg: 'blue.200', borderRadius: '0.4rem' }}
     />
   );
 };
